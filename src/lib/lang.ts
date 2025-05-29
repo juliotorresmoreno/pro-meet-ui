@@ -1,4 +1,4 @@
-export type Lang = "en" | "es";
+export type Lang = "en" | "es" | "zh" | "ja" | "fr";
 
 /**
  * Detecta el idioma preferido del usuario con prioridad:

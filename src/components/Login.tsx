@@ -41,6 +41,16 @@ const translations = {
     noAccount: "Don't have an account?",
     register: "Register here",
   },
+  zh: {
+    title: "欢迎回来",
+    description: "登录以继续使用 Pro-Meets",
+    email: "电子邮件",
+    password: "密码",
+    submit: "登录",
+    forgotPassword: "忘记密码？",
+    noAccount: "没有账户？",
+    register: "在这里注册",
+  },
   es: {
     title: "Bienvenido de vuelta",
     description: "Inicia sesión para continuar en Pro-Meets",
@@ -50,6 +60,26 @@ const translations = {
     forgotPassword: "¿Olvidaste tu contraseña?",
     noAccount: "¿No tienes una cuenta?",
     register: "Regístrate aquí",
+  },
+  ja: {
+    title: "おかえりなさい",
+    description: "Pro-Meets にサインインして続行してください",
+    email: "メールアドレス",
+    password: "パスワード",
+    submit: "サインイン",
+    forgotPassword: "パスワードをお忘れですか？",
+    noAccount: "アカウントをお持ちでないですか？",
+    register: "こちらから登録",
+  },
+  fr: {
+    title: "Bon retour",
+    description: "Connectez-vous pour continuer sur Pro-Meets",
+    email: "E-mail",
+    password: "Mot de passe",
+    submit: "Se connecter",
+    forgotPassword: "Mot de passe oublié ?",
+    noAccount: "Vous n'avez pas de compte ?",
+    register: "Inscrivez-vous ici",
   },
 };
 
@@ -62,7 +92,7 @@ const Login = ({ children, language = "en" }: LoginProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const { open, setOpen } = useAuthStore();
 
-  const t = translations[language];
+  const t = translations[language] || translations.en;
 
   const {
     register,

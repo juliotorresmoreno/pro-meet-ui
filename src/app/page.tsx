@@ -19,22 +19,22 @@ export default function HomePage() {
 
       <main>
         {/* Hero Section */}
-        <Hero />
+        <Hero language={language} />
 
         {/* How It Works */}
-        <HowItWorks />
+        <HowItWorks language={language} />
 
         {/* Core Features */}
-        <CoreFeatures />
+        <CoreFeatures language={language} />
 
         {/* Use Cases */}
-        <UseCases />
+        <UseCases language={language} />
 
         {/* Pricing */}
-        <Pricing />
+        <Pricing language={language} />
 
         {/* Final CTA */}
-        <CallToAction />
+        <CallToAction language={language} />
       </main>
 
       {/* Footer */}

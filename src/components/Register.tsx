@@ -65,6 +65,19 @@ const translations = {
     haveAccount: "Already have an account?",
     login: "Login here",
   },
+  zh: {
+    title: "创建账户",
+    description: "加入 Pro-Meets，提升你的面试能力",
+    firstName: "名字",
+    lastName: "姓氏",
+    email: "电子邮件",
+    password: "密码",
+    confirmPassword: "确认密码",
+    acceptTerms: "我接受{terms}和{privacy}",
+    submit: "创建账户",
+    haveAccount: "已经有账户了？",
+    login: "点此登录",
+  },
   es: {
     title: "Crear cuenta",
     description: "Únete a Pro-Meets y mejora tus entrevistas",
@@ -78,6 +91,32 @@ const translations = {
     haveAccount: "¿Ya tienes una cuenta?",
     login: "Inicia sesión aquí",
   },
+  ja: {
+    title: "アカウント作成",
+    description: "Pro-Meets に参加して面接スキルを向上させよう",
+    firstName: "名",
+    lastName: "姓",
+    email: "メールアドレス",
+    password: "パスワード",
+    confirmPassword: "パスワード確認",
+    acceptTerms: "{terms}と{privacy}に同意します",
+    submit: "アカウント作成",
+    haveAccount: "すでにアカウントをお持ちですか？",
+    login: "こちらからログイン",
+  },
+  fr: {
+    title: "Créer un compte",
+    description: "Rejoignez Pro-Meets et améliorez vos entretiens",
+    firstName: "Prénom",
+    lastName: "Nom",
+    email: "E-mail",
+    password: "Mot de passe",
+    confirmPassword: "Confirmer le mot de passe",
+    acceptTerms: "J'accepte les {terms} et la {privacy}",
+    submit: "Créer un compte",
+    haveAccount: "Vous avez déjà un compte ?",
+    login: "Connectez-vous ici",
+  },
 };
 
 interface RegisterProps {
@@ -90,7 +129,7 @@ const Register = ({ children, language = "en" }: RegisterProps) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { open, setOpen } = useAuthStore();
 
-  const t = translations[language];
+  const t = translations[language] || translations.en;
 
   const {
     register,
@@ -362,7 +401,9 @@ const Register = ({ children, language = "en" }: RegisterProps) => {
               type="submit"
               disabled={isSubmitting || !acceptTerms} // Deshabilitar si no se aceptan los términos
               className={`w-full h-11 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-medium rounded-lg shadow-md transition-all duration-200 flex items-center justify-center ${
-                !acceptTerms ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                !acceptTerms
+                  ? "opacity-50 cursor-not-allowed"
+                  : "cursor-pointer"
               }`}
             >
               {isSubmitting ? (
