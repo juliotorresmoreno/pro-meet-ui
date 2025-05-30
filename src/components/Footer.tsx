@@ -3,6 +3,11 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import NextLink from "./NextLink";
+import Link from "next/link";
+
+const NEXT_PUBLIC_TWITTER_URL = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
+const NEXT_PUBLIC_GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
+const NEXT_PUBLIC_LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
 
 interface FooterProps {
   readonly language?: string;
@@ -12,9 +17,9 @@ const translations = {
   en: {
     product: "Product",
     features: "Features",
-    integrations: "Integrations",
+    useCases: "Use Cases",
+    howItWorks: "How It Works",
     pricing: "Pricing",
-    api: "API",
     resources: "Resources",
     blog: "Blog",
     help: "Help Center",
@@ -33,9 +38,9 @@ const translations = {
   es: {
     product: "Producto",
     features: "Características",
-    integrations: "Integraciones",
+    useCases: "Casos de uso",
+    howItWorks: "Cómo funciona",
     pricing: "Precios",
-    api: "API",
     resources: "Recursos",
     blog: "Blog",
     help: "Centro de ayuda",
@@ -54,9 +59,9 @@ const translations = {
   fr: {
     product: "Produit",
     features: "Fonctionnalités",
-    integrations: "Intégrations",
+    useCases: "Cas d'utilisation",
+    howItWorks: "Comment ça marche",
     pricing: "Tarifs",
-    api: "API",
     resources: "Ressources",
     blog: "Blog",
     help: "Centre d'aide",
@@ -75,9 +80,9 @@ const translations = {
   ja: {
     product: "製品",
     features: "特徴",
-    integrations: "統合",
+    useCases: "ユースケース",
+    howItWorks: "使い方",
     pricing: "価格",
-    api: "API",
     resources: "リソース",
     blog: "ブログ",
     help: "ヘルプセンター",
@@ -96,9 +101,9 @@ const translations = {
   zh: {
     product: "产品",
     features: "特点",
-    integrations: "集成",
+    useCases: "用例",
+    howItWorks: "工作原理",
     pricing: "价钱",
-    api: "API",
     resources: "资源",
     blog: "博客",
     help: "帮助中心",
@@ -168,18 +173,15 @@ function Footer({ language = "en" }: FooterProps) {
               {language === "zh" && "高效管理会议的专业解决方案。"}
             </p>
             <div className="social-icons">
-              <a href="#" className="text-decoration-none me-3">
+              <Link href={NEXT_PUBLIC_TWITTER_URL} className="text-decoration-none me-3">
                 <i className="bi bi-twitter fs-5"></i>
-              </a>
-              <a href="#" className="text-decoration-none me-3">
-                <i className="bi bi-facebook fs-5"></i>
-              </a>
-              <a href="#" className="text-decoration-none me-3">
+              </Link>
+              <Link href={NEXT_PUBLIC_GITHUB_URL} className="text-decoration-none me-3">
+                <i className="bi bi-github fs-5"></i>
+              </Link>
+              <Link href={NEXT_PUBLIC_LINKEDIN_URL} className="text-decoration-none me-3">
                 <i className="bi bi-linkedin fs-5"></i>
-              </a>
-              <a href="#" className="text-decoration-none">
-                <i className="bi bi-instagram fs-5"></i>
-              </a>
+              </Link>
             </div>
           </Col>
 
@@ -196,10 +198,18 @@ function Footer({ language = "en" }: FooterProps) {
               </li>
               <li className="mb-2">
                 <NextLink
-                  href="#integrations"
+                  href="#use-cases"
                   className="text-decoration-none text-muted"
                 >
-                  {t.integrations}
+                  {t.useCases}
+                </NextLink>
+              </li>
+              <li className="mb-2">
+                <NextLink
+                  href="#how-it-works"
+                  className="text-decoration-none text-muted"
+                >
+                  {t.howItWorks}
                 </NextLink>
               </li>
               <li className="mb-2">
@@ -208,14 +218,6 @@ function Footer({ language = "en" }: FooterProps) {
                   className="text-decoration-none text-muted"
                 >
                   {t.pricing}
-                </NextLink>
-              </li>
-              <li className="mb-2">
-                <NextLink
-                  href="#api"
-                  className="text-decoration-none text-muted"
-                >
-                  {t.api}
                 </NextLink>
               </li>
             </ul>

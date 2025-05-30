@@ -1,13 +1,14 @@
+import { Lang } from "@/utils/language";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 type LanguageState = {
-  language: "en" | "es";
-  setLanguage: (lang: "en" | "es") => void;
+  language: Lang;
+  setLanguage: (lang: Lang) => void;
   hydrate: () => void;
 };
 
-const getDefaultLanguage = (): "en" | "es" => {
+const getDefaultLanguage = (): Lang => {
   return "en";
 };
 

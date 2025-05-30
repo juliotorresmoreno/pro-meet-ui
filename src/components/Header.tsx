@@ -17,12 +17,14 @@ import {
 } from "reactstrap";
 import Link from "next/link";
 import NextLink from "./NextLink";
+import { useLanguageStore } from "@/stores/language";
+import { Lang } from "@/utils/language";
 
-interface HeaderProps {
-  readonly language?: string;
-}
-
-const languageOptions = [
+const languageOptions: {
+  code: Lang;
+  name: string;
+  flag: string;
+}[] = [
   { code: "en", name: "English", flag: "🇬🇧" },
   { code: "es", name: "Español", flag: "🇪🇸" },
   { code: "fr", name: "Français", flag: "🇫🇷" },
@@ -36,37 +38,48 @@ const translations = {
     register: "Sign up",
     features: "Features",
     pricing: "Pricing",
+    useCases: "Use Cases",
+    howItWorks: "How It Works"
   },
   es: {
     login: "Iniciar sesión",
     register: "Registrarse",
     features: "Características",
     pricing: "Precios",
+    useCases: "Casos de Uso",
+    howItWorks: "Cómo Funciona"
   },
   fr: {
     login: "Connexion",
     register: "Inscription",
     features: "Fonctionnalités",
     pricing: "Tarifs",
+    useCases: "Cas d'Utilisation",
+    howItWorks: "Comment ça Marche"
   },
   ja: {
     login: "ログイン",
     register: "登録",
     features: "特徴",
     pricing: "価格",
+    useCases: "使用例",
+    howItWorks: "使い方"
   },
   zh: {
     login: "登录",
     register: "注册",
     features: "特点",
     pricing: "价钱",
-  },
+    useCases: "使用案例",
+    howItWorks: "工作原理"
+  }
 };
 
-function Header({ language = "en" }: HeaderProps) {
+function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const { language, setLanguage } = useLanguageStore();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -76,11 +89,11 @@ function Header({ language = "en" }: HeaderProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const t =
-    translations[language as keyof typeof translations] || translations.en;
+  const t = translations[language as keyof typeof translations] || translations.en;
 
-  const handleLanguageChange = (langCode: string) => {
+  const handleLanguageChange = (langCode: Lang) => {
     console.log("Language changed to:", langCode);
+    setLanguage(langCode);
   };
 
   return (
@@ -147,7 +160,7 @@ function Header({ language = "en" }: HeaderProps) {
               className="px-3 py-2 rounded-pill position-relative nav-link-custom"
               activeClassName="active"
             >
-              Use Cases
+              {t.useCases}
             </NavLink>
           </NavItem>
           <NavItem className="mx-1 my-1 my-md-0">
@@ -157,7 +170,7 @@ function Header({ language = "en" }: HeaderProps) {
               className="px-3 py-2 rounded-pill position-relative nav-link-custom"
               activeClassName="active"
             >
-              How It Works
+              {t.howItWorks}
             </NavLink>
           </NavItem>
           <NavItem className="mx-1 my-1 my-md-0">

@@ -1,3 +1,5 @@
+"use client";
+
 import CallToAction from "@/components/CallToAction";
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
@@ -6,13 +8,14 @@ import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
 import UseCases from "@/components/UseCases";
+import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import { NextPage } from "next";
 import Head from "next/head";
 import { Container } from "reactstrap";
 
 const HomePage: NextPage = () => {
-  const language = getLanguage(); // Puedes cambiar esto para probar otros idiomas
+  const language = useLanguageStore((state) => state.language) || getLanguage();
 
   return (
     <>
@@ -40,7 +43,7 @@ const HomePage: NextPage = () => {
           <CallToAction language={language} />
         </Container>
 
-        <Footer />
+        <Footer language={language} />
       </main>
     </>
   );
