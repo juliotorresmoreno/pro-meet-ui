@@ -20,7 +20,7 @@ const HomePage: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Pro-Meets - Landing Page</title>
+        <title>Pro-Meets - Professional Meeting Solution</title>
         <meta
           name="description"
           content="Pro-Meets - Your professional meeting solution"

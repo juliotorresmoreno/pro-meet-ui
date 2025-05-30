@@ -146,7 +146,7 @@ function Header() {
           <NavItem className="mx-1 my-1 my-md-0">
             <NavLink
               tag={NextLink}
-              href="#features"
+              href="/#features"
               className="px-3 py-2 rounded-pill position-relative nav-link-custom"
               activeClassName="active"
             >
@@ -156,7 +156,7 @@ function Header() {
           <NavItem className="mx-1 my-1 my-md-0">
             <NavLink
               tag={NextLink}
-              href="#use-cases"
+              href="/#use-cases"
               className="px-3 py-2 rounded-pill position-relative nav-link-custom"
               activeClassName="active"
             >
@@ -166,7 +166,7 @@ function Header() {
           <NavItem className="mx-1 my-1 my-md-0">
             <NavLink
               tag={NextLink}
-              href="#how-it-works"
+              href="/#how-it-works"
               className="px-3 py-2 rounded-pill position-relative nav-link-custom"
               activeClassName="active"
             >
@@ -176,7 +176,7 @@ function Header() {
           <NavItem className="mx-1 my-1 my-md-0">
             <NavLink
               tag={NextLink}
-              href="#pricing"
+              href="/#pricing"
               className="px-3 py-2 rounded-pill position-relative nav-link-custom"
               activeClassName="active"
             >

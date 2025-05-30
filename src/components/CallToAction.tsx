@@ -62,11 +62,6 @@ const CallToAction = ({ language = "en" }: CTAProps) => {
             color="primary"
             size="lg"
             className="rounded-1 px-4 fw-medium"
-            style={{
-              background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
-              border: "none",
-              minWidth: "200px",
-            }}
           >
             {t.ctaPrimary}
           </Button>
@@ -75,10 +70,8 @@ const CallToAction = ({ language = "en" }: CTAProps) => {
         <Link href="/demo" passHref>
           <Button
             outline
-            color="dark"
             size="lg"
             className="rounded-1 px-4 fw-medium"
-            style={{ minWidth: "200px" }}
           >
             {t.ctaSecondary}
           </Button>
