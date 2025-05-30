@@ -1,0 +1,17 @@
+/* Pricing Section */
+
+.pricing-card {
+  transition: all 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+  .pricing-card {
+    margin-bottom: 1.5rem;
+  }
+}

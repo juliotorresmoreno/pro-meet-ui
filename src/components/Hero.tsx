@@ -1,98 +1,112 @@
 "use client";
 
-import { Lang } from "@/lib/lang";
-import { useAuthStore } from "@/store/authStore";
-import { Play } from "lucide-react";
+import React from "react";
+import { Container, Row, Col, Button } from "reactstrap";
+import Link from "next/link";
 import Image from "next/image";
 
 const translations = {
   en: {
-    title: "Professional scheduling",
-    highlight: "without all the back and forth",
-    description:
-      "Streamline your interview process with integrated video calls and candidate management.",
-    start: "Start Free",
-    watch: "See How It Works",
-  },
-  zh: {
-    title: "专业的排程",
-    highlight: "无需来回沟通",
-    description: "通过集成视频通话和候选人管理优化面试流程。",
-    start: "免费开始",
-    watch: "查看使用方式",
+    title: "Schedule meetings without the back-and-forth",
+    subtitle:
+      "Pro-Meets eliminates email threads for scheduling and saves time for your team and clients",
+    ctaPrimary: "Get Started for Free",
+    ctaSecondary: "Watch Demo",
+    stats: "Trusted by 10,000+ professionals worldwide",
   },
   es: {
-    title: "Programación profesional",
-    highlight: "sin tanto ir y venir",
-    description:
-      "Optimiza tu proceso de entrevistas con videollamadas integradas y gestión de candidatos.",
-    start: "Comenzar Gratis",
-    watch: "Ver Cómo Funciona",
-  },
-  ja: {
-    title: "プロフェッショナルなスケジューリング",
-    highlight: "面倒なやり取りなしで",
-    description:
-      "ビデオ通話と候補者管理を統合して面接プロセスを最適化します。",
-    start: "無料で開始",
-    watch: "使い方を見る",
+    title: "Programa reuniones sin idas y vueltas",
+    subtitle:
+      "Pro-Meets elimina los hilos de correo para programar y ahorra tiempo a tu equipo y clientes",
+    ctaPrimary: "Comienza Gratis",
+    ctaSecondary: "Ver Demo",
+    stats: "Usado por más de 10,000 profesionales",
   },
   fr: {
-    title: "Planification professionnelle",
-    highlight: "sans allers-retours inutiles",
-    description:
-      "Optimisez vos entretiens avec des appels vidéo intégrés et une gestion des candidats.",
-    start: "Commencer gratuitement",
-    watch: "Voir comment ça marche",
+    title: "Planifiez des réunions sans aller-retour",
+    subtitle:
+      "Pro-Meets élimine les échanges de mails pour la planification et fait gagner du temps à votre équipe et clients",
+    ctaPrimary: "Commencer Gratuitement",
+    ctaSecondary: "Voir la Démo",
+    stats: "Utilisé par plus de 10 000 professionnels",
+  },
+  ja: {
+    title: "面倒な調整なしで会議をスケジュール",
+    subtitle:
+      "Pro-Meetsはメールのやり取りをなくし、チームとクライアントの時間を節約します",
+    ctaPrimary: "無料で始める",
+    ctaSecondary: "デモを見る",
+    stats: "世界中の10,000人以上のプロフェッショナルに信頼されています",
+  },
+  zh: {
+    title: "无需来回沟通即可安排会议",
+    subtitle: "Pro-Meets 消除安排会议时的邮件往来，为您的团队和客户节省时间",
+    ctaPrimary: "免费开始",
+    ctaSecondary: "观看演示",
+    stats: "受到10,000多名专业人士的信赖",
   },
 };
-
 interface HeroProps {
-  readonly language?: Lang;
+  language?: string;
 }
 
 const Hero = ({ language = "en" }: HeroProps) => {
-  const { setOpen } = useAuthStore();
-  const t = translations[language];
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
 
   return (
-    <section className="py-20 bg-gradient-to-r bg-blue-100">
-      <div className="container mx-auto max-w-7xl px-6">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="md:w-1/2">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              {t.title} <span className="text-blue-600">{t.highlight}</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8">{t.description}</p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={() => setOpen("register")}
-                className="cursor-pointer px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-lg font-medium text-lg"
-              >
-                {t.start}
-              </button>
-              <button className="cursor-pointer px-8 py-3 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition font-medium text-lg flex items-center justify-center gap-2">
-                <Play className="w-5 h-5" />
-                {t.watch}
-              </button>
+    <section className="hero-section py-5 py-lg-7 bg-white">
+      <Container>
+        <Row className="align-items-center">
+          <Col lg={6} className="mb-5 mb-lg-0">
+            <h1 className="display-4 fw-bold mb-4 text-black">{t.title}</h1>
+            <p className="lead mb-4 text-muted">{t.subtitle}</p>
+            <div className="d-flex flex-wrap gap-3">
+              <Link href="/register">
+                <Button
+                  color="primary"
+                  size="lg"
+                  className="rounded-pill px-4 shadow-sm"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                    border: "none",
+                  }}
+                >
+                  {t.ctaPrimary}
+                </Button>
+              </Link>
+              <Link href="/demo">
+                <Button
+                  outline
+                  color="primary"
+                  size="lg"
+                  className="rounded-pill px-4"
+                >
+                  <i className="bi bi-play-circle me-2"></i>
+                  {t.ctaSecondary}
+                </Button>
+              </Link>
             </div>
-          </div>
-          <div className="md:w-1/2">
-            <div className="relative">
-              <div className="absolute -inset-4 bg-blue-100 rounded-2xl rotate-1"></div>
-              <div className="relative bg-white p-2 rounded-xl border border-gray-200 shadow-lg">
-                <Image
-                  width={600}
-                  height={400}
-                  src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop"
-                  alt="Dashboard"
-                  className="rounded-lg w-full h-auto"
-                />
-              </div>
+            <p className="text-muted mt-4 small">
+              <i className="bi bi-check-circle-fill text-success me-2"></i>
+              {t.stats}
+            </p>
+          </Col>
+          <Col lg={6}>
+            <div className="position-relative">
+              <Image
+                src={"/assets/undraw_schedule-meeting_aklb.png"}
+                alt="Pro-Meets Dashboard"
+                width={800}
+                height={600}
+                className="img-fluid rounded"
+                priority
+              />
             </div>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </section>
   );
 };

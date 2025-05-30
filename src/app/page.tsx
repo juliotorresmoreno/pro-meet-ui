@@ -1,44 +1,49 @@
-// app/page.tsx
-import Navigation from "@/components/Navigation";
+import CallToAction from "@/components/CallToAction";
+import Features from "@/components/Features";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
-import CoreFeatures from "@/components/CoreFeatures";
-import UseCases from "@/components/UseCases";
-import CallToAction from "@/components/CallToAction";
-import Footer from "@/components/Footer";
 import Pricing from "@/components/Pricing";
-import { getLanguage } from "@/lib/lang";
+import UseCases from "@/components/UseCases";
+import { getLanguage } from "@/utils/language";
+import { NextPage } from "next";
+import Head from "next/head";
+import { Container } from "reactstrap";
 
-export default function HomePage() {
-  const language = getLanguage();
+const HomePage: NextPage = () => {
+  const language = getLanguage(); // Puedes cambiar esto para probar otros idiomas
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <Navigation />
+    <>
+      <Head>
+        <title>Pro-Meets - Landing Page</title>
+        <meta
+          name="description"
+          content="Pro-Meets - Your professional meeting solution"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      {/* Componente de cabecera */}
+      <Header />
 
       <main>
-        {/* Hero Section */}
-        <Hero language={language} />
+        <Container fluid className="pt-5 p-0">
+          {/* Secciones a implementar: */}
+          <Hero language={language} />
+          <Features language={language} />
+          <UseCases language={language} />
+          <HowItWorks language={language} />
+          <Pricing language={language} />
 
-        {/* How It Works */}
-        <HowItWorks language={language} />
+          <CallToAction language={language} />
+        </Container>
 
-        {/* Core Features */}
-        <CoreFeatures language={language} />
-
-        {/* Use Cases */}
-        <UseCases language={language} />
-
-        {/* Pricing */}
-        <Pricing language={language} />
-
-        {/* Final CTA */}
-        <CallToAction language={language} />
+        <Footer />
       </main>
-
-      {/* Footer */}
-      <Footer language={language} />
-    </div>
+    </>
   );
-}
+};
+
+export default HomePage;

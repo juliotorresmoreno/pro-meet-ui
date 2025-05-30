@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Toaster } from "@/components/ui/sonner";
 import { Geist, Geist_Mono } from "next/font/google";
 import { headers } from "next/headers";
-import { initializeLanguageStore } from "@/store/languageStore";
+import { initializeLanguageStore } from "@/stores/language";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,7 +37,6 @@ export default async function RootLayout({
     <html lang={initialLanguage}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
-        <Toaster />
       </body>
     </html>
   );

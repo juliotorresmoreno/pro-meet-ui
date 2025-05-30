@@ -1,331 +1,351 @@
-import { Check } from "lucide-react";
-import { Lang } from "@/lib/lang";
-import Link from "next/link";
+"use client";
+
+import { Row, Col, Button } from "reactstrap";
+import { FaCheck, FaStar, FaRocket } from "react-icons/fa";
+import Section from "./Section";
 
 const translations = {
   en: {
-    transparentPricing: "Transparent Pricing",
-    choosePlan: "Choose the perfect plan for you",
-    startFree:
-      "Start for free and scale as your needs grow. No commitments, no hidden fees.",
-    free: "Free",
-    perfectToStart: "Perfect to start",
-    foreverFree: "Forever free",
-    unlimitedMeetings: "Unlimited 1:1 meetings",
-    integratedVideoCalls: "Integrated video calls",
-    basicCandidateTracking: "Basic candidate tracking",
-    upTo5Interviews: "Up to 5 interviews/month",
-    startFreeButton: "Start Free",
-    professional: "Professional",
-    forTeams: "For teams and companies",
-    perUserPerMonth: "/user/month",
-    annualBilling: "Annual billing",
-    everythingInFree: "Everything in Free plan",
-    unlimitedInterviews: "Unlimited interviews",
-    advancedAnalytics: "Advanced analytics",
-    teamScheduling: "Team scheduling",
-    prioritySupport: "Priority support",
-    try14Days: "14-Day Free Trial",
-    enterprise: "Enterprise",
-    forLargeOrganizations: "For large organizations",
-    ssoAndSecurity: "SSO and advanced security",
-    customAPI: "Custom API",
-    dedicatedAccountManager: "Dedicated account manager",
-    unlimitedIntegrations: "Unlimited integrations",
-    contactSales: "Contact Sales",
-    haveQuestions: "Have questions? We're here to help.",
-    viewFAQ: "View frequently asked questions →",
-    mostPopular: "Most Popular",
+    title: "Simple, Transparent Pricing",
+    subtitle: "Choose the perfect plan for your needs",
+    plans: [
+      {
+        name: "Starter",
+        price: "0",
+        period: "forever",
+        features: [
+          "1 event type",
+          "Basic scheduling",
+          "Email notifications",
+          "Google Calendar sync",
+          "Limited support",
+        ],
+        cta: "Get Started",
+        featured: false,
+      },
+      {
+        name: "Professional",
+        price: "10",
+        period: "per month",
+        features: [
+          "5 event types",
+          "Remove Pro-Meets branding",
+          "Payment integrations",
+          "Meeting polls",
+          "Priority support",
+          "Advanced analytics",
+        ],
+        cta: "Start Free Trial",
+        featured: true,
+      },
+      {
+        name: "Enterprise",
+        price: "20",
+        period: "per user/month",
+        features: [
+          "Unlimited event types",
+          "Team scheduling",
+          "Collective availability",
+          "API access",
+          "24/7 support",
+          "SSO & advanced security",
+        ],
+        cta: "Contact Sales",
+        featured: false,
+      },
+    ],
+    footnote: "All plans come with a 14-day money-back guarantee",
   },
   es: {
-    transparentPricing: "Precios Transparentes",
-    choosePlan: "Elige el plan perfecto para ti",
-    startFree:
-      "Comienza gratis y escala según crezcan tus necesidades. Sin compromisos, sin tarifas ocultas.",
-    free: "Gratuito",
-    perfectToStart: "Perfecto para comenzar",
-    foreverFree: "Para siempre gratis",
-    unlimitedMeetings: "Reuniones 1:1 ilimitadas",
-    integratedVideoCalls: "Videollamadas integradas",
-    basicCandidateTracking: "Seguimiento básico de candidatos",
-    upTo5Interviews: "Hasta 5 entrevistas/mes",
-    startFreeButton: "Empezar Gratis",
-    professional: "Profesional",
-    forTeams: "Para equipos y empresas",
-    perUserPerMonth: "/usuario/mes",
-    annualBilling: "Facturación anual",
-    everythingInFree: "Todo lo del plan Gratuito",
-    unlimitedInterviews: "Entrevistas ilimitadas",
-    advancedAnalytics: "Analíticas avanzadas",
-    teamScheduling: "Programación en equipo",
-    prioritySupport: "Soporte prioritario",
-    try14Days: "Prueba Gratuita 14 Días",
-    enterprise: "Empresarial",
-    forLargeOrganizations: "Para grandes organizaciones",
-    ssoAndSecurity: "SSO y seguridad avanzada",
-    customAPI: "API personalizada",
-    dedicatedAccountManager: "Gerente de cuenta dedicado",
-    unlimitedIntegrations: "Integraciones ilimitadas",
-    contactSales: "Contactar Ventas",
-    haveQuestions: "¿Tienes preguntas? Estamos aquí para ayudarte.",
-    viewFAQ: "Ver preguntas frecuentes →",
-    mostPopular: "Más Popular",
+    title: "Precios Sencillos y Transparentes",
+    subtitle: "Elige el plan perfecto para tus necesidades",
+    plans: [
+      {
+        name: "Básico",
+        price: "0",
+        period: "para siempre",
+        features: [
+          "1 tipo de evento",
+          "Programación básica",
+          "Notificaciones por email",
+          "Sincronización con Google Calendar",
+          "Soporte limitado",
+        ],
+        cta: "Empezar",
+        featured: false,
+      },
+      {
+        name: "Profesional",
+        price: "10",
+        period: "por mes",
+        features: [
+          "5 tipos de eventos",
+          "Sin marca Pro-Meets",
+          "Integración de pagos",
+          "Encuestas de reunión",
+          "Soporte prioritario",
+          "Analíticas avanzadas",
+        ],
+        cta: "Prueba Gratis",
+        featured: true,
+      },
+      {
+        name: "Empresa",
+        price: "20",
+        period: "por usuario/mes",
+        features: [
+          "Tipos de eventos ilimitados",
+          "Programación en equipo",
+          "Disponibilidad colectiva",
+          "Acceso a API",
+          "Soporte 24/7",
+          "SSO y seguridad avanzada",
+        ],
+        cta: "Contactar Ventas",
+        featured: false,
+      },
+    ],
+    footnote: "Todos los planes incluyen garantía de devolución de 14 días",
   },
   fr: {
-    login: "Connexion",
-    signup: "Inscription",
-    english: "Anglais",
-    spanish: "Espagnol",
-    french: "Français",
-    japanese: "Japonais",
-    chinese: "Chinois",
-    transparentPricing: "Tarification Transparente",
-    choosePlan: "Choisissez le plan parfait pour vous",
-    startFree:
-      "Commencez gratuitement et évoluez selon vos besoins. Aucun engagement, aucun frais caché.",
-    free: "Gratuit",
-    perfectToStart: "Parfait pour commencer",
-    foreverFree: "Gratuit pour toujours",
-    unlimitedMeetings: "Réunions 1:1 illimitées",
-    integratedVideoCalls: "Appels vidéo intégrés",
-    basicCandidateTracking: "Suivi basique des candidats",
-    upTo5Interviews: "Jusqu'à 5 entretiens/mois",
-    startFreeButton: "Commencer Gratuitement",
-    professional: "Professionnel",
-    forTeams: "Pour les équipes et entreprises",
-    perUserPerMonth: "/utilisateur/mois",
-    annualBilling: "Facturation annuelle",
-    everythingInFree: "Tout ce qui est dans le plan Gratuit",
-    unlimitedInterviews: "Entretiens illimités",
-    advancedAnalytics: "Analytique avancée",
-    teamScheduling: "Planification en équipe",
-    prioritySupport: "Support prioritaire",
-    try14Days: "Essai Gratuit 14 Jours",
-    enterprise: "Entreprise",
-    forLargeOrganizations: "Pour les grandes organisations",
-    ssoAndSecurity: "SSO et sécurité avancée",
-    customAPI: "API personnalisée",
-    dedicatedAccountManager: "Responsable de compte dédié",
-    unlimitedIntegrations: "Intégrations illimitées",
-    contactSales: "Contacter les Ventes",
-    haveQuestions: "Des questions ? Nous sommes là pour vous aider.",
-    viewFAQ: "Voir les questions fréquentes →",
-    mostPopular: "Le Plus Populaire",
+    title: "Tarification Simple et Transparente",
+    subtitle: "Choisissez le plan parfait pour vos besoins",
+    plans: [
+      {
+        name: "Débutant",
+        price: "0",
+        period: "à vie",
+        features: [
+          "1 type d'événement",
+          "Planification de base",
+          "Notifications par email",
+          "Synchronisation Google Calendar",
+          "Support limité",
+        ],
+        cta: "Commencer",
+        featured: false,
+      },
+      {
+        name: "Professionnel",
+        price: "10",
+        period: "par mois",
+        features: [
+          "5 types d'événements",
+          "Suppression de la marque Pro-Meets",
+          "Intégrations de paiement",
+          "Sondages de réunion",
+          "Support prioritaire",
+          "Analyses avancées",
+        ],
+        cta: "Essai Gratuit",
+        featured: true,
+      },
+      {
+        name: "Entreprise",
+        price: "20",
+        period: "par utilisateur/mois",
+        features: [
+          "Types d'événements illimités",
+          "Planification d'équipe",
+          "Disponibilité collective",
+          "Accès API",
+          "Support 24/7",
+          "SSO et sécurité avancée",
+        ],
+        cta: "Contacter les ventes",
+        featured: false,
+      },
+    ],
+    footnote:
+      "Tous les plans incluent une garantie de remboursement de 14 jours",
   },
   ja: {
-    login: "ログイン",
-    signup: "サインアップ",
-    english: "英語",
-    spanish: "スペイン語",
-    french: "フランス語",
-    japanese: "日本語",
-    chinese: "中国語",
-    transparentPricing: "透明な料金体系",
-    choosePlan: "あなたに最適なプランを選択してください",
-    startFree: "無料で開始して、必要に応じて拡張。契約不要、隠れた料金なし。",
-    free: "無料",
-    perfectToStart: "開始に最適",
-    foreverFree: "ずっと無料",
-    unlimitedMeetings: "無制限の1対1ミーティング",
-    integratedVideoCalls: "統合されたビデオ通話",
-    basicCandidateTracking: "基本的な候補者追跡",
-    upTo5Interviews: "月5件までの面接",
-    startFreeButton: "無料で始める",
-    professional: "プロフェッショナル",
-    forTeams: "チームと企業向け",
-    perUserPerMonth: "ユーザー/月",
-    annualBilling: "年間請求",
-    everythingInFree: "無料プランのすべて",
-    unlimitedInterviews: "無制限の面接",
-    advancedAnalytics: "高度な分析",
-    teamScheduling: "チームスケジューリング",
-    prioritySupport: "優先サポート",
-    try14Days: "14日間の無料トライアル",
-    enterprise: "エンタープライズ",
-    forLargeOrganizations: "大規模組織向け",
-    ssoAndSecurity: "SSOと高度なセキュリティ",
-    customAPI: "カスタムAPI",
-    dedicatedAccountManager: "専任アカウントマネージャー",
-    unlimitedIntegrations: "無制限の統合",
-    contactSales: "営業に連絡",
-    haveQuestions: "ご質問がありますか？お気軽にお問い合わせください。",
-    viewFAQ: "よくある質問を見る →",
-    mostPopular: "最も人気",
+    title: "シンプルで透明な価格設定",
+    subtitle: "ニーズに合った完璧なプランを選択",
+    plans: [
+      {
+        name: "スターター",
+        price: "0",
+        period: "永久無料",
+        features: [
+          "1イベントタイプ",
+          "基本スケジューリング",
+          "メール通知",
+          "Googleカレンダー同期",
+          "限定サポート",
+        ],
+        cta: "始める",
+        featured: false,
+      },
+      {
+        name: "プロフェッショナル",
+        price: "10",
+        period: "月額",
+        features: [
+          "5イベントタイプ",
+          "Pro-Meetsブランディング削除",
+          "支払い統合",
+          "会議投票",
+          "優先サポート",
+          "高度な分析",
+        ],
+        cta: "無料トライアル",
+        featured: true,
+      },
+      {
+        name: "エンタープライズ",
+        price: "20",
+        period: "ユーザー/月",
+        features: [
+          "無制限イベントタイプ",
+          "チームスケジューリング",
+          "共同利用可能時間",
+          "APIアクセス",
+          "24/7サポート",
+          "SSOと高度なセキュリティ",
+        ],
+        cta: "営業に連絡",
+        featured: false,
+      },
+    ],
+    footnote: "全プラン14日間返金保証付き",
   },
   zh: {
-    login: "登录",
-    signup: "注册",
-    english: "英语",
-    spanish: "西班牙语",
-    french: "法语",
-    japanese: "日语",
-    chinese: "中文",
-    transparentPricing: "透明定价",
-    choosePlan: "选择最适合您的计划",
-    startFree: "免费开始，按需扩展。无绑定，无隐藏费用。",
-    free: "免费",
-    perfectToStart: "入门首选",
-    foreverFree: "永久免费",
-    unlimitedMeetings: "无限次1对1会议",
-    integratedVideoCalls: "集成视频通话",
-    basicCandidateTracking: "基本候选人跟踪",
-    upTo5Interviews: "每月最多5次面试",
-    startFreeButton: "免费开始",
-    professional: "专业版",
-    forTeams: "适用于团队和企业",
-    perUserPerMonth: "每用户/月",
-    annualBilling: "按年计费",
-    everythingInFree: "包括免费版全部功能",
-    unlimitedInterviews: "无限次面试",
-    advancedAnalytics: "高级分析",
-    teamScheduling: "团队日程安排",
-    prioritySupport: "优先支持",
-    try14Days: "14天免费试用",
-    enterprise: "企业版",
-    forLargeOrganizations: "适用于大型组织",
-    ssoAndSecurity: "SSO和高级安全性",
-    customAPI: "自定义API",
-    dedicatedAccountManager: "专属客户经理",
-    unlimitedIntegrations: "无限集成",
-    contactSales: "联系销售",
-    haveQuestions: "有疑问？我们随时为您提供帮助。",
-    viewFAQ: "查看常见问题 →",
-    mostPopular: "最受欢迎",
+    title: "简单透明的定价",
+    subtitle: "选择适合您需求的完美计划",
+    plans: [
+      {
+        name: "入门版",
+        price: "0",
+        period: "永久免费",
+        features: [
+          "1种活动类型",
+          "基本日程安排",
+          "电子邮件通知",
+          "Google日历同步",
+          "有限支持",
+        ],
+        cta: "开始使用",
+        featured: false,
+      },
+      {
+        name: "专业版",
+        price: "10",
+        period: "每月",
+        features: [
+          "5种活动类型",
+          "移除Pro-Meets品牌",
+          "支付集成",
+          "会议投票",
+          "优先支持",
+          "高级分析",
+        ],
+        cta: "免费试用",
+        featured: true,
+      },
+      {
+        name: "企业版",
+        price: "20",
+        period: "每用户/月",
+        features: [
+          "无限活动类型",
+          "团队日程安排",
+          "集体可用性",
+          "API访问",
+          "24/7支持",
+          "单点登录和高级安全",
+        ],
+        cta: "联系销售",
+        featured: false,
+      },
+    ],
+    footnote: "所有计划均提供14天退款保证",
   },
 };
 
 interface PricingProps {
-  readonly language?: Lang;
+  language?: string;
 }
 
 const Pricing = ({ language = "en" }: PricingProps) => {
-  const t = translations[language];
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
 
   return (
-    <section className="py-24 bg-gradient-to-br bg-blue-50 relative overflow-hidden">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold text-gray-800 mb-2">
-          {t.transparentPricing}
-        </h2>
-        <p className="text-lg text-gray-600 mb-12">{t.choosePlan}</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Free Plan */}
-          <div className="bg-white rounded-xl shadow-xl p-8">
-            <h3 className="text-2xl font-semibold text-gray-800">{t.free}</h3>
-            <p className="text-gray-500">{t.perfectToStart}</p>
-            <p className="text-4xl font-bold text-gray-800 mt-4">€0</p>
-            <p className="text-gray-500 mb-6">{t.foreverFree}</p>
-            <ul className="text-gray-600 mb-6 space-y-2">
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.unlimitedMeetings}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.integratedVideoCalls}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.basicCandidateTracking}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.upTo5Interviews}
-              </li>
-            </ul>
-            <Link
-              href="/register"
-              className="inline-block bg-blue-600 text-white px-6 py-2 rounded-full"
+    <Section
+      id="pricing"
+      title={t.title}
+      subtitle={t.subtitle}
+      background="white"
+      padding="lg"
+    >
+      <Row className="g-4 justify-content-center">
+        {t.plans.map((plan) => (
+          <Col lg={4} md={6} key={plan.name}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+              }}
+              className={`h-100 p-4 rounded-3 ${
+                plan.featured ? "border border-2 border-primary" : "border"
+              } bg-white`}
             >
-              {t.startFreeButton}
-            </Link>
-          </div>
 
-          {/* Professional Plan */}
-          <div className="bg-white rounded-xl shadow-lg p-8 border-4 border-blue-600 relative">
-            <div className="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 rounded-bl-lg text-sm">
-              {t.mostPopular}
+              <div
+                style={{
+                  visibility: plan.featured ? "visible" : "hidden",
+                }}
+                className="text-center mb-3"
+              >
+                <span className="badge bg-primary text-white rounded-pill px-3 py-2">
+                  <FaStar className="me-2" />
+                  Most Popular
+                </span>
+              </div>
+
+              <div style={{ flex: 1 }}>
+                <h3 className="text-center fw-bold mb-3">{plan.name}</h3>
+
+                <div className="text-center mb-4">
+                  <span className="display-4 fw-bold">${plan.price}</span>
+                  <span className="text-muted ms-2">/{plan.period}</span>
+                </div>
+
+                <ul className="list-unstyled mb-4">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="mb-2 d-flex align-items-start">
+                      <FaCheck className="text-success me-2 mt-1" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="text-center mt-4">
+                <Button
+                  color={plan.featured ? "primary" : "outline-primary"}
+                  className={`rounded-pill px-4 ${
+                    plan.featured ? "shadow-primary" : ""
+                  }`}
+                  block
+                >
+                  {plan.cta}
+                </Button>
+              </div>
             </div>
-            <h3 className="text-2xl font-semibold text-gray-800">
-              {t.professional}
-            </h3>
-            <p className="text-gray-500">{t.forTeams}</p>
-            <p className="text-4xl font-bold text-gray-800 mt-4">€25</p>
-            <p className="text-gray-500 mb-6">
-              {t.perUserPerMonth} · {t.annualBilling}
-            </p>
-            <ul className="text-gray-600 mb-6 space-y-2">
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.everythingInFree}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.unlimitedInterviews}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.advancedAnalytics}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.teamScheduling}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.prioritySupport}
-              </li>
-            </ul>
-            <Link
-              href="/register"
-              className="inline-block bg-blue-600 text-white px-6 py-2 rounded-full"
-            >
-              {t.try14Days}
-            </Link>
-          </div>
+          </Col>
+        ))}
+      </Row>
 
-          {/* Enterprise Plan */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-semibold text-gray-800">
-              {t.enterprise}
-            </h3>
-            <p className="text-gray-500">{t.forLargeOrganizations}</p>
-            <p className="text-4xl font-bold text-gray-800 mt-4">Custom</p>
-            <p className="text-gray-500 mb-6">-</p>
-            <ul className="text-gray-600 mb-6 space-y-2">
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.ssoAndSecurity}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.customAPI}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.dedicatedAccountManager}
-              </li>
-              <li className="flex items-center">
-                <Check className="h-5 w-5 text-green-500 mr-2" />
-                {t.unlimitedIntegrations}
-              </li>
-            </ul>
-            <Link
-              href="/contact"
-              className="inline-block bg-blue-600 text-white px-6 py-2 rounded-full"
-            >
-              {t.contactSales}
-            </Link>
-          </div>
-        </div>
-        <p className="mt-12 text-gray-600">
-          {t.haveQuestions}{" "}
-          <Link href="/faq" className="text-blue-600 hover:underline">
-            {t.viewFAQ}
-          </Link>
+      <div className="text-center mt-5 text-muted">
+        <p className="mb-0">
+          <FaRocket className="me-2 text-primary" />
+          {t.footnote}
         </p>
       </div>
-    </section>
+    </Section>
   );
 };
 

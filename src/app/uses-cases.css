@@ -1,0 +1,18 @@
+/* Use Cases Section */
+.use-case-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+.use-case-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(102, 126, 234, 0.3) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .use-case-card {
+    padding: 1.5rem !important;
+  }
+}

@@ -1,0 +1,28 @@
+/* Features Section */
+.feature-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.1) !important;
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+.icon-container {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(102, 126, 234, 0.1);
+  border-radius: 50%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .feature-card {
+    padding: 1.5rem !important;
+  }
+}
