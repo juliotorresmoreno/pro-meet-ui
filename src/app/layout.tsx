@@ -32,6 +32,7 @@ export default async function RootLayout({
 
   // Inicializar el store en el servidor
   initializeLanguageStore(initialLanguage);
+  initializeLanguageStore();
 
   return (
     <html lang={initialLanguage}>

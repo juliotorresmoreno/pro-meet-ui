@@ -21,6 +21,7 @@ import { FormInput } from "@/components/FormInput";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { registerUser } from "@/services/auth";
+import { useAuthStore } from "@/stores/auth";
 
 const registerSchema = z
   .object({
@@ -48,6 +49,7 @@ const RegisterPage: NextPage = () => {
   const language = useLanguageStore((state) => state.language) || getLanguage();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setAccessToken } = useAuthStore();
 
   const {
     register,
@@ -119,7 +121,9 @@ const RegisterPage: NextPage = () => {
     setError("root", { type: "manual", message: "" });
 
     try {
-      await registerUser({ name, email, password });
+      const { access_token } = await registerUser({ name, email, password });
+      setAccessToken(access_token);
+      
       router.push("/dashboard");
     } catch (err) {
       setError("root", {

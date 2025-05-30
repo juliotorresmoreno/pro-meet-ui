@@ -1,9 +1,15 @@
+interface RegisterUserResponse {
+  access_token: string;
+}
+
 export const registerUser = async (userData: {
   name: string;
   email: string;
   password: string;
-}) => {
-  const response = await fetch("/api/auth/register", {
+}): Promise<RegisterUserResponse> => {
+  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
+  const response = await fetch(`${NEXT_PUBLIC_API_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,11 +25,17 @@ export const registerUser = async (userData: {
   return response.json();
 };
 
+interface LoginUserResponse {
+  access_token: string;
+}
+
 export const loginUser = async (credentials: {
-  email: string;
+  username: string;
   password: string;
-}) => {
-  const response = await fetch("/api/auth/login", {
+}): Promise<LoginUserResponse> => {
+  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
+  const response = await fetch(`${NEXT_PUBLIC_API_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

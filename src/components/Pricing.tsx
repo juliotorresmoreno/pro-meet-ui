@@ -289,10 +289,9 @@ const Pricing = ({ language = "en" }: PricingProps) => {
                 height: "100%",
               }}
               className={`h-100 p-4 rounded-3 ${
-                plan.featured ? "border border-2 border-primary" : "border"
+                plan.featured ? "border border-primary" : "border"
               } bg-white`}
             >
-
               <div
                 style={{
                   visibility: plan.featured ? "visible" : "hidden",

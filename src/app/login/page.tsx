@@ -74,7 +74,7 @@ const LoginPage: NextPage = () => {
     setError("root", { type: "manual", message: "" });
 
     try {
-      await loginUser({ email, password });
+      await loginUser({ username: email, password });
       router.push("/dashboard");
     } catch (err) {
       setError("root", {
