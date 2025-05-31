@@ -2,7 +2,6 @@
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useLanguageStore } from "@/stores/language";
@@ -18,7 +17,6 @@ import {
   FaMicrosoft,
 } from "react-icons/fa";
 import { FormInput } from "@/components/FormInput";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { registerUser } from "@/services/auth";
 import { useAuthStore } from "@/stores/auth";
@@ -47,7 +45,6 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 const RegisterPage: NextPage = () => {
   const language = useLanguageStore((state) => state.language) || getLanguage();
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setAccessToken } = useAuthStore();
 
@@ -123,8 +120,6 @@ const RegisterPage: NextPage = () => {
     try {
       const { access_token } = await registerUser({ name, email, password });
       setAccessToken(access_token);
-      
-      router.push("/dashboard");
     } catch (err) {
       setError("root", {
         type: "manual",
@@ -339,7 +334,6 @@ const RegisterPage: NextPage = () => {
           </div>
         </Container>
 
-        <CallToAction language={language} />
         <Footer language={language} />
       </main>
     </>

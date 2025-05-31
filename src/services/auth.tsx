@@ -50,3 +50,22 @@ export const loginUser = async (credentials: {
 
   return response.json();
 };
+
+export const sendPasswordResetEmail = async (email: string) => {
+  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
+  const response = await fetch(`${NEXT_PUBLIC_API_URL}/auth/forgot-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Failed to send reset email");
+  }
+
+  return response.json();
+};
