@@ -121,6 +121,11 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
 .bg-gradient-light {
   background: linear-gradient(
     135deg,

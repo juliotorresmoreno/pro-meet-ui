@@ -57,21 +57,22 @@ const CallToAction = ({ language = "en" }: CTAProps) => {
       padding="lg"
     >
       <div className="d-flex flex-wrap justify-content-center gap-3 pt-3">
-        <Link href="/register" passHref>
+        <Link href="/register">
           <Button
             color="primary"
             size="lg"
-            className="rounded-1 px-4 fw-medium"
+            className="rounded-pill px-4 fw-medium"
           >
             {t.ctaPrimary}
           </Button>
         </Link>
 
-        <Link href="/demo" passHref>
+        <Link href="/demo">
           <Button
             outline
+            color="primary"
             size="lg"
-            className="rounded-1 px-4 fw-medium"
+            className="rounded-pill px-4"
           >
             {t.ctaSecondary}
           </Button>
