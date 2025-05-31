@@ -182,7 +182,7 @@ const LoginPage: NextPage = () => {
             <div className="col-md-8 col-lg-6">
               <h1 className="text-center mb-4">{t.title}</h1>
 
-              {errors.root && (
+              {errors.root?.message && (
                 <Alert color="danger">{errors.root.message}</Alert>
               )}
 
