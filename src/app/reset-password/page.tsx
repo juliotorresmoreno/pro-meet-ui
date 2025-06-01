@@ -54,10 +54,11 @@ export default function ResetPasswordPage() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
-    const password = String(data.get("password"));
+    const passwordRaw = data.get("password");
+    const password = typeof passwordRaw === "string" ? passwordRaw.trim() : "";
 
     try {
-      await resetPassword(password, token);
+      await resetPassword(token, password);
       setSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to reset password");
