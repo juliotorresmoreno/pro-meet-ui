@@ -1,5 +1,5 @@
 interface RegisterUserResponse {
-  access_token: string;
+  message: string;
 }
 
 export const registerUser = async (userData: {
@@ -7,9 +7,9 @@ export const registerUser = async (userData: {
   email: string;
   password: string;
 }): Promise<RegisterUserResponse> => {
-  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
 
-  const response = await fetch(`${NEXT_PUBLIC_API_URL}/auth/register`, {
+  const response = await fetch(`${apiUrl}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -33,9 +33,9 @@ export const loginUser = async (credentials: {
   username: string;
   password: string;
 }): Promise<LoginUserResponse> => {
-  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
 
-  const response = await fetch(`${NEXT_PUBLIC_API_URL}/auth/login`, {
+  const response = await fetch(`${apiUrl}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -52,9 +52,9 @@ export const loginUser = async (credentials: {
 };
 
 export const sendPasswordResetEmail = async (email: string) => {
-  const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
 
-  const response = await fetch(`${NEXT_PUBLIC_API_URL}/auth/forgot-password`, {
+  const response = await fetch(`${apiUrl}/auth/forgot-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -65,6 +65,66 @@ export const sendPasswordResetEmail = async (email: string) => {
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || "Failed to send reset email");
+  }
+
+  return response.json();
+};
+
+export const verifyEmail = async (token: string) => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+
+  const response = await fetch(`${apiUrl}/auth/verify-email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Email verification failed");
+  }
+
+  return response.json();
+};
+
+export const resendVerificationEmail = async (email: string) => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+
+  const response = await fetch(`${apiUrl}/auth/resend-verification`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Failed to resend verification email");
+  }
+
+  return response.json();
+};
+
+export const resetPassword = async (token: string, newPassword: string) => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+
+  const response = await fetch(`${apiUrl}/auth/reset-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token, newPassword }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(
+      errorData.message ||
+        "Failed to reset password. The link may have expired."
+    );
   }
 
   return response.json();

@@ -6,6 +6,7 @@ import { InputProps, InputType } from "reactstrap/types/lib/Input";
 interface FormInputProps extends React.HTMLAttributes<InputProps> {
   label: string;
   type?: InputType;
+  placeholder?: string;
   register: UseFormRegisterReturn;
   error?: {
     message?: string;
