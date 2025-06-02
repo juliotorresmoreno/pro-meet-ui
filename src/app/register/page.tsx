@@ -9,17 +9,11 @@ import { getLanguage } from "@/utils/language";
 import { NextPage } from "next";
 import Head from "next/head";
 import { Container, Form, Button, Alert } from "reactstrap";
-import {
-  FaUser,
-  FaEnvelope,
-  FaLock,
-  FaGoogle,
-  FaMicrosoft,
-} from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock, FaGoogle } from "react-icons/fa";
 import { FormInput } from "@/components/FormInput";
 import { useState } from "react";
 import { registerUser } from "@/services/auth";
-import { useAuthStore } from "@/stores/auth";
+import LoginButton from "@/components/LoginButton";
 
 const registerSchema = z
   .object({
@@ -46,7 +40,6 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 const RegisterPage: NextPage = () => {
   const language = useLanguageStore((state) => state.language) || getLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { setAccessToken } = useAuthStore();
 
   const {
     register,
@@ -118,8 +111,7 @@ const RegisterPage: NextPage = () => {
     setError("root", { type: "manual", message: "" });
 
     try {
-      const { access_token } = await registerUser({ name, email, password });
-      setAccessToken(access_token);
+      await registerUser({ name, email, password });
     } catch (err) {
       setError("root", {
         type: "manual",
@@ -304,23 +296,24 @@ const RegisterPage: NextPage = () => {
                 <div className="text-center mb-3 text-muted">{t.form.or}</div>
 
                 <div className="d-grid gap-2">
-                  <Button
+                  <LoginButton
                     outline
+                    provider="google"
                     color="primary"
                     className="d-flex align-items-center justify-content-center"
                   >
                     <FaGoogle className="me-2" />
                     {t.form.google}
-                  </Button>
+                  </LoginButton>
 
-                  <Button
+                  {/*<Button
                     outline
                     color="primary"
                     className="d-flex align-items-center justify-content-center"
                   >
                     <FaMicrosoft className="me-2" />
                     {t.form.microsoft}
-                  </Button>
+                  </Button>*/}
                 </div>
 
                 <div className="text-center mt-3">

@@ -22,6 +22,7 @@ const handler = NextAuth({
           name: user.name,
           email: user.email,
           image: user.image,
+          provider: account.provider,
         };
         const secret = process.env.NEXTAUTH_SECRET;
         if (!secret) {
