@@ -26,3 +26,7 @@
     padding: 1.5rem !important;
   }
 }
+
+.feature-card svg.text-primary {
+  color: #667eea !important;
+}

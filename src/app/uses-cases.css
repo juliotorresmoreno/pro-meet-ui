@@ -16,3 +16,7 @@
     padding: 1.5rem !important;
   }
 }
+
+.use-case-card svg.text-primary {
+  color: #667eea !important;
+}

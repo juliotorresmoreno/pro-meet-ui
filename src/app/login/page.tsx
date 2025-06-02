@@ -10,11 +10,12 @@ import Header from "@/components/Header";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import { Container, Form, Button, Alert } from "reactstrap";
-import { FaEnvelope, FaLock, FaGoogle, FaMicrosoft } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaGoogle } from "react-icons/fa";
 import { FormInput } from "@/components/FormInput";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { loginUser } from "@/services/auth";
+import LoginButton from "@/components/LoginButton";
 
 const translations = {
   en: {
@@ -229,36 +230,39 @@ const LoginPage: NextPage = () => {
                 >
                   {isSubmitting ? "Signing in..." : t.form.button}
                 </Button>
-
-                <div className="text-center mb-3 text-muted">{t.form.or}</div>
-
-                <div className="d-grid gap-2">
-                  <Button
-                    outline
-                    color="primary"
-                    className="d-flex align-items-center justify-content-center"
-                  >
-                    <FaGoogle className="me-2" />
-                    {t.form.google}
-                  </Button>
-
-                  <Button
-                    outline
-                    color="primary"
-                    className="d-flex align-items-center justify-content-center"
-                  >
-                    <FaMicrosoft className="me-2" />
-                    {t.form.microsoft}
-                  </Button>
-                </div>
-
-                <div className="text-center mt-3">
-                  {t.form.noAccount}{" "}
-                  <Link href="/register" className="text-primary">
-                    {t.form.register}
-                  </Link>
-                </div>
               </Form>
+
+              <div className="text-center mb-3 text-muted">{t.form.or}</div>
+
+              <div className="d-grid gap-2">
+                <LoginButton
+                  outline
+                  provider="google"
+                  color="primary"
+                  className="d-flex align-items-center justify-content-center"
+                >
+                  <FaGoogle className="me-2" />
+                  {t.form.google}
+                </LoginButton>
+
+                {/*
+                <LoginButton
+                  outline
+                  provider="microsoft"
+                  color="primary"
+                  className="d-flex align-items-center justify-content-center"
+                >
+                  <FaMicrosoft className="me-2" />
+                  {t.form.microsoft}
+                </LoginButton>*/}
+              </div>
+
+              <div className="text-center mt-3">
+                {t.form.noAccount}{" "}
+                <Link href="/register" className="text-primary">
+                  {t.form.register}
+                </Link>
+              </div>
             </div>
           </div>
         </Container>

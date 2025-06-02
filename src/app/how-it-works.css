@@ -1,7 +1,7 @@
 /* How It Works Section */
 .step-card {
   transition: all 0.3s ease;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .step-card:hover {
@@ -34,4 +34,11 @@
   .step-card {
     padding: 1.5rem !important;
   }
+}
+
+.step-card .step-number {
+  color: #667eea !important;
+}
+.step-card svg.text-primary {
+  color: #667eea !important;
 }
