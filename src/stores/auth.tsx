@@ -4,6 +4,8 @@ import { persist, createJSONStorage } from "zustand/middleware";
 type AuthState = {
   accessToken: string;
   setAccessToken: (accessToken: string) => void;
+  refreshToken: string;
+  setRefreshToken: (refreshToken: string) => void;
   hydrate: () => void;
 };
 
@@ -14,8 +16,10 @@ const getDefaultAccessToken = () => {
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      accessToken: getDefaultAccessToken(),
+      accessToken: "",
       setAccessToken: (accessToken) => set({ accessToken: accessToken }),
+      refreshToken: "",
+      setRefreshToken: (refreshToken) => set({ refreshToken: refreshToken }),
       hydrate: () => {},
     }),
     {

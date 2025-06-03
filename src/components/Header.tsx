@@ -9,28 +9,12 @@ import {
   Nav,
   NavItem,
   Button,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   NavLink,
 } from "reactstrap";
 import Link from "next/link";
 import NextLink from "./NextLink";
+import LanguageSelector from "./LanguageSelector";
 import { useLanguageStore } from "@/stores/language";
-import { Lang } from "@/utils/language";
-
-const languageOptions: {
-  code: Lang;
-  name: string;
-  flag: string;
-}[] = [
-  { code: "en", name: "English", flag: "🇬🇧" },
-  { code: "es", name: "Español", flag: "🇪🇸" },
-  { code: "fr", name: "Français", flag: "🇫🇷" },
-  { code: "ja", name: "日本語", flag: "🇯🇵" },
-  { code: "zh", name: "中文", flag: "🇨🇳" },
-];
 
 const translations = {
   en: {
@@ -39,7 +23,7 @@ const translations = {
     features: "Features",
     pricing: "Pricing",
     useCases: "Use Cases",
-    howItWorks: "How It Works"
+    howItWorks: "How It Works",
   },
   es: {
     login: "Iniciar sesión",
@@ -47,7 +31,7 @@ const translations = {
     features: "Características",
     pricing: "Precios",
     useCases: "Casos de Uso",
-    howItWorks: "Cómo Funciona"
+    howItWorks: "Cómo Funciona",
   },
   fr: {
     login: "Connexion",
@@ -55,7 +39,7 @@ const translations = {
     features: "Fonctionnalités",
     pricing: "Tarifs",
     useCases: "Cas d'Utilisation",
-    howItWorks: "Comment ça Marche"
+    howItWorks: "Comment ça Marche",
   },
   ja: {
     login: "ログイン",
@@ -63,7 +47,7 @@ const translations = {
     features: "特徴",
     pricing: "価格",
     useCases: "使用例",
-    howItWorks: "使い方"
+    howItWorks: "使い方",
   },
   zh: {
     login: "登录",
@@ -71,15 +55,15 @@ const translations = {
     features: "特点",
     pricing: "价钱",
     useCases: "使用案例",
-    howItWorks: "工作原理"
-  }
+    howItWorks: "工作原理",
+  },
 };
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const { language, setLanguage } = useLanguageStore();
+  const language = useLanguageStore((state) => state.language) || "en";
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -89,12 +73,8 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const t = translations[language as keyof typeof translations] || translations.en;
-
-  const handleLanguageChange = (langCode: Lang) => {
-    console.log("Language changed to:", langCode);
-    setLanguage(langCode);
-  };
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
 
   return (
     <Navbar
@@ -186,37 +166,7 @@ function Header() {
         </Nav>
 
         <Nav navbar className="mt-3 mt-md-0">
-          <UncontrolledDropdown nav inNavbar className="me-2">
-            <DropdownToggle
-              nav
-              caret
-              className="d-flex align-items-center language-toggle"
-            >
-              <span className="flag-icon me-1">
-                {languageOptions.find((lang) => lang.code === language)?.flag ||
-                  "🌐"}
-              </span>
-              <span className="d-none d-lg-inline">
-                {languageOptions.find((lang) => lang.code === language)?.name}
-              </span>
-            </DropdownToggle>
-            <DropdownMenu end className="shadow-sm border-0">
-              {languageOptions.map((lang) => (
-                <DropdownItem
-                  key={lang.code}
-                  onClick={() => handleLanguageChange(lang.code)}
-                  active={language === lang.code}
-                  className="d-flex align-items-center"
-                >
-                  <span className="flag-icon me-2">{lang.flag}</span>
-                  {lang.name}
-                  {language === lang.code && (
-                    <i className="bi bi-check2 ms-auto text-primary"></i>
-                  )}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </UncontrolledDropdown>
+          <LanguageSelector />
 
           <NavItem className="mx-1 my-1 my-md-0">
             <Link href="/login">

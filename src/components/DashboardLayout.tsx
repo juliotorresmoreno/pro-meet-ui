@@ -6,6 +6,7 @@ import { Col, Container, Nav, NavItem, Row } from "reactstrap";
 import Link from "next/link";
 import classnames from "classnames";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 interface DashboardLayoutProps {
   readonly children?: React.ReactNode;
@@ -14,12 +15,21 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname();
 
+  useEffect(() => {
+    document.documentElement.classList.add("full-screen");
+    document.body.classList.add("full-screen");
+    return () => {
+      document.documentElement.classList.remove("full-screen");
+      document.body.classList.remove("full-screen");
+    };
+  }, []);
+
   return (
     <>
       <DashboardHeader />
 
       <Container fluid className="main-content px-md-4">
-        <Row className="mt-4">
+        <Row className="mt-4 d-flex flex-fill">
           <Col md={3} lg={2} className="pe-md-3">
             <Nav vertical className="dashboard-nav">
               <NavItem>
@@ -65,7 +75,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </NavItem>
             </Nav>
           </Col>
-          <Col md={9} lg={10} className="ps-md-4">
+          <Col md={9} lg={10} className="ps-md-4 d-flex flex-fill">
             {children}
           </Col>
         </Row>

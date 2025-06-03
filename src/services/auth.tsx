@@ -27,6 +27,7 @@ export const registerUser = async (userData: {
 
 interface LoginUserResponse {
   access_token: string;
+  refresh_token: string;
 }
 
 export const loginUser = async (credentials: {
@@ -46,6 +47,27 @@ export const loginUser = async (credentials: {
   if (!response.ok) {
     const errorData = await response.json();
     throw new Error(errorData.message || "Login failed");
+  }
+
+  return response.json();
+};
+
+export const loginOAuth = async (
+  accessToken: string
+): Promise<LoginUserResponse> => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+
+  const response = await fetch(`${apiUrl}/auth/oauth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token: accessToken }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "OAuth login failed");
   }
 
   return response.json();

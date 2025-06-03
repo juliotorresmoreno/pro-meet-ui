@@ -64,3 +64,20 @@
 .rbc-event-content {
   font-size: 0.85em;
 }
+
+.full-screen {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column  ;
+  flex: 1;
+  padding: 1rem;
+  background-color: #f8f9fa;
+}

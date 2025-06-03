@@ -16,9 +16,9 @@ export default function DashboardPage() {
         <meta name="description" content="Manage your professional meetings" />
       </Head>
 
-      <Container fluid className="main-content px-md-4">
+      <Container fluid className="main-content px-md-4 d-flex flex-fill">
         <Row className="g-4 mb-4">
-          <Col md={6} lg={3}>
+          <Col md={6} lg={3} className="mt-1">
             <MeetingStatsCard
               title="Total Meetings"
               value="128"
@@ -26,7 +26,7 @@ export default function DashboardPage() {
               icon={<i className="bi bi-calendar-check fs-1"></i>}
             />
           </Col>
-          <Col md={6} lg={3}>
+          <Col md={6} lg={3} className="mt-1">
             <MeetingStatsCard
               title="Upcoming"
               value="15"
@@ -34,7 +34,7 @@ export default function DashboardPage() {
               icon={<i className="bi bi-clock fs-1"></i>}
             />
           </Col>
-          <Col md={6} lg={3}>
+          <Col md={6} lg={3} className="mt-1">
             <MeetingStatsCard
               title="Completion Rate"
               value="92%"
@@ -42,7 +42,7 @@ export default function DashboardPage() {
               icon={<i className="bi bi-check-circle fs-1"></i>}
             />
           </Col>
-          <Col md={6} lg={3}>
+          <Col md={6} lg={3} className="mt-1">
             <MeetingStatsCard
               title="Avg. Duration"
               value="32m"
@@ -52,7 +52,7 @@ export default function DashboardPage() {
           </Col>
         </Row>
 
-        <Row className="g-4">
+        <Row className="g-4 d-flex flex-fill">
           <Col lg={7}>
             <UpcomingMeetings />
           </Col>
