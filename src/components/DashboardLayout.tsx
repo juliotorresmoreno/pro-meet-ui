@@ -2,7 +2,7 @@
 "use client";
 
 import DashboardHeader from "@/components/DashboardHeader";
-import { Col, Container, Nav, NavItem, Row } from "reactstrap";
+import { Card, CardBody, Col, Container, Nav, Row } from "reactstrap";
 import Link from "next/link";
 import classnames from "classnames";
 import { usePathname } from "next/navigation";
@@ -10,9 +10,24 @@ import { useEffect } from "react";
 
 interface DashboardLayoutProps {
   readonly children?: React.ReactNode;
+  readonly navItems?: Array<{
+    href: string;
+    icon: string;
+    label: string;
+  }>;
 }
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
+const defaultNavItems = [
+  { href: "/dashboard", icon: "bi-speedometer2", label: "Overview" },
+  { href: "/dashboard/meetings", icon: "bi-calendar-check", label: "Meetings" },
+  { href: "/dashboard/calendar", icon: "bi-calendar3", label: "Calendar" },
+  { href: "/dashboard/settings", icon: "bi-gear", label: "Settings" },
+];
+
+export default function DashboardLayout({
+  children,
+  navItems = defaultNavItems,
+}: DashboardLayoutProps) {
   const pathname = usePathname();
 
   useEffect(() => {
@@ -30,52 +45,29 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       <Container fluid className="main-content px-md-4">
         <Row className="mt-4 d-flex flex-fill">
-          <Col md={3} lg={2} className="pe-md-3">
-            <Nav vertical className="dashboard-nav">
-              <NavItem>
-                <Link
-                  href="/dashboard"
-                  className={`${classnames({
-                    active: pathname === "/dashboard",
-                  })} d-flex align-items-center nav-link`}
-                >
-                  <i className="bi bi-speedometer2 me-2"></i>{" "}
-                  <span>Overview</span>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link
-                  href="/dashboard/meetings"
-                  className={`${classnames({
-                    active: pathname === "/dashboard/meetings",
-                  })} d-flex align-items-center nav-link`}
-                >
-                  <i className="bi bi-calendar-check me-2"></i> Meetings
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link
-                  href="/dashboard/calendar"
-                  className={`${classnames({
-                    active: pathname === "/dashboard/calendar",
-                  })} d-flex align-items-center nav-link`}
-                >
-                  <i className="bi bi-calendar3 me-2"></i> Calendar
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link
-                  href="/dashboard/settings"
-                  className={`${classnames({
-                    active: pathname === "/dashboard/settings",
-                  })} d-flex align-items-center nav-link`}
-                >
-                  <i className="bi bi-gear me-2"></i> Settings
-                </Link>
-              </NavItem>
-            </Nav>
+          <Col md={3} lg={2} className="pe-md-1 d-flex flex-fill">
+            <Card className="shadow-sm mb-2 border-0 d-flex flex-fill">
+              <CardBody>
+                <Nav vertical className="dashboard-nav">
+                  <ul className="list-unstyled m-0 p-0">
+                    {navItems.map(({ href, icon, label }) => (
+                      <li key={href}>
+                        <Link
+                          href={href}
+                          className={`${classnames({
+                            active: pathname === href,
+                          })} d-flex align-items-center nav-link`}
+                        >
+                          <i className={`bi ${icon} me-2`}></i> {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </Nav>
+              </CardBody>
+            </Card>
           </Col>
-          <Col md={9} lg={10} className="ps-md-4 d-flex flex-fill">
+          <Col md={9} lg={10} className="ps-md-1 d-flex flex-fill">
             {children}
           </Col>
         </Row>

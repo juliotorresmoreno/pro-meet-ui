@@ -8,37 +8,106 @@ import {
   NavLink,
   Card,
   CardBody,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Button,
 } from "reactstrap";
+import { useLanguageStore } from "@/stores/language";
+import { getLanguage } from "@/utils/language";
+import Profile from "./Profile";
+import Notifications from "./Notifications";
+import Preferences from "./Preferences";
+
+const translations = {
+  en: {
+    tabs: {
+      profile: "Profile",
+      notifications: "Notifications",
+      preferences: "Preferences",
+      language: "Language",
+    },
+    profile: {
+      title: "Profile Settings",
+    },
+    notifications: {
+      title: "Notification Settings",
+    },
+    preferences: {
+      title: "Preferences",
+    },
+  },
+  es: {
+    tabs: {
+      profile: "Perfil",
+      notifications: "Notificaciones",
+      preferences: "Preferencias",
+      language: "Idioma",
+    },
+    profile: {
+      title: "Configuración de Perfil",
+    },
+    notifications: {
+      title: "Configuración de Notificaciones",
+    },
+    preferences: {
+      title: "Preferencias",
+    },
+  },
+  fr: {
+    tabs: {
+      profile: "Profil",
+      notifications: "Notifications",
+      preferences: "Préférences",
+      language: "Langue",
+    },
+    profile: {
+      title: "Paramètres du profil",
+    },
+    notifications: {
+      title: "Paramètres de notification",
+    },
+    preferences: {
+      title: "Préférences",
+    },
+  },
+  ja: {
+    tabs: {
+      profile: "プロフィール",
+      notifications: "通知",
+      preferences: "設定",
+      language: "言語",
+    },
+    profile: {
+      title: "プロフィール設定",
+    },
+    notifications: {
+      title: "通知設定",
+    },
+    preferences: {
+      title: "設定",
+    },
+  },
+  zh: {
+    tabs: {
+      profile: "个人资料",
+      notifications: "通知",
+      preferences: "偏好设置",
+      language: "语言",
+    },
+    profile: {
+      title: "个人资料设置",
+    },
+    notifications: {
+      title: "通知设置",
+    },
+    preferences: {
+      title: "偏好设置",
+    },
+  },
+};
 
 export default function SettingsPanel() {
+  const language = useLanguageStore((state) => state.language) || getLanguage();
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
   const [activeTab, setActiveTab] = useState("profile");
-  const [formData, setFormData] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    timezone: "America/New_York",
-    notificationEmail: true,
-    notificationSMS: false,
-    theme: "light",
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Settings updated:", formData);
-  };
 
   return (
     <Card className="shadow-sm border-0">
@@ -49,7 +118,7 @@ export default function SettingsPanel() {
               active={activeTab === "profile"}
               onClick={() => setActiveTab("profile")}
             >
-              Profile
+              {t.tabs.profile}
             </NavLink>
           </NavItem>
           <NavItem>
@@ -57,7 +126,7 @@ export default function SettingsPanel() {
               active={activeTab === "notifications"}
               onClick={() => setActiveTab("notifications")}
             >
-              Notifications
+              {t.tabs.notifications}
             </NavLink>
           </NavItem>
           <NavItem>
@@ -65,108 +134,25 @@ export default function SettingsPanel() {
               active={activeTab === "preferences"}
               onClick={() => setActiveTab("preferences")}
             >
-              Preferences
+              {t.tabs.preferences}
             </NavLink>
           </NavItem>
         </Nav>
 
         <TabContent activeTab={activeTab}>
           <TabPane tabId="profile">
-            <Form onSubmit={handleSubmit}>
-              <FormGroup>
-                <Label for="name">Full Name</Label>
-                <Input
-                  type="text"
-                  name="name"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="email">Email</Label>
-                <Input
-                  type="email"
-                  name="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  disabled
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="timezone">Timezone</Label>
-                <Input
-                  type="select"
-                  name="timezone"
-                  id="timezone"
-                  value={formData.timezone}
-                  onChange={handleInputChange}
-                >
-                  <option value="America/New_York">Eastern Time (ET)</option>
-                  <option value="America/Chicago">Central Time (CT)</option>
-                  <option value="America/Denver">Mountain Time (MT)</option>
-                  <option value="America/Los_Angeles">Pacific Time (PT)</option>
-                </Input>
-              </FormGroup>
-              <Button color="primary" type="submit">
-                Save Profile
-              </Button>
-            </Form>
+            <h5 className="mb-4">{t.profile.title}</h5>
+            <Profile />
           </TabPane>
 
           <TabPane tabId="notifications">
-            <Form onSubmit={handleSubmit}>
-              <FormGroup check>
-                <Input
-                  type="checkbox"
-                  name="notificationEmail"
-                  id="notificationEmail"
-                  checked={formData.notificationEmail}
-                  onChange={handleInputChange}
-                />
-                <Label for="notificationEmail" check>
-                  Email Notifications
-                </Label>
-              </FormGroup>
-              <FormGroup check>
-                <Input
-                  type="checkbox"
-                  name="notificationSMS"
-                  id="notificationSMS"
-                  checked={formData.notificationSMS}
-                  onChange={handleInputChange}
-                />
-                <Label for="notificationSMS" check>
-                  SMS Notifications
-                </Label>
-              </FormGroup>
-              <Button color="primary" type="submit" className="mt-3">
-                Save Notification Settings
-              </Button>
-            </Form>
+            <h5 className="mb-4">{t.notifications.title}</h5>
+            <Notifications />
           </TabPane>
 
           <TabPane tabId="preferences">
-            <Form onSubmit={handleSubmit}>
-              <FormGroup>
-                <Label for="theme">Theme</Label>
-                <Input
-                  type="select"
-                  name="theme"
-                  id="theme"
-                  value={formData.theme}
-                  onChange={handleInputChange}
-                >
-                  <option value="light">Light</option>
-                  <option value="dark">Dark</option>
-                  <option value="system">System Default</option>
-                </Input>
-              </FormGroup>
-              <Button color="primary" type="submit">
-                Save Preferences
-              </Button>
-            </Form>
+            <h5 className="mb-4">{t.preferences.title}</h5>
+            <Preferences />
           </TabPane>
         </TabContent>
       </CardBody>

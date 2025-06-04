@@ -14,7 +14,7 @@ export default function OverviewPage() {
         <meta name="description" content="Manage your professional meetings" />
       </Head>
 
-      <Container fluid className="main-content px-md-4">
+      <Container fluid className="px-md-4">
         <SettingsPanel />
       </Container>
     </DashboardLayout>

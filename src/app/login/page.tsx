@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { loginUser } from "@/services/auth";
 import LoginButton from "@/components/LoginButton";
+import { usePathStore } from "@/stores/path";
 
 const translations = {
   en: {
@@ -107,6 +108,7 @@ const LoginPage: NextPage = () => {
   const language = useLanguageStore((state) => state.language) || getLanguage();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { path, setPath } = usePathStore();
 
   const {
     register,
@@ -154,7 +156,12 @@ const LoginPage: NextPage = () => {
 
     try {
       await loginUser({ username: email, password });
-      router.push("/dashboard");
+      if (path !== "") {
+        router.push(path);
+        setPath("");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (err) {
       setError("root", {
         type: "manual",

@@ -69,12 +69,8 @@ export default function DashboardHeader() {
               </DropdownToggle>
 
               <DropdownMenu end>
-                <DropdownItem header>Account</DropdownItem>
                 <DropdownItem tag={Link} href="/dashboard/profile">
                   Profile
-                </DropdownItem>
-                <DropdownItem tag={Link} href="/dashboard/settings">
-                  Settings
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem onClick={handleLogout}>Logout</DropdownItem>

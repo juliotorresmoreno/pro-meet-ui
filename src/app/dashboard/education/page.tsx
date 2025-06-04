@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Container } from "reactstrap";
 import { useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
-import Profile from "@/components/Profile";
+import Education from "@/components/Education";
 
 const defaultNavItems = [
   { href: "/dashboard/profile", icon: "bi-person", label: "Profile" },
@@ -33,7 +33,7 @@ export default function ProfilePage() {
       </Head>
 
       <Container fluid className="px-md-4">
-        <Profile />
+        <Education />
       </Container>
     </DashboardLayout>
   );
