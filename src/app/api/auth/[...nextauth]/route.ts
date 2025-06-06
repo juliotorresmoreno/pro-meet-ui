@@ -3,12 +3,17 @@ import NextAuth from "next-auth";
 import { JWT } from "next-auth/jwt";
 import GoogleProvider from "next-auth/providers/google";
 import jwt from "jsonwebtoken";
+import { requireEnv } from "@/utils/env";
+
+const GOOGLE_CLIENT_ID = requireEnv("GOOGLE_CLIENT_ID");
+const GOOGLE_CLIENT_SECRET = requireEnv("GOOGLE_CLIENT_SECRET");
+const NEXTAUTH_SECRET = requireEnv("NEXTAUTH_SECRET");
 
 const handler = NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: GOOGLE_CLIENT_ID!,
+      clientSecret: GOOGLE_CLIENT_SECRET!,
     }),
   ],
   session: {
@@ -24,7 +29,7 @@ const handler = NextAuth({
           image: user.image,
           provider: account.provider,
         };
-        const secret = process.env.NEXTAUTH_SECRET;
+        const secret = NEXTAUTH_SECRET;
         if (!secret) {
           throw new Error("NEXTAUTH_SECRET is not defined");
         }
@@ -52,7 +57,7 @@ const handler = NextAuth({
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: NEXTAUTH_SECRET,
 });
 
 export { handler as GET, handler as POST };

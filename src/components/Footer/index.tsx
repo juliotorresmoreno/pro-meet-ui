@@ -4,10 +4,11 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import NextLink from "../NextLink";
 import Link from "next/link";
+import { requireEnv } from "@/utils/env";
 
-const NEXT_PUBLIC_TWITTER_URL = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
-const NEXT_PUBLIC_GITHUB_URL = process.env.NEXT_PUBLIC_GITHUB_URL || "#";
-const NEXT_PUBLIC_LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN_URL || "#";
+const NEXT_PUBLIC_TWITTER_URL = requireEnv("NEXT_PUBLIC_TWITTER_URL");
+const NEXT_PUBLIC_GITHUB_URL = requireEnv("NEXT_PUBLIC_GITHUB_URL");
+const NEXT_PUBLIC_LINKEDIN_URL = requireEnv("NEXT_PUBLIC_LINKEDIN_URL");
 
 interface FooterProps {
   readonly language?: string;
@@ -173,13 +174,22 @@ function Footer({ language = "en" }: FooterProps) {
               {language === "zh" && "高效管理会议的专业解决方案。"}
             </p>
             <div className="social-icons">
-              <Link href={NEXT_PUBLIC_TWITTER_URL} className="text-decoration-none me-3">
+              <Link
+                href={NEXT_PUBLIC_TWITTER_URL}
+                className="text-decoration-none me-3"
+              >
                 <i className="bi bi-twitter fs-5"></i>
               </Link>
-              <Link href={NEXT_PUBLIC_GITHUB_URL} className="text-decoration-none me-3">
+              <Link
+                href={NEXT_PUBLIC_GITHUB_URL}
+                className="text-decoration-none me-3"
+              >
                 <i className="bi bi-github fs-5"></i>
               </Link>
-              <Link href={NEXT_PUBLIC_LINKEDIN_URL} className="text-decoration-none me-3">
+              <Link
+                href={NEXT_PUBLIC_LINKEDIN_URL}
+                className="text-decoration-none me-3"
+              >
                 <i className="bi bi-linkedin fs-5"></i>
               </Link>
             </div>

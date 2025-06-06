@@ -3,40 +3,42 @@
 import { Col, Row } from "reactstrap";
 import Section from "../Section";
 import Image from "next/image";
+import { translations } from "./translations";
 
-const About = () => {
+interface AboutProps {
+  language: string;
+}
+
+const About: React.FC<AboutProps> = ({ language }) => {
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
+
   return (
     <Section
       id="history"
-      title="Sobre Nosotros"
-      subtitle="Conoce al equipo detrás de Pro-Meets"
+      title={t.title}
+      subtitle={t.subtitle}
       background="white"
       padding="lg"
     >
       <Row className="align-items-center">
         <Col lg={6} className="mb-4 mb-lg-0">
-          <p className="lead">
-            En Pro-Meets, nacimos con una misión clara: eliminar la frustración
-            de coordinar agendas. Lo que comenzó como una solución simple se ha
-            convertido en una plataforma integral que empodera a profesionales
-            en más de 15 países.
-          </p>
-          <p className="lead">
-            Nuestra tecnología patentada y enfoque centrado en el usuario nos
-            diferencia de otras soluciones del mercado. No solo sincronizamos
-            calendarios, creamos experiencias fluidas que fomentan conexiones
-            significativas.
-          </p>
+          <p className="lead">{t.paragraphs[0]}</p>
+          <p className="lead">{t.paragraphs[1]}</p>
+          <p className="lead">{t.paragraphs[2]}</p>
           <div className="mt-4">
             <ul className="list-unstyled">
               <li className="mb-2">
-                <i className="bi bi-check-circle-fill text-success me-2"></i> Más de 500,000 reuniones programadas
+                <i className="bi bi-check-circle-fill text-success me-2"></i>{" "}
+                {t.list[0]}
               </li>
               <li className="mb-2">
-                <i className="bi bi-check-circle-fill text-success me-2"></i> Integración con 20+ plataformas
+                <i className="bi bi-check-circle-fill text-success me-2"></i>{" "}
+                {t.list[1]}
               </li>
               <li className="mb-2">
-                <i className="bi bi-check-circle-fill text-success me-2"></i> Satisfacción del 98% según encuestas
+                <i className="bi bi-check-circle-fill text-success me-2"></i>{" "}
+                {t.list[2]}
               </li>
             </ul>
           </div>
@@ -44,13 +46,11 @@ const About = () => {
         <Col lg={6}>
           <div className="position-relative">
             <Image
-              src="/assets/undraw_remote-meeting_l9wx.png" // Reemplaza con tu imagen
-              alt="Equipo de Pro-Meets colaborando"
-              width={800}
-              height={600}
-              className="img-fluid rounded"
-              placeholder="blur"
-              blurDataURL="data:image/svg+xml;base64,[BASE64_ENCODED_SVG]"
+              src="/assets/undraw_remote-meeting_l9wx.png"
+              alt={t.imageAlt}
+              width={600}
+              height={500}
+              className="img-fluid"
               quality={90}
               priority
             />

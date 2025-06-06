@@ -2,7 +2,6 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "@/components/Header";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
@@ -31,9 +30,9 @@ const AboutPage = () => {
 
       <main>
         <Container fluid className="pt-5 p-0">
-          <About />
-          <Mission />
-          <Vision />
+          <About language={language} />
+          <Mission language={language} />
+          <Vision language={language} />
 
           <CallToAction language={language} />
         </Container>

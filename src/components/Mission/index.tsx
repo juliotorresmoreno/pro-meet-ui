@@ -3,13 +3,21 @@
 import { Col, Row } from "reactstrap";
 import Section from "../Section";
 import Image from "next/image";
+import { translations } from "./translations";
 
-const Mission = () => {
+interface MissionProps {
+  language: string;
+}
+
+const Mission: React.FC<MissionProps> = ({ language }) => {
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
+
   return (
     <Section
       id="mission"
-      title="Nuestra Misión"
-      subtitle="El propósito que nos guía"
+      title={t.title}
+      subtitle={t.subtitle}
       background="light"
       padding="lg"
     >
@@ -23,16 +31,9 @@ const Mission = () => {
                 </div>
               </div>
               <div>
-                <h3 className="mb-3">Nuestro Compromiso</h3>
-                <p className="lead">
-                  En Pro-Meets, nos dedicamos a revolucionar la gestión del tiempo mediante
-                  tecnología intuitiva que elimina las fricciones en la programación de reuniones.
-                </p>
-                <p className="lead">
-                  Creemos que cada minuto cuenta, y nuestro objetivo es devolverle a las personas
-                  el tiempo que pierden coordinando agendas, para que puedan enfocarse en lo que
-                  realmente importa.
-                </p>
+                <h3 className="mb-3">{t.commitmentTitle}</h3>
+                <p className="lead">{t.commitmentTexts[0]}</p>
+                <p className="lead">{t.commitmentTexts[1]}</p>
               </div>
             </div>
           </div>
@@ -41,7 +42,7 @@ const Mission = () => {
           <div className="position-relative rounded overflow-hidden">
             <Image
               src="/assets/undraw_team-goals_0026.svg"
-              alt="Ilustración de misión empresarial"
+              alt={t.imageAlt}
               width={600}
               height={500}
               className="img-fluid"
