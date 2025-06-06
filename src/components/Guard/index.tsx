@@ -4,10 +4,10 @@ import { loginOAuth } from "@/services/auth";
 import { useAuthStore } from "@/stores/auth";
 import { usePathStore } from "@/stores/path";
 import { SessionWithAccessToken } from "@/types/session";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import LoadingScreen from "./LoadingScreen";
+import LoadingScreen from "../LoadingScreen";
 
 interface GuardProps {
   readonly children: React.ReactNode;
@@ -40,6 +40,10 @@ export default function Guard({ children }: GuardProps) {
           setRefreshToken(response.refresh_token || "");
         })
         .catch((error) => {
+          signOut();
+          setReference(null);
+          setAccessToken("");
+          setRefreshToken("");
           console.error("OAuth login failed:", error);
         })
         .finally(() => {

@@ -1,3 +1,5 @@
+import { ErrorResponse } from "@/types/http";
+
 interface RegisterUserResponse {
   message: string;
 }
@@ -18,7 +20,7 @@ export const registerUser = async (userData: {
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
+    const errorData: ErrorResponse = await response.json();
     throw new Error(errorData.message || "Registration failed");
   }
 
@@ -45,7 +47,7 @@ export const loginUser = async (credentials: {
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
+    const errorData: ErrorResponse = await response.json();
     throw new Error(errorData.message || "Login failed");
   }
 
@@ -55,22 +57,27 @@ export const loginUser = async (credentials: {
 export const loginOAuth = async (
   accessToken: string
 ): Promise<LoginUserResponse> => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
 
-  const response = await fetch(`${apiUrl}/auth/oauth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token: accessToken }),
-  });
+    const response = await fetch(`${apiUrl}/auth/oauth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token: accessToken }),
+    });
 
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message || "OAuth login failed");
+    if (!response.ok) {
+      const errorData: ErrorResponse = await response.json();
+      throw new Error(errorData.message || "OAuth login failed");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("OAuth login error:", error);
+    throw new Error("OAuth login failed. Please try again.");
   }
-
-  return response.json();
 };
 
 export const sendPasswordResetEmail = async (email: string) => {
@@ -85,7 +92,7 @@ export const sendPasswordResetEmail = async (email: string) => {
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
+    const errorData: ErrorResponse = await response.json();
     throw new Error(errorData.message || "Failed to send reset email");
   }
 
@@ -104,7 +111,7 @@ export const verifyEmail = async (token: string) => {
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
+    const errorData: ErrorResponse = await response.json();
     throw new Error(errorData.message || "Email verification failed");
   }
 
@@ -123,7 +130,7 @@ export const resendVerificationEmail = async (email: string) => {
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
+    const errorData: ErrorResponse = await response.json();
     throw new Error(errorData.message || "Failed to resend verification email");
   }
 
@@ -142,7 +149,7 @@ export const resetPassword = async (token: string, newPassword: string) => {
   });
 
   if (!response.ok) {
-    const errorData = await response.json();
+    const errorData: ErrorResponse = await response.json();
     throw new Error(
       errorData.message ||
         "Failed to reset password. The link may have expired."

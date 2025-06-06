@@ -2,7 +2,7 @@
 
 import { Row, Col, Button } from "reactstrap";
 import { FaCheck, FaStar, FaRocket } from "react-icons/fa";
-import Section from "./Section";
+import Section from "../Section";
 
 const translations = {
   en: {

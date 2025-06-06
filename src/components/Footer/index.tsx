@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-import NextLink from "./NextLink";
+import NextLink from "../NextLink";
 import Link from "next/link";
 
 const NEXT_PUBLIC_TWITTER_URL = process.env.NEXT_PUBLIC_TWITTER_URL || "#";
@@ -135,7 +135,7 @@ function Footer({ language = "en" }: FooterProps) {
     >
       <Container className="py-5">
         <Row>
-          <Col md={3} className="mb-4 mb-md-0">
+          <Col md={4} className="mb-4 mb-md-0">
             <div className="d-flex align-items-center mb-3">
               <div
                 className="bg-gradient-primary rounded-circle d-flex align-items-center justify-content-center me-2"
@@ -185,7 +185,7 @@ function Footer({ language = "en" }: FooterProps) {
             </div>
           </Col>
 
-          <Col md={3} className="mb-4 mb-md-0">
+          <Col md={4} className="mb-4 mb-md-0">
             <h5 className="fw-bold mb-3">{t.product}</h5>
             <ul className="list-unstyled">
               <li className="mb-2">
@@ -223,45 +223,7 @@ function Footer({ language = "en" }: FooterProps) {
             </ul>
           </Col>
 
-          <Col md={3} className="mb-4 mb-md-0">
-            <h5 className="fw-bold mb-3">{t.resources}</h5>
-            <ul className="list-unstyled">
-              <li className="mb-2">
-                <NextLink
-                  href="/blog"
-                  className="text-decoration-none text-muted"
-                >
-                  {t.blog}
-                </NextLink>
-              </li>
-              <li className="mb-2">
-                <NextLink
-                  href="/help"
-                  className="text-decoration-none text-muted"
-                >
-                  {t.help}
-                </NextLink>
-              </li>
-              <li className="mb-2">
-                <NextLink
-                  href="/tutorials"
-                  className="text-decoration-none text-muted"
-                >
-                  {t.tutorials}
-                </NextLink>
-              </li>
-              <li className="mb-2">
-                <NextLink
-                  href="/webinars"
-                  className="text-decoration-none text-muted"
-                >
-                  {t.webinars}
-                </NextLink>
-              </li>
-            </ul>
-          </Col>
-
-          <Col md={3}>
+          <Col md={4}>
             <h5 className="fw-bold mb-3">{t.company}</h5>
             <ul className="list-unstyled">
               <li className="mb-2">
@@ -270,14 +232,6 @@ function Footer({ language = "en" }: FooterProps) {
                   className="text-decoration-none text-muted"
                 >
                   {t.about}
-                </NextLink>
-              </li>
-              <li className="mb-2">
-                <NextLink
-                  href="/careers"
-                  className="text-decoration-none text-muted"
-                >
-                  {t.careers}
                 </NextLink>
               </li>
               <li className="mb-2">

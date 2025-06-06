@@ -236,7 +236,7 @@ export default function Experience() {
               <div className="mb-2">
                 {exp.skills.map((skill, skillIndex) => (
                   <Badge
-                    key={skillIndex}
+                    key={skill+skillIndex}
                     color="primary"
                     pill
                     className="me-2 mb-2 d-inline-flex align-items-center"

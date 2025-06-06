@@ -8,7 +8,7 @@ import {
   FaHandshake,
   FaLaptopCode
 } from "react-icons/fa";
-import Section from "./Section";
+import Section from "../Section";
 
 interface UseCasesProps {
   language?: string;

@@ -11,9 +11,9 @@ import {
 } from "reactstrap";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
-import Profile from "./Profile";
-import Notifications from "./Notifications";
-import Preferences from "./Preferences";
+import Profile from "../Profile";
+import Notifications from "../Notifications";
+import Preferences from "../Preferences";
 
 const translations = {
   en: {

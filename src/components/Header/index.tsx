@@ -12,8 +12,8 @@ import {
   NavLink,
 } from "reactstrap";
 import Link from "next/link";
-import NextLink from "./NextLink";
-import LanguageSelector from "./LanguageSelector";
+import NextLink from "../NextLink";
+import LanguageSelector from "../LanguageSelector";
 import { useLanguageStore } from "@/stores/language";
 
 const translations = {

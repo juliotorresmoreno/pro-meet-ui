@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "reactstrap";
 import Link from "next/link";
-import Section from "./Section";
+import Section from "../Section";
 
 interface CTAProps {
   language?: string;

@@ -147,7 +147,7 @@ body {
 }
 
 .text-primary {
-  color: #667eea;
+  color: #667eea !important;
 }
 
 .rounded-3 {

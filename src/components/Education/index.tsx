@@ -221,7 +221,7 @@ export default function Education() {
               <div className="mb-2">
                 {edu.achievements.map((achievement, achievementIndex) => (
                   <Badge
-                    key={achievementIndex}
+                    key={achievement+achievementIndex}
                     color="info"
                     pill
                     className="me-2 mb-2 d-inline-flex align-items-center"

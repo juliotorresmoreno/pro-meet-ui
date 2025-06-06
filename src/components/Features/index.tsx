@@ -8,7 +8,7 @@ import {
   FaGoogle,
   FaShieldAlt,
 } from "react-icons/fa";
-import Section from "./Section";
+import Section from "../Section";
 
 interface FeaturesProps {
   language?: string;
