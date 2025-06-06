@@ -23,7 +23,7 @@ const Vision = () => {
               <div className="col-md-6">
                 <div className="border-start border-3 border-primary ps-3">
                   <h5 className="text-primary">Para Buscadores de Empleo</h5>
-                  <p>
+                  <p className="lead">
                     Conecta directamente con empleadores que buscan tu perfil
                     exacto, eliminando intermediarios.
                   </p>
@@ -33,7 +33,7 @@ const Vision = () => {
               <div className="col-md-6">
                 <div className="border-start border-3 border-success ps-3">
                   <h5 className="text-success">Para Empresas</h5>
-                  <p>
+                  <p className="lead">
                     Encuentra el talento que necesitas mediante nuestro sistema
                     de matching inteligente.
                   </p>
@@ -43,7 +43,7 @@ const Vision = () => {
               <div className="col-md-6">
                 <div className="border-start border-3 border-warning ps-3">
                   <h5 className="text-warning">Para Freelancers</h5>
-                  <p>
+                  <p className="lead">
                     Accede a proyectos que coincidan con tus habilidades y
                     disponibilidad.
                   </p>
@@ -53,7 +53,7 @@ const Vision = () => {
               <div className="col-md-6">
                 <div className="border-start border-3 border-info ps-3">
                   <h5 className="text-info">Para Líderes B2B</h5>
-                  <p>
+                  <p className="lead">
                     Forma alianzas estratégicas con profesionales
                     complementarios para hacer crecer tu negocio.
                   </p>
