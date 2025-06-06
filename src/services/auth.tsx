@@ -1,8 +1,6 @@
 import { ErrorResponse } from "@/types/http";
 import { requireEnv } from "@/utils/env";
 
-const NEXT_PUBLIC_API_URL = requireEnv("NEXT_PUBLIC_API_URL");
-
 interface RegisterUserResponse {
   message: string;
 }
@@ -12,7 +10,7 @@ export const registerUser = async (userData: {
   email: string;
   password: string;
 }): Promise<RegisterUserResponse> => {
-  const apiUrl = NEXT_PUBLIC_API_URL || "";
+  const apiUrl = requireEnv("NEXT_PUBLIC_API_URL");
 
   const response = await fetch(`${apiUrl}/auth/register`, {
     method: "POST",
@@ -39,7 +37,7 @@ export const loginUser = async (credentials: {
   username: string;
   password: string;
 }): Promise<LoginUserResponse> => {
-  const apiUrl = NEXT_PUBLIC_API_URL || "";
+  const apiUrl = requireEnv("NEXT_PUBLIC_API_URL");
 
   const response = await fetch(`${apiUrl}/auth/login`, {
     method: "POST",
@@ -61,7 +59,7 @@ export const loginOAuth = async (
   accessToken: string
 ): Promise<LoginUserResponse> => {
   try {
-    const apiUrl = NEXT_PUBLIC_API_URL || "";
+    const apiUrl = requireEnv("NEXT_PUBLIC_API_URL");
 
     const response = await fetch(`${apiUrl}/auth/oauth/login`, {
       method: "POST",
@@ -84,7 +82,7 @@ export const loginOAuth = async (
 };
 
 export const sendPasswordResetEmail = async (email: string) => {
-  const apiUrl = NEXT_PUBLIC_API_URL || "";
+  const apiUrl = requireEnv("NEXT_PUBLIC_API_URL");
 
   const response = await fetch(`${apiUrl}/auth/forgot-password`, {
     method: "POST",
@@ -103,7 +101,7 @@ export const sendPasswordResetEmail = async (email: string) => {
 };
 
 export const verifyEmail = async (token: string) => {
-  const apiUrl = NEXT_PUBLIC_API_URL || "";
+  const apiUrl = requireEnv("NEXT_PUBLIC_API_URL");
 
   const response = await fetch(`${apiUrl}/auth/verify-email`, {
     method: "POST",
@@ -122,7 +120,7 @@ export const verifyEmail = async (token: string) => {
 };
 
 export const resendVerificationEmail = async (email: string) => {
-  const apiUrl = NEXT_PUBLIC_API_URL || "";
+  const apiUrl = requireEnv("NEXT_PUBLIC_API_URL");
 
   const response = await fetch(`${apiUrl}/auth/resend-verification`, {
     method: "POST",
@@ -141,7 +139,7 @@ export const resendVerificationEmail = async (email: string) => {
 };
 
 export const resetPassword = async (token: string, newPassword: string) => {
-  const apiUrl = NEXT_PUBLIC_API_URL || "";
+  const apiUrl = requireEnv("NEXT_PUBLIC_API_URL");
 
   const response = await fetch(`${apiUrl}/auth/reset-password`, {
     method: "POST",

@@ -4,125 +4,17 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import NextLink from "../NextLink";
 import Link from "next/link";
-import { requireEnv } from "@/utils/env";
-
-const NEXT_PUBLIC_TWITTER_URL = requireEnv("NEXT_PUBLIC_TWITTER_URL");
-const NEXT_PUBLIC_GITHUB_URL = requireEnv("NEXT_PUBLIC_GITHUB_URL");
-const NEXT_PUBLIC_LINKEDIN_URL = requireEnv("NEXT_PUBLIC_LINKEDIN_URL");
+import { translations } from "./translations";
 
 interface FooterProps {
   readonly language?: string;
 }
 
-const translations = {
-  en: {
-    product: "Product",
-    features: "Features",
-    useCases: "Use Cases",
-    howItWorks: "How It Works",
-    pricing: "Pricing",
-    resources: "Resources",
-    blog: "Blog",
-    help: "Help Center",
-    tutorials: "Tutorials",
-    webinars: "Webinars",
-    company: "Company",
-    about: "About Us",
-    careers: "Careers",
-    contact: "Contact",
-    terms: "Terms & Privacy",
-    rights: "All rights reserved",
-    termsService: "Terms of Service",
-    privacy: "Privacy Policy",
-    cookies: "Cookie Settings",
-  },
-  es: {
-    product: "Producto",
-    features: "Características",
-    useCases: "Casos de uso",
-    howItWorks: "Cómo funciona",
-    pricing: "Precios",
-    resources: "Recursos",
-    blog: "Blog",
-    help: "Centro de ayuda",
-    tutorials: "Tutoriales",
-    webinars: "Webinars",
-    company: "Empresa",
-    about: "Sobre nosotros",
-    careers: "Carreras",
-    contact: "Contacto",
-    terms: "Términos y privacidad",
-    rights: "Todos los derechos reservados",
-    termsService: "Términos de servicio",
-    privacy: "Política de privacidad",
-    cookies: "Configuración de cookies",
-  },
-  fr: {
-    product: "Produit",
-    features: "Fonctionnalités",
-    useCases: "Cas d'utilisation",
-    howItWorks: "Comment ça marche",
-    pricing: "Tarifs",
-    resources: "Ressources",
-    blog: "Blog",
-    help: "Centre d'aide",
-    tutorials: "Tutoriels",
-    webinars: "Webinaires",
-    company: "Entreprise",
-    about: "À propos",
-    careers: "Carrières",
-    contact: "Contact",
-    terms: "Conditions et confidentialité",
-    rights: "Tous droits réservés",
-    termsService: "Conditions d'utilisation",
-    privacy: "Politique de confidentialité",
-    cookies: "Paramètres des cookies",
-  },
-  ja: {
-    product: "製品",
-    features: "特徴",
-    useCases: "ユースケース",
-    howItWorks: "使い方",
-    pricing: "価格",
-    resources: "リソース",
-    blog: "ブログ",
-    help: "ヘルプセンター",
-    tutorials: "チュートリアル",
-    webinars: "ウェビナー",
-    company: "会社",
-    about: "私たちについて",
-    careers: "採用情報",
-    contact: "お問い合わせ",
-    terms: "利用規約とプライバシー",
-    rights: "全著作権所有",
-    termsService: "利用規約",
-    privacy: "プライバシーポリシー",
-    cookies: "クッキー設定",
-  },
-  zh: {
-    product: "产品",
-    features: "特点",
-    useCases: "用例",
-    howItWorks: "工作原理",
-    pricing: "价钱",
-    resources: "资源",
-    blog: "博客",
-    help: "帮助中心",
-    tutorials: "教程",
-    webinars: "网络研讨会",
-    company: "公司",
-    about: "关于我们",
-    careers: "职业",
-    contact: "联系",
-    terms: "条款和隐私",
-    rights: "版权所有",
-    termsService: "服务条款",
-    privacy: "隐私政策",
-    cookies: "Cookie设置",
-  },
-};
-
 function Footer({ language = "en" }: FooterProps) {
+  const NEXT_PUBLIC_TWITTER_URL = process.env["NEXT_PUBLIC_TWITTER_URL"] ?? "";
+  const NEXT_PUBLIC_GITHUB_URL = process.env["NEXT_PUBLIC_GITHUB_URL"] ?? "";
+  const NEXT_PUBLIC_LINKEDIN_URL =
+    process.env["NEXT_PUBLIC_LINKEDIN_URL"] ?? "";
   const t =
     translations[language as keyof typeof translations] || translations.en;
 
