@@ -7,8 +7,8 @@ import jwt from "jsonwebtoken";
 const handler = NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env["GOOGLE_CLIENT_ID"] || "",
+      clientSecret: process.env["GOOGLE_CLIENT_SECRET"] || "",
     }),
   ],
   session: {
@@ -24,7 +24,7 @@ const handler = NextAuth({
           image: user.image,
           provider: account.provider,
         };
-        const secret = process.env.NEXTAUTH_SECRET;
+        const secret = process.env["NEXTAUTH_SECRET"];
         if (!secret) {
           throw new Error("NEXTAUTH_SECRET is not defined");
         }
@@ -52,7 +52,7 @@ const handler = NextAuth({
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env["NEXTAUTH_SECRET"],
 });
 
 export { handler as GET, handler as POST };

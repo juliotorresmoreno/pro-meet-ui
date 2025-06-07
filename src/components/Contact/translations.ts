@@ -22,6 +22,14 @@ export const translations = {
     },
     button: "Send Message",
     imageAlt: "Contact illustration",
+    successMessage: "Your message has been sent successfully!",
+    errors: {
+      submission:
+        "There was an error submitting your message. Please try again later.",
+    },
+    buttons: {
+      submitting: "Submitting...",
+    },
   },
   es: {
     title: "Contáctanos",
@@ -46,6 +54,14 @@ export const translations = {
     },
     button: "Enviar mensaje",
     imageAlt: "Ilustración de contacto",
+    successMessage: "¡Tu mensaje ha sido enviado con éxito!",
+    errors: {
+      submission:
+        "Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo más tarde.",
+    },
+    buttons: {
+      submitting: "Enviando...",
+    },
   },
   fr: {
     title: "Contactez-nous",
@@ -70,6 +86,14 @@ export const translations = {
     },
     button: "Envoyer le message",
     imageAlt: "Illustration de contact",
+    successMessage: "Votre message a été envoyé avec succès !",
+    errors: {
+      submission:
+        "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer plus tard.",
+    },
+    buttons: {
+      submitting: "Envoi en cours...",
+    },
   },
   ja: {
     title: "お問い合わせ",
@@ -94,6 +118,14 @@ export const translations = {
     },
     button: "メッセージを送信",
     imageAlt: "お問い合わせのイラスト",
+    successMessage: "メッセージが正常に送信されました！",
+    errors: {
+      submission:
+        "メッセージの送信中にエラーが発生しました。後でもう一度お試しください。",
+    },
+    buttons: {
+      submitting: "送信中...",
+    },
   },
   zh: {
     title: "联系我们",
@@ -118,5 +150,12 @@ export const translations = {
     },
     button: "发送留言",
     imageAlt: "联系插图",
+    successMessage: "您的留言已成功发送！",
+    errors: {
+      submission: "提交留言时发生错误。请稍后再试。",
+    },
+    buttons: {
+      submitting: "提交中...",
+    },
   },
 };

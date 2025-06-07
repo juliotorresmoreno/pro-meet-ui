@@ -1,9 +1,10 @@
 import { FC } from "react";
-import { Input, FormGroup, Label, FormFeedback } from "reactstrap";
+import { FormGroup, Label, FormFeedback } from "reactstrap";
 import { UseFormRegisterReturn } from "react-hook-form";
-import { InputProps, InputType } from "reactstrap/types/lib/Input";
+import { InputType } from "reactstrap/types/lib/Input";
 
-interface FormInputProps extends React.HTMLAttributes<InputProps> {
+interface FormInputProps {
+  id: string;
   label: string;
   type?: InputType;
   placeholder?: string;
@@ -12,22 +13,38 @@ interface FormInputProps extends React.HTMLAttributes<InputProps> {
     message?: string;
   };
   icon?: React.ReactNode;
+  className?: string;
 }
 
 export const FormInput: FC<FormInputProps> = ({
   id,
   label,
-  type,
+  type = "text",
+  placeholder,
   register,
   error,
   icon,
-}) => (
-  <FormGroup className="mb-3">
-    <Label for={id}>{label}</Label>
-    <div className="input-group">
-      {icon && <span className="input-group-text">{icon}</span>}
-      <Input id={id} type={type} invalid={!!error} {...register} />
-      {error && <FormFeedback>{error.message}</FormFeedback>}
-    </div>
-  </FormGroup>
-);
+  className = "",
+}) => {
+  return (
+    <FormGroup className={`mb-3 ${className}`}>
+      <Label for={id}>{label}</Label>
+      <div className="input-group">
+        {icon && <span className="input-group-text">{icon}</span>}
+        <input
+          id={id}
+          type={type}
+          placeholder={placeholder}
+          {...register}
+          className={"form-control " + (error ? "is-invalid" : "")}
+        />
+        {error?.message && (
+          <FormFeedback className="d-flex align-items-center">
+            <i className="bi bi-exclamation-circle-fill me-2"></i>
+            {error.message}
+          </FormFeedback>
+        )}
+      </div>
+    </FormGroup>
+  );
+};

@@ -14,6 +14,8 @@ import { FormInput } from "@/components/FormInput";
 import { useState } from "react";
 import { registerUser } from "@/services/auth";
 import LoginButton from "@/components/LoginButton";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { translations } from "./translations";
 
 const registerSchema = z
   .object({
@@ -44,38 +46,15 @@ const RegisterPage: NextPage = () => {
   const {
     register,
     setError,
+    handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormData>({
-    mode: "onTouched",
+    mode: "onSubmit",
+    resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    e.preventDefault();
-
-    const form = e.currentTarget;
-    const data = new FormData(form);
-
-    const nameRaw = data.get("name");
-    const name = typeof nameRaw === "string" ? nameRaw.trim() : "";
-    const emailRaw = data.get("email");
-    const email = typeof emailRaw === "string" ? emailRaw.trim() : "";
-    const passwordRaw = data.get("password");
-    const password = typeof passwordRaw === "string" ? passwordRaw.trim() : "";
-    const confirmPasswordRaw = data.get("confirmPassword");
-    const confirmPassword =
-      typeof confirmPasswordRaw === "string" ? confirmPasswordRaw.trim() : "";
-    const termsRaw = data.get("terms");
-    const terms = typeof termsRaw === "string" ? termsRaw === "on" : false;
-
-    const result = registerSchema.safeParse({
-      name,
-      email,
-      password,
-      terms,
-      confirmPassword,
-    });
+  const onSubmit = async (data: RegisterFormData) => {
+    const result = registerSchema.safeParse(data);
 
     if (!result.success) {
       const zodErrors = result.error.flatten().fieldErrors;
@@ -111,7 +90,11 @@ const RegisterPage: NextPage = () => {
     setError("root", { type: "manual", message: "" });
 
     try {
-      await registerUser({ name, email, password });
+      await registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });
     } catch (err) {
       setError("root", {
         type: "manual",
@@ -120,90 +103,6 @@ const RegisterPage: NextPage = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const translations = {
-    en: {
-      title: "Create Your Account",
-      form: {
-        name: "Full Name",
-        email: "Email Address",
-        password: "Password",
-        confirmPassword: "Confirm Password",
-        terms: "I agree to the Terms of Service and Privacy Policy",
-        button: "Sign Up",
-        or: "Or sign up with",
-        google: "Continue with Google",
-        microsoft: "Continue with Microsoft",
-        already: "Already have an account?",
-        login: "Log in",
-      },
-    },
-    es: {
-      title: "Crea Tu Cuenta",
-      form: {
-        name: "Nombre Completo",
-        email: "Correo Electrónico",
-        password: "Contraseña",
-        confirmPassword: "Confirmar Contraseña",
-        terms: "Acepto los Términos de Servicio y la Política de Privacidad",
-        button: "Registrarse",
-        or: "O regístrate con",
-        google: "Continuar con Google",
-        microsoft: "Continuar con Microsoft",
-        already: "¿Ya tienes una cuenta?",
-        login: "Iniciar sesión",
-      },
-    },
-    fr: {
-      title: "Créez Votre Compte",
-      form: {
-        name: "Nom Complet",
-        email: "Adresse e-mail",
-        password: "Mot de passe",
-        confirmPassword: "Confirmez le mot de passe",
-        terms:
-          "J'accepte les Conditions d'utilisation et la Politique de confidentialité",
-        button: "S'inscrire",
-        or: "Ou inscrivez-vous avec",
-        google: "Continuer avec Google",
-        microsoft: "Continuer avec Microsoft",
-        already: "Vous avez déjà un compte ?",
-        login: "Se connecter",
-      },
-    },
-    ja: {
-      title: "アカウント作成",
-      form: {
-        name: "氏名",
-        email: "メールアドレス",
-        password: "パスワード",
-        confirmPassword: "パスワードの確認",
-        terms: "利用規約とプライバシーポリシーに同意します",
-        button: "サインアップ",
-        or: "または次で登録",
-        google: "Googleで続行",
-        microsoft: "Microsoftで続行",
-        already: "すでにアカウントをお持ちですか？",
-        login: "ログイン",
-      },
-    },
-    zh: {
-      title: "创建您的账户",
-      form: {
-        name: "全名",
-        email: "电子邮件地址",
-        password: "密码",
-        confirmPassword: "确认密码",
-        terms: "我同意服务条款和隐私政策",
-        button: "注册",
-        or: "或使用以下方式注册",
-        google: "使用 Google 注册",
-        microsoft: "使用 Microsoft 注册",
-        already: "已经有账户？",
-        login: "登录",
-      },
-    },
   };
 
   const t =
@@ -228,7 +127,7 @@ const RegisterPage: NextPage = () => {
                 <Alert color="danger">{errors.root.message}</Alert>
               )}
 
-              <Form onSubmit={onSubmit}>
+              <Form onSubmit={handleSubmit(onSubmit)}>
                 <FormInput
                   id="name"
                   label={t.form.name}

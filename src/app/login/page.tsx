@@ -17,84 +17,8 @@ import { useState } from "react";
 import { loginUser } from "@/services/auth";
 import LoginButton from "@/components/LoginButton";
 import { usePathStore } from "@/stores/path";
-
-const translations = {
-  en: {
-    title: "Welcome Back",
-    form: {
-      email: "Email Address",
-      password: "Password",
-      remember: "Remember me",
-      forgot: "Forgot password?",
-      button: "Sign In",
-      or: "Or sign in with",
-      google: "Continue with Google",
-      microsoft: "Continue with Microsoft",
-      noAccount: "Don't have an account?",
-      register: "Sign up",
-    },
-  },
-  es: {
-    title: "Bienvenido de vuelta",
-    form: {
-      email: "Correo Electrónico",
-      password: "Contraseña",
-      remember: "Recuérdame",
-      forgot: "¿Olvidaste tu contraseña?",
-      button: "Iniciar sesión",
-      or: "O inicia sesión con",
-      google: "Continuar con Google",
-      microsoft: "Continuar con Microsoft",
-      noAccount: "¿No tienes una cuenta?",
-      register: "Regístrate",
-    },
-  },
-  fr: {
-    title: "Bon Retour",
-    form: {
-      email: "Adresse e-mail",
-      password: "Mot de passe",
-      remember: "Se souvenir de moi",
-      forgot: "Mot de passe oublié ?",
-      button: "Se connecter",
-      or: "Ou connectez-vous avec",
-      google: "Continuer avec Google",
-      microsoft: "Continuer avec Microsoft",
-      noAccount: "Vous n'avez pas de compte ?",
-      register: "S'inscrire",
-    },
-  },
-  ja: {
-    title: "おかえりなさい",
-    form: {
-      email: "メールアドレス",
-      password: "パスワード",
-      remember: "ログイン状態を保持する",
-      forgot: "パスワードをお忘れですか？",
-      button: "サインイン",
-      or: "または次でサインイン",
-      google: "Googleで続行",
-      microsoft: "Microsoftで続行",
-      noAccount: "アカウントをお持ちでないですか？",
-      register: "サインアップ",
-    },
-  },
-  zh: {
-    title: "欢迎回来",
-    form: {
-      email: "电子邮件地址",
-      password: "密码",
-      remember: "记住我",
-      forgot: "忘记密码？",
-      button: "登录",
-      or: "或使用以下方式登录",
-      google: "使用 Google 登录",
-      microsoft: "使用 Microsoft 登录",
-      noAccount: "还没有账户？",
-      register: "注册",
-    },
-  },
-};
+import { translations } from "./translations";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 // Esquema de validación con Zod
 const loginSchema = z.object({
@@ -113,25 +37,15 @@ const LoginPage: NextPage = () => {
   const {
     register,
     setError,
+    handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({
-    mode: "onTouched",
+    mode: "onSubmit",
+    resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    e.preventDefault();
-
-    const form = e.currentTarget;
-    const data = new FormData(form);
-
-    const emailRaw = data.get("email");
-    const email = typeof emailRaw === "string" ? emailRaw.trim() : "";
-    const passwordRaw = data.get("password");
-    const password = typeof passwordRaw === "string" ? passwordRaw.trim() : "";
-
-    const result = loginSchema.safeParse({ email, password });
+  const onSubmit = async (data: LoginFormData) => {
+    const result = loginSchema.safeParse(data);
 
     if (!result.success) {
       const zodErrors = result.error.flatten().fieldErrors;
@@ -155,7 +69,7 @@ const LoginPage: NextPage = () => {
     setError("root", { type: "manual", message: "" });
 
     try {
-      await loginUser({ username: email, password });
+      await loginUser({ username: data.email, password: data.password });
       if (path !== "") {
         router.push(path);
         setPath("");
@@ -194,7 +108,7 @@ const LoginPage: NextPage = () => {
                 <Alert color="danger">{errors.root.message}</Alert>
               )}
 
-              <Form onSubmit={onSubmit}>
+              <Form onSubmit={handleSubmit(onSubmit)}>
                 <FormInput
                   id="email"
                   label={t.form.email}
