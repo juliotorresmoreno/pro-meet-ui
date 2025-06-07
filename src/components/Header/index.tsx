@@ -166,8 +166,6 @@ function Header() {
         </Nav>
 
         <Nav navbar className="mt-3 mt-md-0">
-          <LanguageSelector />
-
           <NavItem className="mx-1 my-1 my-md-0">
             <Link href="/login">
               <Button
@@ -201,6 +199,8 @@ function Header() {
               </Button>
             </Link>
           </NavItem>
+
+           <LanguageSelector />
         </Nav>
       </Collapse>
     </Navbar>

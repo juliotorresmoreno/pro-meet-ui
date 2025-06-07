@@ -36,9 +36,6 @@ export default function LanguageSelector() {
         <span className="flag-icon me-1">
           {languageOptions.find((lang) => lang.code === language)?.flag || "🌐"}
         </span>
-        <span className="d-none d-lg-inline">
-          {languageOptions.find((lang) => lang.code === language)?.name}
-        </span>
       </DropdownToggle>
       <DropdownMenu end className="shadow-sm border-0">
         {languageOptions.map((lang) => (

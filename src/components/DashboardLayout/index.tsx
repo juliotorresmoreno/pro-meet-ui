@@ -45,8 +45,8 @@ export default function DashboardLayout({
 
       <Container fluid className="main-content px-md-4">
         <Row className="mt-4 d-flex flex-fill">
-          <Col md={3} lg={2} className="pe-md-1 d-flex flex-fill">
-            <Card className="shadow-sm mb-2 border-0 d-flex flex-fill">
+          <Col md={3} lg={2} className="pe-md-1 d-flex flex-column">
+            <Card className="shadow-sm mb-2 border-0 d-flex">
               <CardBody>
                 <Nav vertical className="dashboard-nav">
                   <ul className="list-unstyled m-0 p-0">
