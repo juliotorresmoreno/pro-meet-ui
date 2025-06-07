@@ -27,7 +27,7 @@ export const FormInput: FC<FormInputProps> = ({
   className = "",
 }) => {
   return (
-    <FormGroup className={`mb-3 ${className}`}>
+    <FormGroup className={className}>
       <Label for={id}>{label}</Label>
       <div className="input-group">
         {icon && <span className="input-group-text">{icon}</span>}
