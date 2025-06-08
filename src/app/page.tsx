@@ -1,13 +1,13 @@
 "use client";
 
-import CallToAction from "@/components/CallToAction";
-import Features from "@/components/Features";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import HowItWorks from "@/components/HowItWorks";
-import Pricing from "@/components/Pricing";
-import UseCases from "@/components/UseCases";
+import CallToAction from "@/screens/common/CallToAction";
+import Features from "@/screens/home/Features";
+import Footer from "@/screens/common/Footer";
+import Header from "@/screens/common/Header";
+import Hero from "@/screens/home/Hero";
+import HowItWorks from "@/screens/home/HowItWorks";
+import Pricing from "@/screens/home/Pricing";
+import UseCases from "@/screens/home/UseCases";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import { NextPage } from "next";

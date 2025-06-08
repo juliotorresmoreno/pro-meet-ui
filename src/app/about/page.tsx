@@ -2,14 +2,14 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import Header from "@/components/Header";
+import Header from "@/screens/common/Header";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
-import Footer from "@/components/Footer";
-import CallToAction from "@/components/CallToAction";
-import About from "@/components/About";
-import Mission from "@/components/Mission";
-import Vision from "@/components/Vision";
+import Footer from "@/screens/common/Footer";
+import CallToAction from "@/screens/common/CallToAction";
+import About from "@/screens/about";
+import Mission from "@/screens/about/Mission";
+import Vision from "@/screens/about/Vision";
 
 const AboutPage = () => {
   const language = useLanguageStore((state) => state.language) || getLanguage();

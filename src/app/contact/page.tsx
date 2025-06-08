@@ -2,12 +2,12 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import Header from "@/components/Header";
+import Header from "@/screens/common/Header";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
-import Footer from "@/components/Footer";
-import CallToAction from "@/components/CallToAction";
-import Contact from "@/components/Contact";
+import Footer from "@/screens/common/Footer";
+import CallToAction from "@/screens/common/CallToAction";
+import Contact from "@/screens/contact";
 
 const AboutPage = () => {
   const language = useLanguageStore((state) => state.language) || getLanguage();

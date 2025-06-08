@@ -3,10 +3,10 @@
 
 import Head from "next/head";
 import { Col, Container, Row } from "reactstrap";
-import DashboardLayout from "@/components/DashboardLayout";
-import MeetingStatsCard from "@/components/MeetingStatsCard";
-import UpcomingMeetings from "@/components/UpcomingMeetings";
-import RecentActivity from "@/components/RecentActivity";
+import DashboardLayout from "@/screens/dashboard/Layout";
+import MeetingStatsCard from "@/screens/dashboard/MeetingStatsCard";
+import UpcomingMeetings from "@/screens/dashboard/UpcomingMeetings";
+import RecentActivity from "@/screens/dashboard/RecentActivity";
 
 export default function DashboardPage() {
   return (

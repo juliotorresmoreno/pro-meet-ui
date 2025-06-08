@@ -6,7 +6,7 @@ import { NextPage } from "next";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Header from "@/screens/common/Header";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import { Container, Form, Button, Alert } from "reactstrap";

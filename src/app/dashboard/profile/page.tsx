@@ -3,8 +3,8 @@
 import Head from "next/head";
 import { Container } from "reactstrap";
 import { useEffect } from "react";
-import DashboardLayout from "@/components/DashboardLayout";
-import Profile from "@/components/Profile";
+import DashboardLayout from "@/screens/dashboard/Layout";
+import Profile from "@/screens/profile/Profile";
 
 const defaultNavItems = [
   { href: "/dashboard/profile", icon: "bi-person", label: "Profile" },

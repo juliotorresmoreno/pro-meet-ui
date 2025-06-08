@@ -2,8 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Footer from "@/screens/common/Footer";
+import Header from "@/screens/common/Header";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import { NextPage } from "next";

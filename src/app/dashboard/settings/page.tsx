@@ -3,8 +3,8 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import DashboardLayout from "@/components/DashboardLayout";
-import SettingsPanel from "@/components/SettingsPanel";
+import DashboardLayout from "@/screens/dashboard/Layout";
+import SettingsPanel from "@/screens/dashboard/SettingsPanel";
 
 export default function OverviewPage() {
   return (

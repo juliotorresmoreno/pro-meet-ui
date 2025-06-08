@@ -3,7 +3,7 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/screens/dashboard/Layout";
 
 export default function MeetingsPage() {
   return (

@@ -3,8 +3,8 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import DashboardLayout from "@/components/DashboardLayout";
-import CalendarView from "@/components/CalendarView";
+import DashboardLayout from "@/screens/dashboard/Layout";
+import CalendarView from "@/screens/dashboard/CalendarView";
 
 export default function CalendarPage() {
   return (
