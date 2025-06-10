@@ -38,6 +38,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SaveButton from "@/components/SaveButton";
+import { translations } from "./translations";
 
 const profileSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -67,7 +68,13 @@ const profileSchema = z.object({
 
 type ProfileFormData = z.infer<typeof profileSchema>;
 
-export default function Profile() {
+interface ProfileProps {
+  readonly language: string;
+}
+
+export default function Profile({ language }: ProfileProps) {
+  const t = translations[language as keyof typeof translations] || translations.en;
+
   const socialOptions = [
     { label: "Facebook", icon: <FaFacebook /> },
     { label: "Twitter", icon: <FaTwitter /> },
@@ -89,11 +96,7 @@ export default function Profile() {
     { platform: "Kaggle", url: "" },
   ]);
 
-  const handleLanguageChange = (
-    index: number,
-    field: "name" | "level",
-    value: string
-  ) => {
+  const handleLanguageChange = (index: number, field: "name" | "level", value: string) => {
     const updated = [...languages];
     updated[index][field] = value;
     setLanguages(updated);
@@ -107,11 +110,7 @@ export default function Profile() {
     setLanguages(languages.filter((_, i) => i !== index));
   };
 
-  const handleLinkChange = (
-    index: number,
-    field: "platform" | "url",
-    value: string
-  ) => {
+  const handleLinkChange = (index: number, field: "platform" | "url", value: string) => {
     const updated = [...links];
     updated[index][field] = value;
     setLinks(updated);
@@ -137,72 +136,44 @@ export default function Profile() {
 
   const onSubmit = (data: ProfileFormData) => {
     const result = profileSchema.safeParse(data);
-
     if (!result.success) {
       const zodErrors = result.error.flatten().fieldErrors;
-      if (zodErrors.name) {
-        setError("name", { type: "manual", message: zodErrors.name[0] });
-      }
-      if (zodErrors.email) {
-        setError("email", { type: "manual", message: zodErrors.email[0] });
-      }
-      if (zodErrors.phone) {
-        setError("phone", { type: "manual", message: zodErrors.phone[0] });
-      }
-      if (zodErrors.profession) {
-        setError("profession", {
-          type: "manual",
-          message: zodErrors.profession[0],
-        });
-      }
-      if (zodErrors.summary) {
-        setError("summary", { type: "manual", message: zodErrors.summary[0] });
-      }
-      if (zodErrors.website) {
-        setError("website", { type: "manual", message: zodErrors.website[0] });
-      }
-      if (zodErrors.languages) {
-        setError("languages", {
-          type: "manual",
-          message: zodErrors.languages[0],
-        });
-      }
-      if (zodErrors.location) {
-        setError("location", {
-          type: "manual",
-          message: zodErrors.location[0],
-        });
-      }
+      if (zodErrors.name) setError("name", { type: "manual", message: zodErrors.name[0] });
+      if (zodErrors.email) setError("email", { type: "manual", message: zodErrors.email[0] });
+      if (zodErrors.phone) setError("phone", { type: "manual", message: zodErrors.phone[0] });
+      if (zodErrors.profession) setError("profession", { type: "manual", message: zodErrors.profession[0] });
+      if (zodErrors.summary) setError("summary", { type: "manual", message: zodErrors.summary[0] });
+      if (zodErrors.website) setError("website", { type: "manual", message: zodErrors.website[0] });
+      if (zodErrors.languages) setError("languages", { type: "manual", message: zodErrors.languages[0] });
+      if (zodErrors.location) setError("location", { type: "manual", message: zodErrors.location[0] });
     }
   };
 
   return (
     <>
-      <h2 className="mb-4">Professional Profile</h2>
+      <h2 className="mb-4">{t.title}</h2>
       <Card className="p-4 shadow-sm border-0">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Row>
             <Col md={6}>
               <FormInput
                 id="name"
-                label="Full Name"
+                label={t.fullName}
                 type="text"
-                register={register("name", {
-                  required: "Full name is required",
-                })}
+                register={register("name", { required: `${t.fullName} is required` })}
                 error={errors.name}
-                placeholder="Your full name"
+                placeholder={t.fullName}
                 icon={<FaUser />}
               />
             </Col>
             <Col md={6}>
               <FormInput
                 id="email"
-                label="Email"
+                label={t.email}
                 type="email"
                 register={register("email")}
                 error={errors.email}
-                placeholder="Your email address"
+                placeholder={t.email}
                 icon={<FaEnvelope />}
                 disabled
               />
@@ -213,22 +184,22 @@ export default function Profile() {
             <Col md={6}>
               <FormInput
                 id="location"
-                label="Location"
+                label={t.location}
                 type="text"
                 register={register("location")}
                 error={errors.location}
-                placeholder="City, Country"
+                placeholder={t.location}
                 icon={<FaLocationArrow />}
               />
             </Col>
             <Col md={6}>
               <FormInput
                 id="phone"
-                label="Phone"
+                label={t.phone}
                 type="tel"
                 register={register("phone")}
                 error={errors.phone}
-                placeholder="Your phone number"
+                placeholder={t.phone}
                 icon={<FaPhone />}
               />
             </Col>
@@ -236,21 +207,21 @@ export default function Profile() {
 
           <FormInput
             id="profession"
-            label="Profession"
+            label={t.profession}
             type="text"
             register={register("profession")}
             error={errors.profession}
-            placeholder="Your profession"
+            placeholder={t.profession}
             icon={<FaBriefcase />}
           />
 
           <FormGroup>
-            <Label>Professional Summary</Label>
+            <Label>{t.summary}</Label>
             <Input
               type="textarea"
               {...register("summary")}
               rows={4}
-              placeholder="Brief summary of your professional background"
+              placeholder={t.summaryPlaceholder}
             />
           </FormGroup>
 
@@ -258,7 +229,7 @@ export default function Profile() {
             <Col md={8}>
               <Label>
                 <FaLanguage className="me-2" />
-                Languages
+                {t.languages}
               </Label>
 
               {languages.map((lang, index) => (
@@ -281,7 +252,7 @@ export default function Profile() {
                     <Input
                       type="text"
                       value={lang.name}
-                      placeholder="Language"
+                      placeholder={t.addLanguage}
                       onChange={(e) =>
                         handleLanguageChange(index, "name", e.target.value)
                       }
@@ -305,6 +276,7 @@ export default function Profile() {
                 className="d-flex align-items-center"
               >
                 <FaPlus className="me-1" />
+                {t.addLanguage}
               </Button>
             </Col>
           </Row>
@@ -332,7 +304,7 @@ export default function Profile() {
                     <Input
                       type="url"
                       value={link.url}
-                      placeholder="URL"
+                      placeholder={t.addLink}
                       onChange={(e) =>
                         handleLinkChange(index, "url", e.target.value)
                       }
@@ -355,6 +327,7 @@ export default function Profile() {
                 className="d-flex align-items-center"
               >
                 <FaPlus className="me-1" />
+                {t.addLink}
               </Button>
             </Col>
           </Row>
@@ -367,7 +340,7 @@ export default function Profile() {
               className="d-flex align-items-center"
             >
               <FaTimes className="me-1" />
-              Cancel
+              {t.cancel}
             </Button>
           </div>
         </Form>

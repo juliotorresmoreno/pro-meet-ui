@@ -92,7 +92,7 @@ function Footer({ language = "en" }: FooterProps) {
             <ul className="list-unstyled">
               <li className="mb-2">
                 <NextLink
-                  href="#features"
+                  href="/#features"
                   className="text-decoration-none text-muted"
                 >
                   {t.features}
@@ -100,7 +100,7 @@ function Footer({ language = "en" }: FooterProps) {
               </li>
               <li className="mb-2">
                 <NextLink
-                  href="#use-cases"
+                  href="/#use-cases"
                   className="text-decoration-none text-muted"
                 >
                   {t.useCases}
@@ -108,7 +108,7 @@ function Footer({ language = "en" }: FooterProps) {
               </li>
               <li className="mb-2">
                 <NextLink
-                  href="#how-it-works"
+                  href="/#how-it-works"
                   className="text-decoration-none text-muted"
                 >
                   {t.howItWorks}
@@ -116,7 +116,7 @@ function Footer({ language = "en" }: FooterProps) {
               </li>
               <li className="mb-2">
                 <NextLink
-                  href="#pricing"
+                  href="/#pricing"
                   className="text-decoration-none text-muted"
                 >
                   {t.pricing}

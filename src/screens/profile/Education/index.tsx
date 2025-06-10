@@ -1,4 +1,3 @@
-// app/dashboard/education/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -15,8 +14,17 @@ import {
   Badge,
 } from "reactstrap";
 import { FaTrash, FaPlus, FaTimes, FaSave } from "react-icons/fa";
+import SkillsInput, { Skill } from "@/components/SkillsInput";
+import { translations } from "./translations";
 
-export default function Education() {
+interface EducationProps {
+  readonly language: string;
+}
+
+export default function Education({ language }: EducationProps) {
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
+
   const [educations, setEducations] = useState([
     {
       id: 1,
@@ -27,6 +35,7 @@ export default function Education() {
       to: "",
       current: false,
       description: "",
+      skills: [] as Skill[],
       achievements: [] as string[],
     },
   ]);
@@ -57,6 +66,7 @@ export default function Education() {
         to: "",
         current: false,
         description: "",
+        skills: [],
         achievements: [],
       },
     ]);
@@ -88,15 +98,18 @@ export default function Education() {
     setEducations(updatedEducations);
   };
 
+  const setSkills = (eduIndex: number, updatedSkills: Skill[]) => {
+    const updatedEducations = [...educations];
+    updatedEducations[eduIndex].skills = updatedSkills;
+    setEducations(updatedEducations);
+  };
+
   const handleSaveEducation = (id: number) => {
     const educationToSave = educations.find((edu) => edu.id === id);
     console.log("Saving education:", educationToSave);
-    // API call to save this specific education
   };
 
   const handleCancelChanges = (id: number) => {
-    console.log("Canceling changes for education:", id);
-    // Reset this education to its original state or remove if new
     if (
       educations.find((edu) => edu.id === id)?.degree === "" &&
       educations.find((edu) => edu.id === id)?.institution === ""
@@ -107,59 +120,62 @@ export default function Education() {
 
   return (
     <div className="education-container">
-      <h2 className="mb-4">Education</h2>
+      <h2 className="mb-4">{t.title}</h2>
 
       <Form>
         {educations.map((edu, index) => (
           <Card key={edu.id} className="shadow-sm border-0 p-4 mb-4">
             <Row>
-              <Col md={5}>
+              <Col md={6}>
                 <FormGroup>
-                  <Label>Degree*</Label>
+                  <Label>{t.degree}</Label>
                   <Input
                     type="text"
                     value={edu.degree}
                     onChange={(e) =>
                       handleInputChange(index, "degree", e.target.value)
                     }
-                    placeholder="e.g. Bachelor of Science"
+                    placeholder={t.degreePlaceholder}
                     required
                   />
                 </FormGroup>
               </Col>
-              <Col md={5}>
+              <Col md={6}>
                 <FormGroup>
-                  <Label>Institution*</Label>
+                  <Label>{t.institution}</Label>
                   <Input
                     type="text"
                     value={edu.institution}
                     onChange={(e) =>
                       handleInputChange(index, "institution", e.target.value)
                     }
-                    placeholder="University or School name"
+                    placeholder={t.institutionPlaceholder}
                     required
                   />
                 </FormGroup>
               </Col>
             </Row>
 
-            <Row className="mt-3">
-              <Col md={4}>
+            <Row>
+              <Col md={12}>
                 <FormGroup>
-                  <Label>Field of Study</Label>
+                  <Label>{t.field}</Label>
                   <Input
                     type="text"
                     value={edu.fieldOfStudy}
                     onChange={(e) =>
                       handleInputChange(index, "fieldOfStudy", e.target.value)
                     }
-                    placeholder="e.g. Computer Science"
+                    placeholder={t.fieldPlaceholder}
                   />
                 </FormGroup>
               </Col>
+            </Row>
+
+            <Row>
               <Col md={3}>
                 <FormGroup>
-                  <Label>From*</Label>
+                  <Label>{t.from}</Label>
                   <Input
                     type="month"
                     value={edu.from}
@@ -172,7 +188,7 @@ export default function Education() {
               </Col>
               <Col md={3}>
                 <FormGroup>
-                  <Label>To</Label>
+                  <Label>{t.to}</Label>
                   <Input
                     type="month"
                     value={edu.to}
@@ -183,6 +199,9 @@ export default function Education() {
                   />
                 </FormGroup>
               </Col>
+            </Row>
+
+            <Row>
               <Col md={2} className="d-flex align-items-end">
                 <FormGroup check>
                   <Input
@@ -197,14 +216,14 @@ export default function Education() {
                     }}
                   />
                   <Label for={`current-${index}`} check>
-                    Currently attending
+                    {t.currently}
                   </Label>
                 </FormGroup>
               </Col>
             </Row>
 
             <FormGroup className="mt-3">
-              <Label>Description</Label>
+              <Label>{t.description}</Label>
               <Input
                 type="textarea"
                 value={edu.description}
@@ -212,16 +231,24 @@ export default function Education() {
                   handleInputChange(index, "description", e.target.value)
                 }
                 rows={3}
-                placeholder="Thesis, honors, or special program details"
+                placeholder={t.descriptionPlaceholder}
               />
             </FormGroup>
 
+            <SkillsInput
+              language={language}
+              initialSkills={[]}
+              onSkillsChange={(updatedSkills) =>
+                setSkills(index, updatedSkills)
+              }
+            />
+
             <FormGroup className="mt-3">
-              <Label>Achievements</Label>
+              <Label>{t.achievements}</Label>
               <div className="mb-2">
                 {edu.achievements.map((achievement, achievementIndex) => (
                   <Badge
-                    key={achievement+achievementIndex}
+                    key={achievement + achievementIndex}
                     color="info"
                     pill
                     className="me-2 mb-2 d-inline-flex align-items-center"
@@ -242,11 +269,11 @@ export default function Education() {
                   type="text"
                   value={newAchievement}
                   onChange={(e) => setNewAchievement(e.target.value)}
-                  placeholder="Add an achievement"
+                  placeholder={t.achievementPlaceholder}
                   onKeyDown={(e) => e.key === "Enter" && addAchievement(index)}
                 />
                 <Button color="secondary" onClick={() => addAchievement(index)}>
-                  Add
+                  {t.addAchievement}
                 </Button>
               </InputGroup>
             </FormGroup>
@@ -258,21 +285,21 @@ export default function Education() {
                 className="me-2"
               >
                 <FaTrash className="me-1" />
-                Delete
+                {t.delete}
               </Button>
               <Button
                 color="secondary"
                 onClick={() => handleCancelChanges(edu.id)}
                 className="me-2"
               >
-                Cancel
+                {t.cancel}
               </Button>
               <Button
                 color="primary"
                 onClick={() => handleSaveEducation(edu.id)}
               >
                 <FaSave className="me-1" />
-                Save
+                {t.save}
               </Button>
             </div>
           </Card>
@@ -286,7 +313,7 @@ export default function Education() {
             className="d-flex align-items-center"
           >
             <FaPlus className="me-2" />
-            Add New Education
+            {t.addNew}
           </Button>
         </div>
       </Form>

@@ -1,12 +1,46 @@
-// app/dashboard/page.tsx
 "use client";
 
 import { Card, CardBody, Col, Container, Nav, Row } from "reactstrap";
 import Link from "next/link";
 import classnames from "classnames";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import DashboardHeader from "./Header";
+import { useLanguageStore } from "@/stores/language";
+import { getLanguage } from "@/utils/language";
+
+const translations = {
+  en: {
+    overview: "Overview",
+    meetings: "Meetings",
+    calendar: "Calendar",
+    settings: "Settings",
+  },
+  es: {
+    overview: "Resumen",
+    meetings: "Reuniones",
+    calendar: "Calendario",
+    settings: "Configuración",
+  },
+  fr: {
+    overview: "Aperçu",
+    meetings: "Réunions",
+    calendar: "Calendrier",
+    settings: "Paramètres",
+  },
+  ja: {
+    overview: "概要",
+    meetings: "ミーティング",
+    calendar: "カレンダー",
+    settings: "設定",
+  },
+  zh: {
+    overview: "概览",
+    meetings: "会议",
+    calendar: "日历",
+    settings: "设置",
+  },
+};
 
 interface DashboardLayoutProps {
   readonly children?: React.ReactNode;
@@ -17,17 +51,28 @@ interface DashboardLayoutProps {
   }>;
 }
 
-const defaultNavItems = [
-  { href: "/dashboard", icon: "bi-speedometer2", label: "Overview" },
-  { href: "/dashboard/meetings", icon: "bi-calendar-check", label: "Meetings" },
-  { href: "/dashboard/calendar", icon: "bi-calendar3", label: "Calendar" },
-  { href: "/dashboard/settings", icon: "bi-gear", label: "Settings" },
-];
-
 export default function DashboardLayout({
   children,
-  navItems = defaultNavItems,
+  navItems,
 }: DashboardLayoutProps) {
+  const language = useLanguageStore((state) => state.language) || getLanguage();
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
+
+  const localizedNavItems = useMemo(() => {
+    if (navItems) return navItems;
+    return [
+      { href: "/dashboard", icon: "bi-speedometer2", label: t.overview },
+      {
+        href: "/dashboard/meetings",
+        icon: "bi-calendar-check",
+        label: t.meetings,
+      },
+      { href: "/dashboard/calendar", icon: "bi-calendar3", label: t.calendar },
+      { href: "/dashboard/settings", icon: "bi-gear", label: t.settings },
+    ];
+  }, [navItems, t]);
+
   const pathname = usePathname();
 
   useEffect(() => {
@@ -50,7 +95,7 @@ export default function DashboardLayout({
               <CardBody>
                 <Nav vertical className="dashboard-nav">
                   <ul className="list-unstyled m-0 p-0">
-                    {navItems.map(({ href, icon, label }) => (
+                    {localizedNavItems.map(({ href, icon, label }) => (
                       <li key={href}>
                         <Link
                           href={href}

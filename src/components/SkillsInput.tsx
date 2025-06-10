@@ -293,6 +293,9 @@ const SkillsInput = ({
                 droppableId={lvl.value}
                 key={lvl.value}
                 direction="horizontal"
+                ignoreContainerClipping={true}
+                isCombineEnabled={true}
+                isDropDisabled={false}
               >
                 {(prov) => (
                   <div

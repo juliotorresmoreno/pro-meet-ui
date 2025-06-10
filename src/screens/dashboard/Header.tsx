@@ -1,4 +1,3 @@
-// components/DashboardHeader.tsx
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
@@ -13,12 +12,47 @@ import {
 import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import LanguageSelector from "../common/LanguageSelector";
+import { useLanguageStore } from "@/stores/language";
+import { getLanguage } from "@/utils/language";
+
+const translations = {
+  en: {
+    newMeeting: "New Meeting",
+    profile: "Profile",
+    logout: "Logout",
+  },
+  es: {
+    newMeeting: "Nueva Reunión",
+    profile: "Perfil",
+    logout: "Cerrar sesión",
+  },
+  fr: {
+    newMeeting: "Nouvelle réunion",
+    profile: "Profil",
+    logout: "Déconnexion",
+  },
+  ja: {
+    newMeeting: "新しいミーティング",
+    profile: "プロフィール",
+    logout: "ログアウト",
+  },
+  zh: {
+    newMeeting: "新会议",
+    profile: "个人资料",
+    logout: "登出",
+  },
+};
 
 export default function DashboardHeader() {
   const { status, setAccessToken, setRefreshToken } = useAuthStore();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(!dropdownOpen);
   const router = useRouter();
+
+  const language = useLanguageStore((state) => state.language) || getLanguage();
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
 
   const handleLogout = async () => {
     setAccessToken("");
@@ -36,7 +70,6 @@ export default function DashboardHeader() {
     <header className="dashboard-header bg-white shadow-sm">
       <Container fluid className="px-md-4">
         <div className="d-flex justify-content-between align-items-center py-3">
-          {/* Logo/Brand */}
           <Link
             href="/dashboard"
             className="navbar-brand d-flex align-items-center"
@@ -47,19 +80,16 @@ export default function DashboardHeader() {
             <span className="fw-bold fs-4 text-gradient">Pro-Meets</span>
           </Link>
 
-          {/* Navigation */}
           <Nav className="align-items-center">
-            {/* New Meeting Button */}
             <NavItem className="mx-2">
               <Link
                 href="/dashboard/new-meeting"
                 className="btn btn-primary rounded-pill px-3"
               >
-                <i className="bi bi-plus-lg me-1"></i> New Meeting
+                <i className="bi bi-plus-lg me-1"></i> {t.newMeeting}
               </Link>
             </NavItem>
 
-            {/* User Dropdown */}
             <Dropdown isOpen={dropdownOpen} toggle={toggle} nav inNavbar>
               <DropdownToggle nav caret className="d-flex align-items-center">
                 <div className="avatar bg-light text-dark rounded-circle me-2">
@@ -70,12 +100,14 @@ export default function DashboardHeader() {
 
               <DropdownMenu end>
                 <DropdownItem tag={Link} href="/dashboard/profile">
-                  Profile
+                  {t.profile}
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={handleLogout}>Logout</DropdownItem>
+                <DropdownItem onClick={handleLogout}>{t.logout}</DropdownItem>
               </DropdownMenu>
             </Dropdown>
+
+            <LanguageSelector />
           </Nav>
         </div>
       </Container>

@@ -25,12 +25,16 @@ import SaveButton from "@/components/SaveButton";
 import CancelButton from "@/components/CancelButton";
 import DeleteButton from "@/components/DeleteButton";
 import SkillsInput, { Skill } from "@/components/SkillsInput";
+import { translations } from "./translations";
 
 interface ExperienceProps {
-  language: string;
+  readonly language: string;
 }
 
 export default function Experience({ language }: ExperienceProps) {
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
+
   const [experiences, setExperiences] = useState([
     {
       id: 1,
@@ -101,7 +105,7 @@ export default function Experience({ language }: ExperienceProps) {
 
   return (
     <div className="experience-container">
-      <h2 className="mb-4">Work Experience</h2>
+      <h2 className="mb-4">{t.title}</h2>
 
       <Form>
         {experiences.map((exp, index) => (
@@ -109,7 +113,7 @@ export default function Experience({ language }: ExperienceProps) {
             <Row>
               <Col md={6}>
                 <FormGroup>
-                  <Label>Position</Label>
+                  <Label>{t.position}</Label>
                   <InputGroup>
                     <InputGroupText>
                       <FaUser />
@@ -120,7 +124,7 @@ export default function Experience({ language }: ExperienceProps) {
                       onChange={(e) =>
                         handleInputChange(index, "position", e.target.value)
                       }
-                      placeholder="Job title"
+                      placeholder={t.placeholderPosition}
                       required
                     />
                   </InputGroup>
@@ -128,7 +132,7 @@ export default function Experience({ language }: ExperienceProps) {
               </Col>
               <Col md={6}>
                 <FormGroup>
-                  <Label>Company</Label>
+                  <Label>{t.company}</Label>
                   <InputGroup>
                     <InputGroupText>
                       <FaBuilding />
@@ -139,7 +143,7 @@ export default function Experience({ language }: ExperienceProps) {
                       onChange={(e) =>
                         handleInputChange(index, "company", e.target.value)
                       }
-                      placeholder="Company name"
+                      placeholder={t.placeholderCompany}
                       required
                     />
                   </InputGroup>
@@ -150,7 +154,7 @@ export default function Experience({ language }: ExperienceProps) {
             <Row>
               <Col md={3}>
                 <FormGroup>
-                  <Label>From</Label>
+                  <Label>{t.from}</Label>
                   <InputGroup>
                     <InputGroupText>
                       <FaCalendarAlt />
@@ -164,12 +168,12 @@ export default function Experience({ language }: ExperienceProps) {
                       required
                     />
                   </InputGroup>
-                  <FormText>Start date</FormText>
+                  <FormText>{t.startDate}</FormText>
                 </FormGroup>
               </Col>
               <Col md={3}>
                 <FormGroup>
-                  <Label>To</Label>
+                  <Label>{t.to}</Label>
                   <InputGroup>
                     <InputGroupText>
                       <FaRegCalendarCheck />
@@ -183,7 +187,7 @@ export default function Experience({ language }: ExperienceProps) {
                       disabled={exp.current}
                     />
                   </InputGroup>
-                  <FormText>End date</FormText>
+                  <FormText>{t.endDate}</FormText>
                 </FormGroup>
               </Col>
             </Row>
@@ -202,14 +206,14 @@ export default function Experience({ language }: ExperienceProps) {
                     }}
                   />
                   <Label for={`current-${index}`} check>
-                    I currently work here
+                    {t.currentlyWorking}
                   </Label>
                 </FormGroup>
               </Col>
             </Row>
 
             <FormGroup className="mt-3">
-              <Label>Description</Label>
+              <Label>{t.description}</Label>
               <Input
                 type="textarea"
                 value={exp.description}
@@ -217,7 +221,7 @@ export default function Experience({ language }: ExperienceProps) {
                   handleInputChange(index, "description", e.target.value)
                 }
                 rows={4}
-                placeholder="Describe your responsibilities and achievements"
+                placeholder={t.placeholderDescription}
               />
             </FormGroup>
 
@@ -245,7 +249,7 @@ export default function Experience({ language }: ExperienceProps) {
             className="d-flex align-items-center"
           >
             <FaPlus className="me-2" />
-            Add New Experience
+            {t.addNewExperience}
           </Button>
         </div>
       </Form>
