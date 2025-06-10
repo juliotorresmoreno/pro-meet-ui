@@ -59,18 +59,18 @@ const ProfileLayout = ({ children }: ProfileLayoutProps) => {
     () => [
       { href: "/dashboard/profile", icon: "bi-person", label: t.profile },
       {
-        href: "/dashboard/experience",
+        href: "/dashboard/profile/experience",
         icon: "bi-briefcase",
         label: t.experience,
       },
       {
-        href: "/dashboard/education",
+        href: "/dashboard/profile/education",
         icon: "bi-mortarboard",
         label: t.education,
       },
-      { href: "/dashboard/skills", icon: "bi-tools", label: t.skills },
-      { href: "/dashboard/projects", icon: "bi-kanban", label: t.projects },
-      { href: "/dashboard/contact", icon: "bi-envelope", label: t.contact },
+      // { href: "/dashboard/profile/skills", icon: "bi-tools", label: t.skills },
+      { href: "/dashboard/profile/projects", icon: "bi-kanban", label: t.projects },
+      // { href: "/dashboard/profile/contact", icon: "bi-envelope", label: t.contact },
     ],
     [t]
   );

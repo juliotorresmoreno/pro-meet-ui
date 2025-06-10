@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
-import Profile from "@/screens/profile";
 import Notifications from "@/screens/dashboard/Notifications";
 import Preferences from "@/screens/dashboard/Preferences";
 
@@ -142,7 +141,6 @@ export default function SettingsPanel() {
         <TabContent activeTab={activeTab}>
           <TabPane tabId="profile">
             <h5 className="mb-4">{t.profile.title}</h5>
-            <Profile />
           </TabPane>
 
           <TabPane tabId="notifications">

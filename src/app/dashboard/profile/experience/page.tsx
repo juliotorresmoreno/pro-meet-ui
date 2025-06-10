@@ -3,11 +3,12 @@
 import Head from "next/head";
 import { Container } from "reactstrap";
 import { useEffect } from "react";
+import Experience from "@/screens/profile/Experience";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
-import SettingsLayout from "@/screens/settings/Layout";
+import ProfileLayout from "@/screens/profile/Layout";
 
-export default function SettingsPage() {
+export default function ProfilePage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
 
   useEffect(() => {
@@ -19,18 +20,16 @@ export default function SettingsPage() {
     };
   }, []);
 
-  console.log("SettingsPage language:", language);
-
   return (
-    <SettingsLayout>
+    <ProfileLayout>
       <Head>
         <title>Pro-Meets Dashboard</title>
         <meta name="description" content="Manage your professional meetings" />
       </Head>
 
       <Container fluid className="px-md-4">
-        dfsdfsd
+        <Experience language={language} />
       </Container>
-    </SettingsLayout>
+    </ProfileLayout>
   );
 }

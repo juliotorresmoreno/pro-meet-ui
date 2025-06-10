@@ -20,26 +20,31 @@ const translations = {
   en: {
     newMeeting: "New Meeting",
     profile: "Profile",
+    settings: "Settings",
     logout: "Logout",
   },
   es: {
     newMeeting: "Nueva Reunión",
     profile: "Perfil",
+    settings: "Configuración",
     logout: "Cerrar sesión",
   },
   fr: {
     newMeeting: "Nouvelle réunion",
     profile: "Profil",
+    settings: "Paramètres",
     logout: "Déconnexion",
   },
   ja: {
     newMeeting: "新しいミーティング",
     profile: "プロフィール",
+    settings: "設定",
     logout: "ログアウト",
   },
   zh: {
     newMeeting: "新会议",
     profile: "个人资料",
+    settings: "设置",
     logout: "登出",
   },
 };
@@ -100,10 +105,18 @@ export default function DashboardHeader() {
 
               <DropdownMenu end>
                 <DropdownItem tag={Link} href="/dashboard/profile">
+                  <i className="bi bi-person-circle me-2"></i>
                   {t.profile}
                 </DropdownItem>
+                <DropdownItem tag={Link} href="/dashboard/settings">
+                  <i className="bi bi-gear me-2"></i>
+                  {t.settings}
+                </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={handleLogout}>{t.logout}</DropdownItem>
+                <DropdownItem onClick={handleLogout}>
+                  <i className="bi bi-box-arrow-right me-2"></i>
+                  {t.logout}
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
 

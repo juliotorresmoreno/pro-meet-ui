@@ -5,9 +5,9 @@ import { Container } from "reactstrap";
 import { useEffect } from "react";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
-import ProfileLayout from "@/screens/profile/Layout";
+import SettingsLayout from "@/screens/settings/Layout";
 
-export default function ProfilePage() {
+export default function SettingsPage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
 
   useEffect(() => {
@@ -19,16 +19,18 @@ export default function ProfilePage() {
     };
   }, []);
 
+  console.log("SettingsPage language:", language);
+
   return (
-    <ProfileLayout>
+    <SettingsLayout>
       <Head>
         <title>Pro-Meets Dashboard</title>
         <meta name="description" content="Manage your professional meetings" />
       </Head>
 
       <Container fluid className="px-md-4">
-        asdfasfgfsd
+        dfsdfsd
       </Container>
-    </ProfileLayout>
+    </SettingsLayout>
   );
 }
