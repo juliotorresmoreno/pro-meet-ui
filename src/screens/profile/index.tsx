@@ -312,7 +312,7 @@ export default function Profile() {
           <Row className="mb-3">
             <Col md={8}>
               {links.map((link, index) => (
-                <Row key={index} className="align-items-end mb-2">
+                <Row key={link.url + index} className="align-items-end mb-2">
                   <Col md={4}>
                     <Input
                       type="select"

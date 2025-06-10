@@ -2,7 +2,7 @@
 
 import { useAuthStore } from "@/stores/auth";
 import { usePathStore } from "@/stores/path";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Button, ButtonProps } from "reactstrap";
@@ -17,12 +17,13 @@ export default function LoginButton({
   provider,
   ...rest
 }: LoginButtonProps) {
-  const { status } = useSession();
-  const { accessToken, setAccessToken, setRefreshToken } = useAuthStore();
+  const { accessToken, setAccessToken, setRefreshToken, setStatus, status } =
+    useAuthStore();
   const { path, setPath } = usePathStore();
   const router = useRouter();
 
   const handleSignIn = async () => {
+    setStatus("loading");
     setAccessToken("");
     setRefreshToken("");
     await signIn(provider, {

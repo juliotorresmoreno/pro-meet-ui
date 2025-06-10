@@ -15,22 +15,22 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 
 export default function DashboardHeader() {
-  const { accessToken, setAccessToken, setRefreshToken } = useAuthStore();
+  const { status, setAccessToken, setRefreshToken } = useAuthStore();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(!dropdownOpen);
   const router = useRouter();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setAccessToken("");
     setRefreshToken("");
-    signOut();
+    await signOut();
   };
 
   useEffect(() => {
-    if (!accessToken) {
+    if (status === "unauthenticated") {
       router.push("/");
     }
-  }, [accessToken, router]);
+  }, [status, router]);
 
   return (
     <header className="dashboard-header bg-white shadow-sm">

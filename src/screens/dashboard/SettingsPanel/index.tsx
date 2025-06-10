@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
-import Profile from "@/screens/profile/Profile";
+import Profile from "@/screens/profile";
 import Notifications from "@/screens/dashboard/Notifications";
 import Preferences from "@/screens/dashboard/Preferences";
 

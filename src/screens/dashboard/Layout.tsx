@@ -1,12 +1,12 @@
 // app/dashboard/page.tsx
 "use client";
 
-import DashboardHeader from "@/screens/dashboard/Header";
 import { Card, CardBody, Col, Container, Nav, Row } from "reactstrap";
 import Link from "next/link";
 import classnames from "classnames";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import DashboardHeader from "./Header";
 
 interface DashboardLayoutProps {
   readonly children?: React.ReactNode;
