@@ -216,3 +216,19 @@ a {
 header {
   position: sticky;
 }
+
+.badge {
+  padding: 5px 15px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.w-auto {
+  width: auto !important;
+}

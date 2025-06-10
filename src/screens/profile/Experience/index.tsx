@@ -12,23 +12,25 @@ import {
   Label,
   Input,
   FormText,
-  Badge,
   InputGroupText,
 } from "reactstrap";
 import {
   FaPlus,
-  FaTimes,
   FaUser,
   FaBuilding,
   FaCalendarAlt,
   FaRegCalendarCheck,
-  FaTools,
 } from "react-icons/fa";
 import SaveButton from "@/components/SaveButton";
 import CancelButton from "@/components/CancelButton";
 import DeleteButton from "@/components/DeleteButton";
+import SkillsInput, { Skill } from "@/components/SkillsInput";
 
-export default function Experience() {
+interface ExperienceProps {
+  language: string;
+}
+
+export default function Experience({ language }: ExperienceProps) {
   const [experiences, setExperiences] = useState([
     {
       id: 1,
@@ -38,10 +40,9 @@ export default function Experience() {
       to: "",
       current: false,
       description: "",
-      skills: [] as string[],
+      skills: [] as Skill[],
     },
   ]);
-  const [newSkill, setNewSkill] = useState("");
 
   const handleInputChange = (
     index: number,
@@ -78,23 +79,9 @@ export default function Experience() {
     }
   };
 
-  const addSkill = (expIndex: number) => {
-    if (newSkill.trim()) {
-      const updatedExperiences = [...experiences];
-      updatedExperiences[expIndex].skills = [
-        ...updatedExperiences[expIndex].skills,
-        newSkill.trim(),
-      ];
-      setExperiences(updatedExperiences);
-      setNewSkill("");
-    }
-  };
-
-  const removeSkill = (expIndex: number, skillIndex: number) => {
+  const setSkills = (expIndex: number, updatedSkills: Skill[]) => {
     const updatedExperiences = [...experiences];
-    updatedExperiences[expIndex].skills = updatedExperiences[
-      expIndex
-    ].skills.filter((_, i) => i !== skillIndex);
+    updatedExperiences[expIndex].skills = updatedSkills;
     setExperiences(updatedExperiences);
   };
 
@@ -234,43 +221,13 @@ export default function Experience() {
               />
             </FormGroup>
 
-            <FormGroup>
-              <Label>Skills Used</Label>
-              <div className="mb-2">
-                {exp.skills.map((skill, skillIndex) => (
-                  <Badge
-                    key={skill + skillIndex}
-                    color="primary"
-                    pill
-                    className="me-2 mb-2 d-inline-flex align-items-center"
-                  >
-                    {skill}
-                    <Button
-                      color="link"
-                      className="text-white p-0 ms-2"
-                      onClick={() => removeSkill(index, skillIndex)}
-                    >
-                      <FaTimes size={12} />
-                    </Button>
-                  </Badge>
-                ))}
-              </div>
-              <InputGroup>
-                <InputGroupText>
-                  <FaTools />
-                </InputGroupText>
-                <Input
-                  type="text"
-                  value={newSkill}
-                  onChange={(e) => setNewSkill(e.target.value)}
-                  placeholder="Add a skill"
-                  onKeyDown={(e) => e.key === "Enter" && addSkill(index)}
-                />
-                <Button color="secondary" onClick={() => addSkill(index)}>
-                  Add
-                </Button>
-              </InputGroup>
-            </FormGroup>
+            <SkillsInput
+              language={language}
+              initialSkills={[]}
+              onSkillsChange={(updatedSkills) =>
+                setSkills(index, updatedSkills)
+              }
+            />
 
             <div className="d-flex justify-content-end mt-3 gap-2">
               <DeleteButton onClick={() => removeExperience(exp.id)} />

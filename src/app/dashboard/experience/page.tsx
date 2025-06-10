@@ -5,6 +5,8 @@ import { Container } from "reactstrap";
 import { useEffect } from "react";
 import DashboardLayout from "@/screens/dashboard/Layout";
 import Experience from "@/screens/profile/Experience";
+import { useLanguageStore } from "@/stores/language";
+import { getLanguage } from "@/utils/language";
 
 const defaultNavItems = [
   { href: "/dashboard/profile", icon: "bi-person", label: "Profile" },
@@ -16,6 +18,8 @@ const defaultNavItems = [
 ];
 
 export default function ProfilePage() {
+  const language = useLanguageStore((state) => state.language) || getLanguage();
+
   useEffect(() => {
     document.documentElement.classList.add("full-screen");
     document.body.classList.add("full-screen");
@@ -33,7 +37,7 @@ export default function ProfilePage() {
       </Head>
 
       <Container fluid className="px-md-4">
-        <Experience />
+        <Experience language={language} />
       </Container>
     </DashboardLayout>
   );
