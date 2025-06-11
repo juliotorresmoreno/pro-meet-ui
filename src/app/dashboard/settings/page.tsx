@@ -2,24 +2,16 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import { useEffect } from "react";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import SettingsLayout from "@/screens/settings/Layout";
+import Account from "@/screens/settings/Account";
+import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
 
 export default function SettingsPage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
 
-  useEffect(() => {
-    document.documentElement.classList.add("full-screen");
-    document.body.classList.add("full-screen");
-    return () => {
-      document.documentElement.classList.remove("full-screen");
-      document.body.classList.remove("full-screen");
-    };
-  }, []);
-
-  console.log("SettingsPage language:", language);
+  useFullScreenScroll();
 
   return (
     <SettingsLayout>
@@ -29,7 +21,7 @@ export default function SettingsPage() {
       </Head>
 
       <Container fluid className="px-md-4">
-        dfsdfsd
+        <Account language={language} />
       </Container>
     </SettingsLayout>
   );

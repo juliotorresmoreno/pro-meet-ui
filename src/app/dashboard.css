@@ -74,6 +74,10 @@
   flex-direction: column;
 }
 
+.scrollbar-visible {
+  overflow-y: scroll !important;
+}
+
 .main-content {
   display: flex;
   flex-direction: column  ;

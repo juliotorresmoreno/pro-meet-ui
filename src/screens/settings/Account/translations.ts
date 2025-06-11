@@ -1,0 +1,42 @@
+export const translations = {
+  en: {
+    account: "Account",
+    fullName: "Full Name",
+    email: "Email",
+    password: "Password",
+    cancel: "Cancel",
+    save: "Save",
+  },
+  es: {
+    account: "Cuenta",
+    fullName: "Nombre completo",
+    email: "Correo",
+    password: "Contraseña",
+    cancel: "Cancelar",
+    save: "Guardar",
+  },
+  fr: {
+    account: "Compte",
+    fullName: "Nom complet",
+    email: "E-mail",
+    password: "Mot de passe",
+    cancel: "Annuler",
+    save: "Enregistrer",
+  },
+  ja: {
+    account: "アカウント",
+    fullName: "フルネーム",
+    email: "メール",
+    password: "パスワード",
+    cancel: "キャンセル",
+    save: "保存",
+  },
+  zh: {
+    account: "账户",
+    fullName: "全名",
+    email: "电子邮件",
+    password: "密码",
+    cancel: "取消",
+    save: "保存",
+  },
+};

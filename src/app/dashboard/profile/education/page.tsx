@@ -2,23 +2,16 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import { useEffect } from "react";
 import Education from "@/screens/profile/Education";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import ProfileLayout from "@/screens/profile/Layout";
+import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
 
 export default function ProfilePage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
 
-  useEffect(() => {
-    document.documentElement.classList.add("full-screen");
-    document.body.classList.add("full-screen");
-    return () => {
-      document.documentElement.classList.remove("full-screen");
-      document.body.classList.remove("full-screen");
-    };
-  }, []);
+  useFullScreenScroll();
 
   return (
     <ProfileLayout>

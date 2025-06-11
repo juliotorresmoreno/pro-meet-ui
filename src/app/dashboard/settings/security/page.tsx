@@ -6,18 +6,13 @@ import { useEffect } from "react";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import SettingsLayout from "@/screens/settings/Layout";
+import Security from "@/screens/settings/Security";
+import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
 
 export default function SettingsPage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
 
-  useEffect(() => {
-    document.documentElement.classList.add("full-screen");
-    document.body.classList.add("full-screen");
-    return () => {
-      document.documentElement.classList.remove("full-screen");
-      document.body.classList.remove("full-screen");
-    };
-  }, []);
+  useFullScreenScroll();
 
   console.log("SettingsPage language:", language);
 
@@ -29,7 +24,7 @@ export default function SettingsPage() {
       </Head>
 
       <Container fluid className="px-md-4">
-        dfsdfsd
+        <Security language={language} />
       </Container>
     </SettingsLayout>
   );

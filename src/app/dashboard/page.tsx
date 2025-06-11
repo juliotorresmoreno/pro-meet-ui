@@ -7,8 +7,11 @@ import DashboardLayout from "@/screens/dashboard/Layout";
 import MeetingStatsCard from "@/screens/dashboard/MeetingStatsCard";
 import UpcomingMeetings from "@/screens/dashboard/UpcomingMeetings";
 import RecentActivity from "@/screens/dashboard/RecentActivity";
+import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
 
 export default function DashboardPage() {
+  useFullScreenScroll();
+
   return (
     <DashboardLayout>
       <Head>
