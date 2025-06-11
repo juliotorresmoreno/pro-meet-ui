@@ -31,7 +31,10 @@ export const getAccount = async (token: string): Promise<AccountResponse> => {
 };
 
 export const updateAccount = async (
-  payload: UpdateAccountPayload,
+  payload: Omit<
+    UpdateAccountPayload,
+    "id" | "email" | "plan" | "createdAt" | "updatedAt"
+  >,
   token: string
 ): Promise<AccountResponse> => {
   const apiUrl = process.env["NEXT_PUBLIC_API_URL"];

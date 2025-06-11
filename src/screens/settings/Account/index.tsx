@@ -8,7 +8,6 @@ import {
   Col,
   FormGroup,
   Label,
-  Input,
   CardBody,
 } from "reactstrap";
 import { FaUser, FaEnvelope, FaTimes } from "react-icons/fa";
@@ -16,12 +15,15 @@ import { FormInput } from "@/components/FormInput";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import SaveButton from "@/components/SaveButton";
 import { translations } from "./translations";
 import moment from "moment-timezone";
 import { useAccount } from "@/hooks/useAccount";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "@/stores/auth";
+import { updateAccount } from "@/services/account";
+import SaveButton from "@/components/SaveButton";
+import { toast } from "react-toastify";
+import Loading from "@/screens/common/Loading";
 
 const accountSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -46,6 +48,8 @@ export default function Account({ language }: AccountProps) {
   const { accessToken } = useAuthStore();
   const { data, isLoading } = useAccount(accessToken);
 
+  const [submitting, setSubmitting] = useState(false);
+
   const {
     register,
     setValue,
@@ -61,7 +65,7 @@ export default function Account({ language }: AccountProps) {
     },
   });
 
-  const onSubmit = (data: AccountFormData) => {
+  const onSubmit = async (data: AccountFormData) => {
     const result = accountSchema.safeParse(data);
     if (!result.success) {
       const errs = result.error.flatten().fieldErrors;
@@ -69,8 +73,25 @@ export default function Account({ language }: AccountProps) {
         setError("name", { type: "manual", message: errs.name[0] });
       if (errs.email)
         setError("email", { type: "manual", message: errs.email[0] });
-    } else {
-      console.log("Account saved", data);
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      await updateAccount(
+        {
+          name: data.name,
+          language: data.language,
+          timezone: data.timezone,
+          newsletter: data.newsletter,
+        },
+        accessToken
+      );
+      toast.success(t.success);
+    } catch {
+      toast.error(t.error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -82,6 +103,10 @@ export default function Account({ language }: AccountProps) {
     setValue("timezone", data.timezone || moment.tz.guess());
     setValue("newsletter", data.newsletter || false);
   }, [data, isLoading, setValue, language]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -154,22 +179,32 @@ export default function Account({ language }: AccountProps) {
               <Col md={6}>
                 <FormGroup>
                   <Label>{t.plan}</Label>
-                  <Input disabled value="Pro" />
+                  <input
+                    className="form-control"
+                    type="text"
+                    disabled
+                    defaultValue={data?.plan}
+                  />
                 </FormGroup>
               </Col>
               <Col md={6}>
                 <FormGroup>
                   <Label>{t.joined}</Label>
-                  <Input
+                  <input
+                    className="form-control"
+                    type="text"
                     disabled
-                    value={data ? moment(data?.createdAt).format("LL") : ""}
+                    defaultValue={
+                      data ? moment(data?.createdAt).format("LL") : ""
+                    }
                   />
                 </FormGroup>
               </Col>
             </Row>
 
             <FormGroup check className="mt-3">
-              <Input
+              <input
+                className="form-check-input"
                 type="checkbox"
                 id="newsletter"
                 {...register("newsletter")}
@@ -180,7 +215,9 @@ export default function Account({ language }: AccountProps) {
             </FormGroup>
 
             <div className="d-flex justify-content-end mt-4 gap-2">
-              <SaveButton />
+              <SaveButton color="primary" type="submit" disabled={submitting}>
+                {submitting ? t.saving : t.save}
+              </SaveButton>
               <Button
                 color="danger"
                 className="d-flex align-items-center"

@@ -16,7 +16,10 @@ export const translations = {
       fr: "French",
       ja: "Japanese",
       zh: "Chinese",
-    }
+    },
+    success: "Account updated successfully",
+    error: "Failed to update account",
+    saving: "Saving...",
   },
   es: {
     account: "Cuenta",
@@ -35,7 +38,10 @@ export const translations = {
       fr: "Francés",
       ja: "Japonés",
       zh: "Chino",
-    }
+    },
+    success: "Cuenta actualizada con éxito",
+    error: "Error al actualizar la cuenta",
+    saving: "Guardando...",
   },
   fr: {
     account: "Compte",
@@ -54,7 +60,10 @@ export const translations = {
       fr: "Français",
       ja: "Japonais",
       zh: "Chinois",
-    }
+    },
+    success: "Compte mis à jour avec succès",
+    error: "Échec de la mise à jour du compte",
+    saving: "Enregistrement...",
   },
   ja: {
     account: "アカウント",
@@ -73,7 +82,10 @@ export const translations = {
       fr: "フランス語",
       ja: "日本語",
       zh: "中国語",
-    }
+    },
+    success: "アカウントが正常に更新されました",
+    error: "アカウントの更新に失敗しました",
+    saving: "保存中...",
   },
   zh: {
     account: "账户",
@@ -92,6 +104,9 @@ export const translations = {
       fr: "法语",
       ja: "日语",
       zh: "中文",
-    }
+    },
+    success: "账户更新成功",
+    error: "更新账户失败",
+    saving: "保存中...",
   },
 };
