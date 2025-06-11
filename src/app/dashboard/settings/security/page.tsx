@@ -2,7 +2,6 @@
 
 import Head from "next/head";
 import { Container } from "reactstrap";
-import { useEffect } from "react";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import SettingsLayout from "@/screens/settings/Layout";
@@ -13,8 +12,6 @@ export default function SettingsPage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
 
   useFullScreenScroll();
-
-  console.log("SettingsPage language:", language);
 
   return (
     <SettingsLayout>

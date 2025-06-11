@@ -6,13 +6,12 @@ import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import SettingsLayout from "@/screens/settings/Layout";
 import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
+import Integrations from "@/screens/settings/Integrations";
 
 export default function SettingsPage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
 
   useFullScreenScroll();
-
-  console.log("SettingsPage language:", language);
 
   return (
     <SettingsLayout>
@@ -22,7 +21,7 @@ export default function SettingsPage() {
       </Head>
 
       <Container fluid className="px-md-4">
-        dfsdfsd
+        <Integrations language={language} />
       </Container>
     </SettingsLayout>
   );

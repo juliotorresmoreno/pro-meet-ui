@@ -65,23 +65,14 @@
   font-size: 0.85em;
 }
 
-.full-screen {
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
 .scrollbar-visible {
   overflow-y: scroll !important;
 }
 
 .main-content {
   display: flex;
-  flex-direction: column  ;
+  flex-direction: column;
   flex: 1;
-  padding: .5rem;
+  padding: 0.5rem;
   background-color: #f8f9fa;
 }

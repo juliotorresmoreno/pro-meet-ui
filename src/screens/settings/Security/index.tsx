@@ -44,7 +44,7 @@ export default function Security() {
     <>
       <h2 className="mb-4">Security Settings</h2>
 
-      <Card className="shadow-sm border-0 mb-4">
+      <Card className="p-2 shadow-sm border-0 mb-4">
         <CardBody>
           <h5 className="mb-3">
             <FaKey className="me-2" />
@@ -72,7 +72,7 @@ export default function Security() {
         </CardBody>
       </Card>
 
-      <Card className="shadow-sm border-0 mb-4">
+      <Card className="p-2 shadow-sm border-0 mb-4">
         <CardBody>
           <h5 className="mb-3">
             <FaShieldAlt className="me-2" />
@@ -87,7 +87,7 @@ export default function Security() {
         </CardBody>
       </Card>
 
-      <Card className="shadow-sm border-0">
+      <Card className="p-2 shadow-sm border-0 mb-4">
         <CardBody>
           <h5 className="mb-3">
             <FaSignOutAlt className="me-2" />

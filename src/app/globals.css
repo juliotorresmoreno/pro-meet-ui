@@ -24,6 +24,16 @@ body {
   color: var(--dark);
 }
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
 .hero-section {
   padding-top: 6rem;
   padding-bottom: 6rem;
