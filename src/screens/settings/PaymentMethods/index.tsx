@@ -22,7 +22,13 @@ interface CardData {
   expYear: string;
 }
 
-export default function PaymentMethods() {
+interface PaymentMethodsProps {
+  readonly language: string;
+}
+
+export default function PaymentMethods({ language }: PaymentMethodsProps) {
+  console.log("PaymentMethods language:", language);
+
   const [cards, setCards] = useState<CardData[]>([]);
   const [brand, setBrand] = useState("");
   const [number, setNumber] = useState("");

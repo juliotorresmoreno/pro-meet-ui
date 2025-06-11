@@ -14,7 +14,13 @@ import { useState } from "react";
 import { FaKey, FaShieldAlt, FaSignOutAlt } from "react-icons/fa";
 import SaveButton from "@/components/SaveButton";
 
-export default function Security() {
+interface SecurityProps {
+  readonly language: string;
+}
+
+export default function Security({ language }: SecurityProps) {
+  console.log("Security language:", language);
+
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [twoFAEnabled, setTwoFAEnabled] = useState(false);
@@ -103,8 +109,8 @@ export default function Security() {
               </tr>
             </thead>
             <tbody>
-              {sessions.map((s, i) => (
-                <tr key={i}>
+              {sessions.map((s) => (
+                <tr key={`${s.device}-${s.location}-${s.lastActive}`}>
                   <td>{s.device}</td>
                   <td>{s.location}</td>
                   <td>{s.lastActive}</td>

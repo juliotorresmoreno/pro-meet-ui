@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { Card, Button, Alert } from "reactstrap";
 
-export default function DangerZone() {
+interface DangerZoneProps {
+  readonly language: string;
+}
+
+export default function DangerZone({ language }: DangerZoneProps) {
   const [deleted, setDeleted] = useState(false);
 
   const handleDelete = () => {
@@ -26,6 +30,8 @@ export default function DangerZone() {
       </>
     );
   }
+
+  console.log("DangerZone language:", language);
 
   return (
     <>

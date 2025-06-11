@@ -5,7 +5,6 @@ import Head from "next/head";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import Footer from "@/components/Footer";
 import Header from "@/screens/common/Header";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
@@ -15,6 +14,7 @@ import { FormInput } from "@/components/FormInput";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { sendPasswordResetEmail } from "@/services/auth";
+import Footer from "@/screens/common/Footer";
 
 const translations = {
   en: {

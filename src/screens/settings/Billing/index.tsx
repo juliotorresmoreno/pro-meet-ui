@@ -93,7 +93,11 @@ const paymentMethods = [
   { id: "paypal", label: "PayPal user@example.com" },
 ];
 
-export default function Billing() {
+interface BillingProps {
+  readonly language: string;
+}
+
+export default function Billing({ language }: BillingProps) {
   const [page, setPage] = useState(1);
   const [currentPlan, setCurrentPlan] = useState(availablePlans[1]);
   const [planMsg, setPlanMsg] = useState<string | null>(null);
@@ -114,6 +118,8 @@ export default function Billing() {
       setTimeout(() => setPlanMsg(null), 3000);
     }
   };
+
+  console.log("Billing language:", language);
 
   return (
     <>
@@ -198,13 +204,16 @@ export default function Billing() {
             <PaginationLink previous onClick={() => setPage(page - 1)} />
           </PaginationItem>
 
-          {[...Array(totalPages)].map((_, i) => (
-            <PaginationItem active={page === i + 1} key={i}>
-              <PaginationLink onClick={() => setPage(i + 1)}>
-                {i + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+          {[...Array(totalPages)].map((_, i) => {
+            const pageNumber = i + 1;
+            return (
+              <PaginationItem active={page === pageNumber} key={pageNumber}>
+                <PaginationLink onClick={() => setPage(pageNumber)}>
+                  {pageNumber}
+                </PaginationLink>
+              </PaginationItem>
+            );
+          })}
 
           <PaginationItem disabled={page === totalPages}>
             <PaginationLink next onClick={() => setPage(page + 1)} />

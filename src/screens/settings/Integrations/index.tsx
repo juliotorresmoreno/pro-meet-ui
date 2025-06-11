@@ -2,7 +2,12 @@
 
 import { Card } from "reactstrap";
 
-export default function Integrations() {
+interface IntegrationsProps {
+  readonly language: string;
+}
+
+export default function Integrations({ language }: IntegrationsProps) {
+  console.log("Integrations language:", language);
   return (
     <>
       <h4 className="mb-4">Integrations</h4>

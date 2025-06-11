@@ -62,7 +62,13 @@ const initialNotifications: Notification[] = [
 
 const ITEMS_PER_PAGE = 10;
 
-export default function Notifications() {
+interface NotificationsProps {
+  readonly language: string;
+}
+
+export default function Notifications({ language }: NotificationsProps) {
+  console.log("Notifications language:", language);
+
   const [notifications, setNotifications] = useState(initialNotifications);
   const [page, setPage] = useState(1);
 
@@ -149,13 +155,16 @@ export default function Notifications() {
               <PaginationItem disabled={page === 1}>
                 <PaginationLink previous onClick={() => changePage(page - 1)} />
               </PaginationItem>
-              {[...Array(totalPages)].map((_, i) => (
-                <PaginationItem active={page === i + 1} key={i}>
-                  <PaginationLink onClick={() => changePage(i + 1)}>
-                    {i + 1}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
+              {[...Array(totalPages)].map((_, i) => {
+                const pageNumber = i + 1;
+                return (
+                  <PaginationItem active={page === i + 1} key={pageNumber}>
+                    <PaginationLink onClick={() => changePage(i + 1)}>
+                      {i + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              })}
               <PaginationItem disabled={page === totalPages}>
                 <PaginationLink next onClick={() => changePage(page + 1)} />
               </PaginationItem>
