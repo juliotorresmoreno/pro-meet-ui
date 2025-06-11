@@ -19,6 +19,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import SaveButton from "@/components/SaveButton";
 import { translations } from "./translations";
 import moment from "moment-timezone";
+import { useAccount } from "@/hooks/useAccount";
+import { useEffect } from "react";
+import { useAuthStore } from "@/stores/auth";
 
 const accountSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -40,8 +43,12 @@ export default function Account({ language }: AccountProps) {
   const t =
     translations[language as keyof typeof translations] || translations.en;
 
+  const { accessToken } = useAuthStore();
+  const { data, isLoading } = useAccount(accessToken);
+
   const {
     register,
+    setValue,
     setError,
     handleSubmit,
     formState: { errors },
@@ -66,6 +73,15 @@ export default function Account({ language }: AccountProps) {
       console.log("Account saved", data);
     }
   };
+
+  useEffect(() => {
+    if (isLoading || !data) return;
+    setValue("name", data.name);
+    setValue("email", data.email);
+    setValue("language", data.language || language);
+    setValue("timezone", data.timezone || moment.tz.guess());
+    setValue("newsletter", data.newsletter || false);
+  }, [data, isLoading, setValue, language]);
 
   return (
     <>
@@ -93,6 +109,7 @@ export default function Account({ language }: AccountProps) {
                   register={register("email")}
                   error={errors.email}
                   placeholder={t.email}
+                  disabled
                   icon={<FaEnvelope />}
                 />
               </Col>
@@ -102,25 +119,33 @@ export default function Account({ language }: AccountProps) {
               <Col md={6}>
                 <FormGroup>
                   <Label for="language">{t.language}</Label>
-                  <Input id="language" type="select" {...register("language")}>
-                    {Object.entries(translations).map(([key, val]) => (
-                      <option key={key} value={key}>
-                        {val.language}
-                      </option>
-                    ))}
-                  </Input>
+                  <select
+                    className="form-control"
+                    id="language"
+                    {...register("language")}
+                  >
+                    <option value="en">{t.languages.en}</option>
+                    <option value="es">{t.languages.es}</option>
+                    <option value="fr">{t.languages.fr}</option>
+                    <option value="ja">{t.languages.ja}</option>
+                    <option value="zh">{t.languages.zh}</option>
+                  </select>
                 </FormGroup>
               </Col>
               <Col md={6}>
                 <FormGroup>
                   <Label for="timezone">{t.timezone}</Label>
-                  <Input id="timezone" type="select" {...register("timezone")}>
+                  <select
+                    className="form-control"
+                    id="timezone"
+                    {...register("timezone")}
+                  >
                     {timezones.map((tz) => (
                       <option key={tz} value={tz}>
                         {tz}
                       </option>
                     ))}
-                  </Input>
+                  </select>
                 </FormGroup>
               </Col>
             </Row>
@@ -129,13 +154,16 @@ export default function Account({ language }: AccountProps) {
               <Col md={6}>
                 <FormGroup>
                   <Label>{t.plan}</Label>
-                  <Input plaintext readOnly value="Pro" />
+                  <Input disabled value="Pro" />
                 </FormGroup>
               </Col>
               <Col md={6}>
                 <FormGroup>
                   <Label>{t.joined}</Label>
-                  <Input plaintext readOnly value="2023-08-15" />
+                  <Input
+                    disabled
+                    value={data ? moment(data?.createdAt).format("LL") : ""}
+                  />
                 </FormGroup>
               </Col>
             </Row>

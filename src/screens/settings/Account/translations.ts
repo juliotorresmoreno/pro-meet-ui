@@ -10,6 +10,13 @@ export const translations = {
     plan: "Plan",
     joined: "Joined",
     newsletter: "Subscribe to newsletter",
+    languages: {
+      en: "English",
+      es: "Spanish",
+      fr: "French",
+      ja: "Japanese",
+      zh: "Chinese",
+    }
   },
   es: {
     account: "Cuenta",
@@ -22,6 +29,13 @@ export const translations = {
     plan: "Plan",
     joined: "Fecha de ingreso",
     newsletter: "Suscribirse al boletín",
+    languages: {
+      en: "Inglés",
+      es: "Español",
+      fr: "Francés",
+      ja: "Japonés",
+      zh: "Chino",
+    }
   },
   fr: {
     account: "Compte",
@@ -34,6 +48,13 @@ export const translations = {
     plan: "Forfait",
     joined: "Inscrit le",
     newsletter: "S'abonner à la newsletter",
+    languages: {
+      en: "Anglais",
+      es: "Espagnol",
+      fr: "Français",
+      ja: "Japonais",
+      zh: "Chinois",
+    }
   },
   ja: {
     account: "アカウント",
@@ -46,6 +67,13 @@ export const translations = {
     plan: "プラン",
     joined: "参加日",
     newsletter: "ニュースレターを購読する",
+    languages: {
+      en: "英語",
+      es: "スペイン語",
+      fr: "フランス語",
+      ja: "日本語",
+      zh: "中国語",
+    }
   },
   zh: {
     account: "账户",
@@ -58,5 +86,12 @@ export const translations = {
     plan: "方案",
     joined: "加入时间",
     newsletter: "订阅新闻通讯",
+    languages: {
+      en: "英语",
+      es: "西班牙语",
+      fr: "法语",
+      ja: "日语",
+      zh: "中文",
+    }
   },
 };
