@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
@@ -10,6 +11,7 @@ type AuthState = {
   setRefreshToken: (refreshToken: string) => void;
   method: "password" | "oauth" | null;
   setMethod: (method: "password" | "oauth" | null) => void;
+  logout: () => Promise<void>;
   hydrate: () => void;
 };
 
@@ -35,6 +37,18 @@ export const useAuthStore = create<AuthState>()(
       setRefreshToken: (refreshToken) => set({ refreshToken: refreshToken }),
       method: null,
       setMethod: (method) => set({ method: method }),
+      logout: async () => {
+        const method = useAuthStore.getState().method;
+        if (method === "oauth") {
+          await signOut();
+        }
+        set({
+          accessToken: "",
+          refreshToken: "",
+          method: null,
+          status: "unauthenticated",
+        });
+      },
       hydrate: () => {},
     }),
     {

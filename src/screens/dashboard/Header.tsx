@@ -11,7 +11,6 @@ import {
 } from "reactstrap";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
 import LanguageSelector from "../common/LanguageSelector";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
@@ -50,8 +49,7 @@ const translations = {
 };
 
 export default function DashboardHeader() {
-  const { status, setAccessToken, setRefreshToken, setMethod, method } =
-    useAuthStore();
+  const { status, logout } = useAuthStore();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(!dropdownOpen);
   const router = useRouter();
@@ -61,12 +59,7 @@ export default function DashboardHeader() {
     translations[language as keyof typeof translations] || translations.en;
 
   const handleLogout = async () => {
-    setAccessToken("");
-    setRefreshToken("");
-    if (method === "oauth") {
-      setMethod(null);
-      await signOut();
-    }
+    logout();
   };
 
   useEffect(() => {

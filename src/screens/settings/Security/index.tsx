@@ -1,21 +1,22 @@
 "use client";
 
-import {
-  Card,
-  CardBody,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Button,
-  Table,
-} from "reactstrap";
+import { Card, CardBody, Form, Button, Table } from "reactstrap";
 import { useState } from "react";
-import { FaShieldAlt, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaCheck,
+  FaKey,
+  FaLock,
+  FaShieldAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import SaveButton from "@/components/SaveButton";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FormInput } from "@/components/FormInput";
+import { updatePassword } from "@/services/account";
+import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "next/navigation";
 
 interface SecurityProps {
   readonly language: string;
@@ -38,8 +39,9 @@ type PasswordFormData = z.infer<typeof schema>;
 
 export default function Security({ language }: SecurityProps) {
   console.log("Language:", language);
-
+  const { accessToken, logout } = useAuthStore();
   const [twoFAEnabled, setTwoFAEnabled] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -49,8 +51,15 @@ export default function Security({ language }: SecurityProps) {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: PasswordFormData) => {
-    console.log("Submitting password change", data);
+  const onSubmit = async (data: PasswordFormData) => {
+    const payload = {
+      currentPassword: data.password,
+      newPassword: data.newPassword,
+    };
+    await updatePassword(payload, accessToken);
+
+    await logout();
+    router.push("/login");
   };
 
   const handle2FAToggle = () => {
@@ -80,31 +89,31 @@ export default function Security({ language }: SecurityProps) {
       <Card className="p-2 shadow-sm border-0 mb-4">
         <CardBody>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <FormGroup>
-              <Label>Current Password</Label>
-              <Input type="password" {...register("password")} />
-              {errors.password && (
-                <small className="text-danger">{errors.password.message}</small>
-              )}
-            </FormGroup>
-            <FormGroup>
-              <Label>New Password</Label>
-              <Input type="password" {...register("newPassword")} />
-              {errors.newPassword && (
-                <small className="text-danger">
-                  {errors.newPassword.message}
-                </small>
-              )}
-            </FormGroup>
-            <FormGroup>
-              <Label>Confirm New Password</Label>
-              <Input type="password" {...register("confirmPassword")} />
-              {errors.confirmPassword && (
-                <small className="text-danger">
-                  {errors.confirmPassword.message}
-                </small>
-              )}
-            </FormGroup>
+            <FormInput
+              id="password"
+              label="Current Password"
+              type="password"
+              register={register("password")}
+              error={errors.password}
+              icon={<FaLock className="me-2" />}
+            />
+            <FormInput
+              id="newPassword"
+              label="New Password"
+              type="password"
+              register={register("newPassword")}
+              error={errors.newPassword}
+              icon={<FaKey className="me-2" />}
+            />
+            <FormInput
+              id="confirmPassword"
+              label="Confirm New Password"
+              type="password"
+              register={register("confirmPassword")}
+              error={errors.confirmPassword}
+              icon={<FaCheck className="me-2" />}
+            />
+
             <SaveButton />
           </Form>
         </CardBody>
