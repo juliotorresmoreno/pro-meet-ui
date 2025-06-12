@@ -6,12 +6,9 @@ import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import SettingsLayout from "@/screens/settings/Layout";
 import Account from "@/screens/settings/Account";
-import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
 
 export default function SettingsPage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
-
-  useFullScreenScroll();
 
   return (
     <SettingsLayout>

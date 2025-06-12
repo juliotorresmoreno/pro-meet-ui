@@ -29,38 +29,48 @@ const translations = {
   },
 };
 
-const Loading: FC = () => {
+interface LoadingProps {
+  children?: React.ReactNode;
+  isVisible?: boolean;
+}
+
+const Loading: FC<LoadingProps> = ({ children, isVisible }) => {
   const language = useLanguageStore((state) => state.language) || getLanguage();
   const t =
     translations[language as keyof typeof translations] || translations.en;
 
-  return (
-    <div
-      className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
-      style={{
-        backgroundColor: "rgba(255, 255, 255, 0.9)",
-        zIndex: 9999,
-        backdropFilter: "blur(2px)",
-      }}
-    >
-      <div className="text-center mb-3">
-        <Spinner color="primary" style={{ width: "3rem", height: "3rem" }}>
-          {t.loading}
-        </Spinner>
-      </div>
-      <h4 className="text-primary mb-2">{t.loading}</h4>
-      <p className="text-muted">{t.message}</p>
+  if (!isVisible) return children || null;
 
-      {/* Optional progress bar */}
-      <div className="w-50 mt-3">
-        <div className="progress" style={{ height: "6px" }}>
-          <div
-            className="progress-bar progress-bar-striped progress-bar-animated"
-            style={{ width: "75%" }}
-          />
+  return (
+    <>
+      <div
+        className="position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          zIndex: 9999,
+          backdropFilter: "blur(2px)",
+        }}
+      >
+        <div className="text-center mb-3">
+          <Spinner color="primary" style={{ width: "3rem", height: "3rem" }}>
+            {t.loading}
+          </Spinner>
+        </div>
+        <h4 className="text-primary mb-2">{t.loading}</h4>
+        <p className="text-muted">{t.message}</p>
+
+        {/* Optional progress bar */}
+        <div className="w-50 mt-3">
+          <div className="progress" style={{ height: "6px" }}>
+            <div
+              className="progress-bar progress-bar-striped progress-bar-animated"
+              style={{ width: "75%" }}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      {children}
+    </>
   );
 };
 

@@ -13,17 +13,49 @@ import {
 import { useState } from "react";
 import { FaKey, FaShieldAlt, FaSignOutAlt } from "react-icons/fa";
 import SaveButton from "@/components/SaveButton";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface SecurityProps {
   readonly language: string;
 }
 
-export default function Security({ language }: SecurityProps) {
-  console.log("Security language:", language);
+const schema = z
+  .object({
+    password: z.string().min(1, "Current password is required"),
+    newPassword: z
+      .string()
+      .min(8, "New password must be at least 8 characters"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
-  const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+type PasswordFormData = z.infer<typeof schema>;
+
+export default function Security({ language }: SecurityProps) {
+  console.log("Language:", language);
+
   const [twoFAEnabled, setTwoFAEnabled] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<PasswordFormData>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = (data: PasswordFormData) => {
+    console.log("Submitting password change", data);
+  };
+
+  const handle2FAToggle = () => {
+    setTwoFAEnabled(!twoFAEnabled);
+  };
 
   const sessions = [
     {
@@ -38,14 +70,6 @@ export default function Security({ language }: SecurityProps) {
     },
   ];
 
-  const handlePasswordChange = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
-  const handle2FAToggle = () => {
-    setTwoFAEnabled(!twoFAEnabled);
-  };
-
   return (
     <>
       <h2 className="mb-4">Security Settings</h2>
@@ -56,22 +80,31 @@ export default function Security({ language }: SecurityProps) {
             <FaKey className="me-2" />
             Change Password
           </h5>
-          <Form onSubmit={handlePasswordChange}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
               <Label>Current Password</Label>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <Input type="password" {...register("password")} />
+              {errors.password && (
+                <small className="text-danger">{errors.password.message}</small>
+              )}
             </FormGroup>
             <FormGroup>
               <Label>New Password</Label>
-              <Input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
+              <Input type="password" {...register("newPassword")} />
+              {errors.newPassword && (
+                <small className="text-danger">
+                  {errors.newPassword.message}
+                </small>
+              )}
+            </FormGroup>
+            <FormGroup>
+              <Label>Confirm New Password</Label>
+              <Input type="password" {...register("confirmPassword")} />
+              {errors.confirmPassword && (
+                <small className="text-danger">
+                  {errors.confirmPassword.message}
+                </small>
+              )}
             </FormGroup>
             <SaveButton />
           </Form>

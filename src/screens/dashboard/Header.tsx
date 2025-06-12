@@ -50,7 +50,8 @@ const translations = {
 };
 
 export default function DashboardHeader() {
-  const { status, setAccessToken, setRefreshToken } = useAuthStore();
+  const { status, setAccessToken, setRefreshToken, setMethod, method } =
+    useAuthStore();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(!dropdownOpen);
   const router = useRouter();
@@ -62,7 +63,10 @@ export default function DashboardHeader() {
   const handleLogout = async () => {
     setAccessToken("");
     setRefreshToken("");
-    await signOut();
+    if (method === "oauth") {
+      setMethod(null);
+      await signOut();
+    }
   };
 
   useEffect(() => {

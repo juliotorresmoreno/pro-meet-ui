@@ -22,7 +22,8 @@ interface GuardProps {
 }
 
 export default function Guard({ children }: GuardProps) {
-  const { accessToken, setAccessToken, setRefreshToken } = useAuthStore();
+  const { accessToken, setAccessToken, setRefreshToken, setMethod } =
+    useAuthStore();
   const { setPath } = usePathStore();
   const { data, status } = useSession({ required: false });
   const pathname = usePathname();
@@ -50,6 +51,7 @@ export default function Guard({ children }: GuardProps) {
         setReference(token);
         setAccessToken(access_token);
         setRefreshToken(refresh_token || "");
+        setMethod("oauth");
       })
       .catch((error) => {
         signOut();
@@ -61,20 +63,19 @@ export default function Guard({ children }: GuardProps) {
       .finally(() => {
         setTimeout(() => setIsProcessingOAuth(false), 300);
       });
-  }, [data, status, accessToken, reference, setAccessToken, setRefreshToken]);
+  }, [
+    data,
+    status,
+    accessToken,
+    reference,
+    setAccessToken,
+    setRefreshToken,
+    setMethod,
+  ]);
 
   useEffect(() => {
     setPath(pathname);
   }, [pathname, setPath]);
 
-  if (isProcessingOAuth) {
-    return (
-      <>
-        <Loading />
-        {children}
-      </>
-    );
-  }
-
-  return children;
+  return <Loading isVisible={isProcessingOAuth}>{children}</Loading>;
 }

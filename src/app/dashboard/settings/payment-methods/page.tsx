@@ -5,13 +5,10 @@ import { Container } from "reactstrap";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import SettingsLayout from "@/screens/settings/Layout";
-import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
 import PaymentMethods from "@/screens/settings/PaymentMethods";
 
 export default function SettingsPage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
-
-  useFullScreenScroll();
 
   return (
     <SettingsLayout>

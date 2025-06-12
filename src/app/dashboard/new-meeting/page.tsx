@@ -4,11 +4,8 @@
 import Head from "next/head";
 import { Container } from "reactstrap";
 import DashboardLayout from "@/screens/dashboard/Layout";
-import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
 
 export default function NewMeetingsPage() {
-  useFullScreenScroll();
-
   return (
     <DashboardLayout>
       <Head>

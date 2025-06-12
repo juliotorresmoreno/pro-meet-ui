@@ -8,6 +8,8 @@ type AuthState = {
   setAccessToken: (accessToken: string) => void;
   refreshToken: string;
   setRefreshToken: (refreshToken: string) => void;
+  method: "password" | "oauth" | null;
+  setMethod: (method: "password" | "oauth" | null) => void;
   hydrate: () => void;
 };
 
@@ -31,6 +33,8 @@ export const useAuthStore = create<AuthState>()(
       },
       refreshToken: "",
       setRefreshToken: (refreshToken) => set({ refreshToken: refreshToken }),
+      method: null,
+      setMethod: (method) => set({ method: method }),
       hydrate: () => {},
     }),
     {

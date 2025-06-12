@@ -77,3 +77,28 @@ export const deleteAccount = async (token: string): Promise<void> => {
     throw new Error(errorData.message || "Failed to delete account");
   }
 };
+
+interface UpdatePasswordPayload {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export const updatePassword = async (
+  payload: UpdatePasswordPayload,
+  token: string
+): Promise<void> => {
+  const apiUrl = process.env["NEXT_PUBLIC_API_URL"];
+  const response = await fetch(`${apiUrl}/account/password`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    const errorData: ErrorResponse = await response.json();
+    throw new Error(errorData.message || "Failed to update password");
+  }
+};

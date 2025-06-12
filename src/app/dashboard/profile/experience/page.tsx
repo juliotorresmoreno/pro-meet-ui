@@ -6,12 +6,9 @@ import Experience from "@/screens/profile/Experience";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
 import ProfileLayout from "@/screens/profile/Layout";
-import { useFullScreenScroll } from "@/hooks/useFullScreenScroll";
 
 export default function ProfilePage() {
   const language = useLanguageStore((state) => state.language) || getLanguage();
-
-  useFullScreenScroll();
 
   return (
     <ProfileLayout>

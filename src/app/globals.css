@@ -24,6 +24,10 @@ body {
   color: var(--dark);
 }
 
+html {
+  overflow-y: scroll;
+}
+
 html,
 body {
   height: 100%;

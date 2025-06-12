@@ -4,7 +4,7 @@ import { Card, CardBody, Col, Container, Nav, Row } from "reactstrap";
 import Link from "next/link";
 import classnames from "classnames";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import DashboardHeader from "./Header";
 import { useLanguageStore } from "@/stores/language";
 import { getLanguage } from "@/utils/language";
@@ -75,22 +75,17 @@ export default function DashboardLayout({
 
   const pathname = usePathname();
 
-  useEffect(() => {
-    document.documentElement.classList.add("full-screen");
-    document.body.classList.add("full-screen");
-    return () => {
-      document.documentElement.classList.remove("full-screen");
-      document.body.classList.remove("full-screen");
-    };
-  }, []);
-
   return (
     <>
       <DashboardHeader />
 
       <Container fluid className="main-content px-md-4">
         <Row className="mt-4 d-flex flex-fill">
-          <Col md={3} lg={2} className="pe-md-1 d-flex flex-column">
+          <Col
+            md={3}
+            lg={{ offset: 1, size: 2 }}
+            className="pe-md-1 d-flex flex-column"
+          >
             <Card className="shadow-sm mb-2 border-0 d-flex">
               <CardBody>
                 <Nav vertical className="dashboard-nav">
@@ -112,7 +107,7 @@ export default function DashboardLayout({
               </CardBody>
             </Card>
           </Col>
-          <Col md={9} lg={10} className="ps-md-1 d-flex flex-fill">
+          <Col md={9} lg={{ size: 8 }} className="ps-md-1">
             {children}
           </Col>
         </Row>

@@ -13,12 +13,13 @@ import { Container, Form, Button, Alert } from "reactstrap";
 import { FaEnvelope, FaLock, FaGoogle } from "react-icons/fa";
 import { FormInput } from "@/components/FormInput";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUser } from "@/services/auth";
 import LoginButton from "@/components/LoginButton";
 import { usePathStore } from "@/stores/path";
 import { translations } from "./translations";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuthStore } from "@/stores/auth";
 
 // Esquema de validación con Zod
 const loginSchema = z.object({
@@ -33,6 +34,7 @@ const LoginPage: NextPage = () => {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { path, setPath } = usePathStore();
+  const { setAccessToken, setRefreshToken, status, setMethod } = useAuthStore();
 
   const {
     register,
@@ -69,13 +71,15 @@ const LoginPage: NextPage = () => {
     setError("root", { type: "manual", message: "" });
 
     try {
-      await loginUser({ username: data.email, password: data.password });
-      if (path !== "") {
-        router.push(path);
-        setPath("");
-      } else {
-        router.push("/dashboard");
-      }
+      const { access_token, refresh_token } = await loginUser({
+        username: data.email,
+        password: data.password,
+      });
+      setAccessToken(access_token);
+      setRefreshToken(refresh_token || "");
+      setMethod("password");
+
+      console.log("Login successful");
     } catch (err) {
       setError("root", {
         type: "manual",
@@ -88,6 +92,17 @@ const LoginPage: NextPage = () => {
 
   const t =
     translations[language as keyof typeof translations] || translations.en;
+
+  useEffect(() => {
+    if (status != "authenticated") return;
+    if (path === "") {
+      router.push("/dashboard");
+      return;
+    }
+
+    router.push(path);
+    setPath("");
+  }, [status, path, router, setPath]);
 
   return (
     <>
@@ -128,16 +143,6 @@ const LoginPage: NextPage = () => {
                 />
 
                 <div className="d-flex justify-content-between mb-4">
-                  <div className="form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="remember"
-                    />
-                    <label className="form-check-label" htmlFor="remember">
-                      {t.form.remember}
-                    </label>
-                  </div>
                   <Link href="/forgot-password" className="text-primary">
                     {t.form.forgot}
                   </Link>
