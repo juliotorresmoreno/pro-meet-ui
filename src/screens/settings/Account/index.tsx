@@ -110,7 +110,11 @@ export default function Account({ language }: AccountProps) {
 
   return (
     <>
-      <h2 className="mb-4">{t.account}</h2>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaUser className="me-2" />
+        {t.account}
+      </h2>
+
       <Card className="p-2 shadow-sm border-0">
         <CardBody>
           <Form onSubmit={handleSubmit(onSubmit)}>

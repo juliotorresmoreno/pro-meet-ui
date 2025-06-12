@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FaMoneyCheckAlt } from "react-icons/fa";
 import {
   Card,
   Button,
@@ -66,7 +67,10 @@ export default function PaymentMethods({ language }: PaymentMethodsProps) {
 
   return (
     <>
-      <h4 className="mb-4">Add Payment Method</h4>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaMoneyCheckAlt className="me-2" />
+        Payment Methods
+      </h2>
 
       <Card className="p-4 shadow-sm border-0 mb-4">
         <Form

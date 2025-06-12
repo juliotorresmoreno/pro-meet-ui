@@ -13,7 +13,7 @@ import {
   InputGroup,
   Badge,
 } from "reactstrap";
-import { FaTrash, FaPlus, FaTimes, FaSave } from "react-icons/fa";
+import { FaTrash, FaPlus, FaTimes, FaSave, FaFolderOpen } from "react-icons/fa";
 import SkillsInput, { Skill } from "@/components/SkillsInput";
 import { translations } from "./translations";
 
@@ -94,7 +94,10 @@ export default function Projects({ language }: ProjectsProps) {
 
   return (
     <div className="projects-container">
-      <h2 className="mb-4">{t.projects}</h2>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaFolderOpen className="me-2" />
+        {t.projects}
+      </h2>
 
       <Form>
         {projects.map((project, index) => (

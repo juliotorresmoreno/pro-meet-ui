@@ -16,7 +16,7 @@ import {
   Col,
   CardBody,
 } from "reactstrap";
-import { FaDownload } from "react-icons/fa";
+import { FaCreditCard, FaDownload } from "react-icons/fa";
 
 interface Invoice {
   id: string;
@@ -123,7 +123,11 @@ export default function Billing({ language }: BillingProps) {
 
   return (
     <>
-      <h2 className="mb-4">Billing</h2>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaCreditCard className="me-2" />
+        Billing
+      </h2>
+
       <Card className="p-2 shadow-sm border-0 mb-4">
         <CardBody>
           <Row className="align-items-center">

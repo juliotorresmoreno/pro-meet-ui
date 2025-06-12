@@ -31,6 +31,7 @@ import {
   FaPlus,
   FaTrash,
   FaTimes,
+  FaIdBadge,
 } from "react-icons/fa";
 import { useState } from "react";
 import { FormInput } from "@/components/FormInput";
@@ -73,7 +74,8 @@ interface ProfileProps {
 }
 
 export default function Profile({ language }: ProfileProps) {
-  const t = translations[language as keyof typeof translations] || translations.en;
+  const t =
+    translations[language as keyof typeof translations] || translations.en;
 
   const socialOptions = [
     { label: "Facebook", icon: <FaFacebook /> },
@@ -96,7 +98,11 @@ export default function Profile({ language }: ProfileProps) {
     { platform: "Kaggle", url: "" },
   ]);
 
-  const handleLanguageChange = (index: number, field: "name" | "level", value: string) => {
+  const handleLanguageChange = (
+    index: number,
+    field: "name" | "level",
+    value: string
+  ) => {
     const updated = [...languages];
     updated[index][field] = value;
     setLanguages(updated);
@@ -110,7 +116,11 @@ export default function Profile({ language }: ProfileProps) {
     setLanguages(languages.filter((_, i) => i !== index));
   };
 
-  const handleLinkChange = (index: number, field: "platform" | "url", value: string) => {
+  const handleLinkChange = (
+    index: number,
+    field: "platform" | "url",
+    value: string
+  ) => {
     const updated = [...links];
     updated[index][field] = value;
     setLinks(updated);
@@ -138,20 +148,41 @@ export default function Profile({ language }: ProfileProps) {
     const result = profileSchema.safeParse(data);
     if (!result.success) {
       const zodErrors = result.error.flatten().fieldErrors;
-      if (zodErrors.name) setError("name", { type: "manual", message: zodErrors.name[0] });
-      if (zodErrors.email) setError("email", { type: "manual", message: zodErrors.email[0] });
-      if (zodErrors.phone) setError("phone", { type: "manual", message: zodErrors.phone[0] });
-      if (zodErrors.profession) setError("profession", { type: "manual", message: zodErrors.profession[0] });
-      if (zodErrors.summary) setError("summary", { type: "manual", message: zodErrors.summary[0] });
-      if (zodErrors.website) setError("website", { type: "manual", message: zodErrors.website[0] });
-      if (zodErrors.languages) setError("languages", { type: "manual", message: zodErrors.languages[0] });
-      if (zodErrors.location) setError("location", { type: "manual", message: zodErrors.location[0] });
+      if (zodErrors.name)
+        setError("name", { type: "manual", message: zodErrors.name[0] });
+      if (zodErrors.email)
+        setError("email", { type: "manual", message: zodErrors.email[0] });
+      if (zodErrors.phone)
+        setError("phone", { type: "manual", message: zodErrors.phone[0] });
+      if (zodErrors.profession)
+        setError("profession", {
+          type: "manual",
+          message: zodErrors.profession[0],
+        });
+      if (zodErrors.summary)
+        setError("summary", { type: "manual", message: zodErrors.summary[0] });
+      if (zodErrors.website)
+        setError("website", { type: "manual", message: zodErrors.website[0] });
+      if (zodErrors.languages)
+        setError("languages", {
+          type: "manual",
+          message: zodErrors.languages[0],
+        });
+      if (zodErrors.location)
+        setError("location", {
+          type: "manual",
+          message: zodErrors.location[0],
+        });
     }
   };
 
   return (
     <>
-      <h2 className="mb-4">{t.title}</h2>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaIdBadge className="me-2" />
+        {t.title}
+      </h2>
+
       <Card className="p-4 shadow-sm border-0">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Row>
@@ -160,7 +191,9 @@ export default function Profile({ language }: ProfileProps) {
                 id="name"
                 label={t.fullName}
                 type="text"
-                register={register("name", { required: `${t.fullName} is required` })}
+                register={register("name", {
+                  required: `${t.fullName} is required`,
+                })}
                 error={errors.name}
                 placeholder={t.fullName}
                 icon={<FaUser />}

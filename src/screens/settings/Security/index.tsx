@@ -11,7 +11,7 @@ import {
   Table,
 } from "reactstrap";
 import { useState } from "react";
-import { FaKey, FaShieldAlt, FaSignOutAlt } from "react-icons/fa";
+import { FaShieldAlt, FaSignOutAlt } from "react-icons/fa";
 import SaveButton from "@/components/SaveButton";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -72,14 +72,13 @@ export default function Security({ language }: SecurityProps) {
 
   return (
     <>
-      <h2 className="mb-4">Security Settings</h2>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaShieldAlt className="me-2" />
+        Security Settings
+      </h2>
 
       <Card className="p-2 shadow-sm border-0 mb-4">
         <CardBody>
-          <h5 className="mb-3">
-            <FaKey className="me-2" />
-            Change Password
-          </h5>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <FormGroup>
               <Label>Current Password</Label>

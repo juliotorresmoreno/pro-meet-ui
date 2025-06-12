@@ -13,7 +13,7 @@ import {
   Input,
   Badge,
 } from "reactstrap";
-import { FaTrash, FaPlus, FaTimes, FaSave } from "react-icons/fa";
+import { FaTrash, FaPlus, FaTimes, FaSave, FaGraduationCap } from "react-icons/fa";
 import SkillsInput, { Skill } from "@/components/SkillsInput";
 import { translations } from "./translations";
 
@@ -120,7 +120,10 @@ export default function Education({ language }: EducationProps) {
 
   return (
     <div className="education-container">
-      <h2 className="mb-4">{t.title}</h2>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaGraduationCap className="me-2" />
+        {t.title}
+      </h2>
 
       <Form>
         {educations.map((edu, index) => (

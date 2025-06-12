@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FaExclamationTriangle } from "react-icons/fa";
 import { Card, Button, Alert } from "reactstrap";
 
 interface DangerZoneProps {
@@ -35,7 +36,11 @@ export default function DangerZone({ language }: DangerZoneProps) {
 
   return (
     <>
-      <h4 className="mb-4 text-danger">Danger Zone</h4>
+      <h2 className="mb-4 text-danger d-flex align-items-center">
+        <FaExclamationTriangle className="me-2" />
+        Danger Zone
+      </h2>
+
       <Card className="p-4 shadow-sm border-0">
         <p>
           Deleting your account is irreversible. All your data will be lost.

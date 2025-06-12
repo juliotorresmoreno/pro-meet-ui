@@ -1,6 +1,7 @@
 "use client";
 
-import { Card } from "reactstrap";
+import { FaPuzzlePiece } from "react-icons/fa";
+import { Card, CardBody } from "reactstrap";
 
 interface IntegrationsProps {
   readonly language: string;
@@ -10,9 +11,15 @@ export default function Integrations({ language }: IntegrationsProps) {
   console.log("Integrations language:", language);
   return (
     <>
-      <h4 className="mb-4">Integrations</h4>
-      <Card className="p-4 shadow-sm border-0">
-        <p>We are working on this feature. There is nothing here yet.</p>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaPuzzlePiece className="me-2" />
+        Integrations
+      </h2>
+
+      <Card className="p-2 shadow-sm border-0">
+        <CardBody>
+          <p>We are working on this feature. There is nothing here yet.</p>
+        </CardBody>
       </Card>
     </>
   );

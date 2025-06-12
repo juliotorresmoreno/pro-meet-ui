@@ -20,6 +20,7 @@ import {
   FaBuilding,
   FaCalendarAlt,
   FaRegCalendarCheck,
+  FaBriefcase,
 } from "react-icons/fa";
 import SaveButton from "@/components/SaveButton";
 import CancelButton from "@/components/CancelButton";
@@ -105,7 +106,10 @@ export default function Experience({ language }: ExperienceProps) {
 
   return (
     <div className="experience-container">
-      <h2 className="mb-4">{t.title}</h2>
+      <h2 className="mb-4 d-flex align-items-center">
+        <FaBriefcase className="me-2" />
+        {t.title}
+      </h2>
 
       <Form>
         {experiences.map((exp, index) => (
