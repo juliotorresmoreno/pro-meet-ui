@@ -4,6 +4,12 @@ import { ErrorResponse } from "@/types/http";
 export type AccountResponse = AccountModel;
 export type UpdateAccountPayload = AccountModel;
 
+const parseAccount = (data: AccountModel & { createdAt: string; updatedAt: string }): AccountResponse => ({
+  ...data,
+  createdAt: new Date(data.createdAt),
+  updatedAt: new Date(data.updatedAt),
+});
+
 export const getAccount = async (token: string): Promise<AccountResponse> => {
   const apiUrl = process.env["NEXT_PUBLIC_API_URL"];
   const response = await fetch(`${apiUrl}/account`, {
@@ -18,23 +24,12 @@ export const getAccount = async (token: string): Promise<AccountResponse> => {
     throw new Error(errorData.message || "Failed to get account");
   }
 
-  const body = (await response.json()) as AccountModel & {
-    createdAt: string;
-    updatedAt: string;
-  };
-
-  return {
-    ...body,
-    createdAt: new Date(body.createdAt),
-    updatedAt: new Date(body.updatedAt),
-  } as AccountResponse;
+  const responseObj = await response.json();
+  return parseAccount(responseObj);
 };
 
 export const updateAccount = async (
-  payload: Omit<
-    UpdateAccountPayload,
-    "id" | "email" | "plan" | "createdAt" | "updatedAt"
-  >,
+  payload: Omit<UpdateAccountPayload, "id" | "email" | "plan" | "createdAt" | "updatedAt">,
   token: string
 ): Promise<AccountResponse> => {
   const apiUrl = process.env["NEXT_PUBLIC_API_URL"];
@@ -52,16 +47,8 @@ export const updateAccount = async (
     throw new Error(errorData.message || "Failed to update account");
   }
 
-  const body = (await response.json()) as AccountModel & {
-    createdAt: string;
-    updatedAt: string;
-  };
-
-  return {
-    ...body,
-    createdAt: new Date(body.createdAt),
-    updatedAt: new Date(body.updatedAt),
-  } as AccountResponse;
+  const responseObj = await response.json();
+  return parseAccount(responseObj);
 };
 
 export const deleteAccount = async (token: string): Promise<void> => {
@@ -72,6 +59,7 @@ export const deleteAccount = async (token: string): Promise<void> => {
       Authorization: `Bearer ${token}`,
     },
   });
+
   if (!response.ok) {
     const errorData: ErrorResponse = await response.json();
     throw new Error(errorData.message || "Failed to delete account");

@@ -22,8 +22,14 @@ interface GuardProps {
 }
 
 export default function Guard({ children }: GuardProps) {
-  const { accessToken, setAccessToken, setRefreshToken, setMethod } =
-    useAuthStore();
+  const {
+    accessToken,
+    setAccessToken,
+    setRefreshToken,
+    setMethod,
+    logout,
+    method,
+  } = useAuthStore();
   const { setPath } = usePathStore();
   const { data, status } = useSession({ required: false });
   const pathname = usePathname();
@@ -32,7 +38,13 @@ export default function Guard({ children }: GuardProps) {
   const [reference, setReference] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!data?.user || status !== "authenticated") return;
+    if (!data?.user || status !== "authenticated") {
+      if (method === "oauth" && status === "unauthenticated") {
+        console.log("Guard: User not authenticated, logging out");
+        logout();
+      }
+      return;
+    }
     const token = (data as SessionWithAccessToken).accessToken;
     if (!token || token === reference) return;
 
